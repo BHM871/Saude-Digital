@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.SaudeDigital.AppbarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="Theme.SaudeDigital.TextViewBase">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_items_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/margin_items_horizontal</item>
+        <item name="android:layout_marginBottom">@dimen/margin_items_vertical</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.ProgressBarBase">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:indeterminateTint">?colorPrimary</item>
+        <item name="android:indeterminateTintMode">src_in</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.TextViewLink" parent="Theme.SaudeDigital.TextViewBase">
+        <item name="android:textColor">@color/medium_blue</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.TextViewTitleBase">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.TextViewTitleViews" parent="Theme.SaudeDigital.TextViewTitleBase">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">@dimen/margin_items_vertical</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.TextViewDesc">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.TextViewItemDesc" parent="Theme.SaudeDigital.TextViewDesc">
+        <item name="android:maxLines">3</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.ImageViewCircular">
+        <item name="android:layout_width">@dimen/circle_image_size</item>
+        <item name="android:layout_height">@dimen/circle_image_size</item>
+        <item name="android:layout_marginTop">@dimen/margin_items_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/margin_items_vertical</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.TextInputEditTextForm" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_items_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/margin_items_horizontal</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:layout_marginBottom">@dimen/margin_items_vertical</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.EditTextInputForm">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/edit_text_background</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.EditTextBase" parent="Theme.SaudeDigital.EditTextInputForm">
+        <item name="android:layout_marginStart">@dimen/margin_items_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/margin_items_horizontal</item>
+        <item name="android:layout_marginBottom">@dimen/margin_items_vertical</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/text_gray</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/padding_items</item>
+        <item name="android:layout_marginStart">@dimen/margin_items_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/margin_items_horizontal</item>
+        <item name="android:layout_marginBottom">@dimen/margin_items_vertical</item>
+        <item name="android:backgroundTint">@color/background_button_enabled</item>
+        <item name="android:enabled">false</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.Link" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/padding_items</item>
+        <item name="android:layout_marginStart">@dimen/margin_items_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/margin_items_horizontal</item>
+        <item name="android:textColor">@color/medium_blue</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.AutoComplete">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="Theme.SaudeDigital.AutoCompleteInput" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_items_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/margin_items_horizontal</item>
+        <item name="android:layout_marginBottom">@dimen/margin_items_vertical</item>
+    </style>
+
+</resources>

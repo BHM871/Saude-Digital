@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_home"
+        android:title="@string/home"
+        android:icon="@drawable/ic_home"/>
+
+    <item
+        android:id="@+id/menu_obesity"
+        android:title="@string/obesity"
+        android:icon="@drawable/ic_fat"/>
+
+    <item
+        android:id="@+id/menu_hypertension"
+        android:title="@string/hypertension"
+        android:icon="@drawable/ic_heart"/>
+
+    <item
+        android:id="@+id/menu_diabetes"
+        android:title="@string/diabetes"
+        android:icon="@drawable/ic_insulin"/>
+
+    <item
+        android:id="@+id/menu_food"
+        android:title="@string/food"
+        android:icon="@drawable/ic_food"/>
+
+</menu>

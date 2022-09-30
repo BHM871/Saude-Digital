@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">Saúde Digital</string>
+
+    <string name="splash_text">Direitos do Icon\n<font color="#83E8BA">Kiranshastry</font></string>
+
+    <string name="home">Home</string>
+    <string name="obesity">Obesidade</string>
+    <string name="hypertension">Hipertensão</string>
+    <string name="diabetes">Diabetes</string>
+    <string name="food">Alimentos</string>
+
+    <string name="menu_primary_view">Página Principal</string>
+    <string name="menu_profile">Perfil</string>
+    <string name="menu_social">Social</string>
+    <string name="menu_feedback">FeedBack</string>
+    <string name="menu_about">Sobre</string>
+
+    <string name="about_version"><b>Versão:</b> %1$s</string>
+    <string name="about_developer"><b>Desenvolvedor:</b> %1$s</string>
+    <string name="about_objective"><b>Objetivo:</b> %1$s</string>
+    <string name="about_nutri"><b>Nuricionista:</b> %1$s</string>
+    <string name="about_fisio"><b>Fisioterapelta:</b> %1$s</string>
+    <string name="linkedin"><b><font color="#83E8BA">LinkedIn:</font></b> https://linkedin.com/in/adrian-almeida-090771204/</string>
+    <string name="github"><b><font color="#83E8BA">GitHub:</font></b> https://github.com/BHM871</string>
+
+    <string name="profile_name"><b>Nome:</b> %1$s</string>
+    <string name="profile_age"><b>Idade:</b> %1$d</string>
+    <string name="profile_sex"><b>Sexo:</b> %1$s</string>
+    <string name="profile_condition"><b>Condição:</b> %1$s</string>
+
+    <string name="format_number">%.2f</string>
+
+    <string name="name">Nome</string>
+    <string name="age">Idade</string>
+    <string name="sex">Sexo:</string>
+    <string name="disease">Doença:</string>
+
+    <string name="female">Feminino</string>
+    <string name="masculine">Masculino</string>
+
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="confir_password">Confirmar Senha</string>
+    <string name="enter">Entrar</string>
+    <string name="next">Avançar</string>
+    <string name="OU">OU</string>
+
+    <string name="into_register">Não tem conta? <b>Registre-se</b></string>
+    <string name="into_login">Já possui conta? <b>Faça Login</b></string>
+    <string name="register">Registre-se</string>
+    <string name="disease_description">Sua descrição</string>
+    <string name="register_finish">Finalizar Registro</string>
+
+    <string name="desc_bmi">IMC é a sigla para Índice de Massa Corporal que serve para avaliar o peso do indivíduo em relação à sua altura e assim indicar se está dentro do peso ideal, acima ou abaixo do peso desejado.\n\nPreencha os campos de peso e altura para descobrir o seu IMC</string>
+    <string name="find_out_bmi">Descobrir IMC</string>
+    <string name="bmi">IMC</string>
+    <string name="weight">Peso (Kg)</string>
+    <string name="height">Altura (m)</string>
+
+    <string name="fields_messages">Corriga os campos, algo está incorreto</string>
+    <string name="edit_profile">Editar perfil</string>
+
+    <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</string>
+
+</resources>

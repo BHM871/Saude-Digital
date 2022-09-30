@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3">
+
+        <LinearLayout
+            android:id="@+id/information_container_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Theme.SaudeDigital.TextViewTitleViews"
+                android:layout_width="match_parent"
+                android:text="@string/disease_description"
+                android:textAllCaps="true"/>
+
+            <EditText
+                android:id="@+id/information_edit_name"
+                style="@style/Theme.SaudeDigital.EditTextBase"
+                android:autofillHints="@null"
+                android:hint="@string/name"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/information_edit_age"
+                style="@style/Theme.SaudeDigital.EditTextBase"
+                android:autofillHints="@null"
+                android:hint="@string/age"
+                android:maxLength="3"
+                android:inputType="number" />
+
+            <TextView
+                style="@style/Theme.SaudeDigital.TextViewBase"
+                android:text="@string/sex" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_items_vertical"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/information_radio_masculine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_items_horizontal"
+                    android:layout_marginEnd="@dimen/margin_items_horizontal"
+                    android:text="@string/masculine" />
+
+                <RadioButton
+                    android:id="@+id/information_radio_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_items_horizontal"
+                    android:layout_marginEnd="@dimen/margin_items_horizontal"
+                    android:text="@string/female" />
+
+            </RadioGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/information_auto_complete_disease_input"
+                style="@style/Theme.SaudeDigital.AutoCompleteInput">
+
+                <AutoCompleteTextView
+                    style="@style/Theme.SaudeDigital.AutoComplete"
+                    android:id="@+id/information_auto_complete_disease"
+                    android:inputType="none"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/information_auto_complete_type_disease_input"
+                style="@style/Theme.SaudeDigital.AutoCompleteInput"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <AutoCompleteTextView
+                    style="@style/Theme.SaudeDigital.AutoComplete"
+                    android:id="@+id/information_auto_complete_type_disease"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/information_btn_go_imc"
+                style="@style/Theme.SaudeDigital.Link"
+                android:layout_marginBottom="@dimen/margin_items_vertical"
+                android:text="@string/find_out_bmi"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/information_btn_finish"
+                style="@style/Theme.SaudeDigital.Button"
+                android:text="@string/register_finish"
+                android:enabled="true"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/information_container_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="top"
+            android:background="@color/text_gray" />
+
+        <TextView
+            android:id="@+id/register_btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_items"
+            android:text="@string/into_login"
+            android:textAlignment="center" />
+
+    </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/information_progress_to_main"
+        style="@style/Theme.SaudeDigital.ProgressBarBase"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

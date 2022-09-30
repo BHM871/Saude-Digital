@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".imc.view.ImcActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Theme.SaudeDigital.TextViewTitleViews"
+                android:text="@string/bmi" />
+
+            <TextView
+                style="@style/Theme.SaudeDigital.TextViewBase"
+                android:text="@string/desc_bmi" />
+
+            <EditText
+                android:id="@+id/imc_edit_weight"
+                style="@style/Theme.SaudeDigital.EditTextBase"
+                android:autofillHints="@null"
+                android:hint="@string/weight"
+                android:inputType="numberDecimal"
+                android:textAlignment="center" />
+
+
+            <EditText
+                android:id="@+id/imc_edit_height"
+                style="@style/Theme.SaudeDigital.EditTextBase"
+                android:autofillHints="@null"
+                android:hint="@string/height"
+                android:inputType="numberDecimal"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/imc_btn_calcu"
+                style="@style/Theme.SaudeDigital.Button"
+                android:text="@string/find_out_bmi"
+                android:enabled="true" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_item_video"
+    android:layout_margin="@dimen/nav_header_spacing"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:id="@+id/item_video_thumbnail_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_frame_item"
+        android:backgroundTint="@color/border_gray"
+        android:layout_margin="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_video_desc"
+        app:layout_constraintDimensionRatio="4:3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <ImageView
+            android:id="@+id/item_video_thumbnail_img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            tools:src="@drawable/ic_heart"/>
+
+    </FrameLayout>
+
+<!--    <com.google.android.material.imageview.ShapeableImageView-->
+<!--        android:id="@+id/item_video_thumbnail"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:background="@color/text_gray"-->
+<!--        android:layout_margin="1dp"-->
+<!--        app:srcCompat="@drawable/ic_fat"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/item_video_desc"-->
+<!--        app:layout_constraintDimensionRatio="4:3"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:shapeAppearanceOverlay="@style/ItemImageAround"/>-->
+
+    <TextView
+        android:id="@+id/item_video_title"
+        style="@style/Theme.SaudeDigital.TextViewTitleBase"
+        tools:text="Hipertensão"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/item_video_thumbnail_background"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/item_video_desc"
+        style="@style/Theme.SaudeDigital.TextViewItemDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_video_thumbnail_background"
+        app:layout_constraintTop_toBottomOf="@+id/item_video_title"
+        android:text="@string/lorem" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

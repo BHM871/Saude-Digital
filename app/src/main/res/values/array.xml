@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="disease">
+        <item>---Escolha uma doença---</item>
+        <item>Obesidade</item>
+        <item>Hipertensão</item>
+        <item>Diabetes</item>
+    </string-array>
+
+    <string-array name="type_disease">
+        <item>---Escolha o tipo---</item>
+        <item>Tipo 1</item>
+        <item>Tipo 2</item>
+    </string-array>
+
+</resources>
