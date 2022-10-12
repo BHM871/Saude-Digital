@@ -7,7 +7,6 @@ interface ProfileDataSource {
 
     fun fetchSession() : User {throw UnsupportedOperationException("Not yet implementation")}
     fun fetchProfile(uuid: String, callback: RequestCallback<User>) {throw UnsupportedOperationException("Not yet implementation")}
-    fun updateProfile(uuid: String, name: String, age: Int, mOrF: Char, condition: List<Pair<String, String>>, callback: RequestCallback<User>) {throw UnsupportedOperationException("Not yet implementation")}
 
     fun putCache(data: User) {throw UnsupportedOperationException("Not yet implementation")}
     fun removeCache() {throw UnsupportedOperationException("Not yet implementation")}

@@ -15,4 +15,15 @@ class InformationFireDataSource : InformationDataSource {
     ) {
         //TODO: finalizar o registro
     }
+
+    override fun updateProfile(
+        uuid: String,
+        name: String,
+        age: Int,
+        mOrF: Char,
+        condition: List<Pair<String, String>>,
+        callback: RequestCallback<Boolean>
+    ) {
+        //TODO("Not yet implemented")
+    }
 }

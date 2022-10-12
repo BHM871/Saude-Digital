@@ -10,15 +10,4 @@ class ProfileFireDataSource : ProfileDataSource {
         callback.onComplete()
     }
 
-    override fun updateProfile(
-        uuid: String,
-        name: String,
-        age: Int,
-        mOrF: Char,
-        condition: List<Pair<String, String>>,
-        callback: RequestCallback<User>
-    ) {
-        //TODO: atualixar o banco de dados com os valores novos
-    }
-
 }

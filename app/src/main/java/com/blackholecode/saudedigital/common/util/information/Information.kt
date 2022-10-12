@@ -7,13 +7,31 @@ interface Information {
 
     interface Presenter : BasePresenter {
 
-        fun create(email: String, password: String, name: String, age: Int, mOrF: Char, condition: List<Pair<String, String>>)
+        fun create(
+            email: String,
+            password: String,
+            name: String,
+            age: Int,
+            mOrF: Char,
+            condition: List<Pair<String, String>>
+        )
+
+        fun updateProfile(
+            email: String,
+            password: String,
+            name: String,
+            age: Int,
+            mOrF: Char,
+            condition: List<Pair<String, String>>
+        )
 
     }
-        interface View : BaseView<Presenter> {
 
+    interface View : BaseView<Presenter> {
         fun displaySuccessCreate()
         fun displayFailureCreate(message: String)
 
+        fun displaySuccessUpdate()
+        fun displayFailureUpdate(message: String)
     }
 }

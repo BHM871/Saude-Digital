@@ -13,7 +13,7 @@ interface RegisterEmailAndPassword {
         fun displayEmailFailure(resId: Int?)
         fun displayPasswordFailure(resId: Int?)
 
-        fun displaySuccessCreate()
+        fun displaySuccessCreate(email: String, password: String)
         fun displayFailureCreate(message: String)
     }
 

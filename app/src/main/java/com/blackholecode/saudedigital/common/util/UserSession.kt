@@ -3,7 +3,7 @@ package com.blackholecode.saudedigital.common.util
 import com.blackholecode.saudedigital.common.base.Cache
 import com.blackholecode.saudedigital.common.model.User
 
-object UserCache : Cache<User> {
+object UserSession : Cache<User> {
 
     override var data: User? = null
 

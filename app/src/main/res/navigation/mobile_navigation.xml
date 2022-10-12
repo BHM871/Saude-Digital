@@ -25,11 +25,7 @@
         android:id="@+id/nav_edit_information"
         android:name="com.blackholecode.saudedigital.common.util.information.view.InformationFragment"
         android:label="@string/edit_profile"
-        tools:layout="@layout/fragment_information" >
-        <action
-            android:id="@+id/action_nav_edit_information_to_nav_profile"
-            app:destination="@id/nav_profile" />
-    </fragment>
+        tools:layout="@layout/fragment_information" />
 
     <fragment
         android:id="@+id/nav_feedback"

@@ -1,4 +1,4 @@
-package com.blackholecode.saudedigital.login.data
+package com.blackholecode.saudedigital.splash.data
 
 import android.os.Handler
 import android.os.Looper
@@ -6,9 +6,9 @@ import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
 import java.util.*
 
-class LoginFireDataSource : LoginDataSource {
+class SplashFireDataSource : SplashDataSource {
 
-    override fun login(email: String, password: String, callback: RequestCallback<User>) {
+    override fun log(callback: RequestCallback<User>) {
         Handler(Looper.getMainLooper()).postDelayed({
             callback.onSuccess(
                 User(

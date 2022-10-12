@@ -1,5 +1,7 @@
 package com.blackholecode.saudedigital.content.presenter
 
+import com.blackholecode.saudedigital.common.base.RequestCallback
+import com.blackholecode.saudedigital.common.model.MContent
 import com.blackholecode.saudedigital.content.Content
 import com.blackholecode.saudedigital.content.data.ContentRepository
 
@@ -8,8 +10,26 @@ class ContentPresenter(
     private val repository: ContentRepository
 ) : Content.Presenter {
 
-    override fun fetchContent(type: Pair<String, String?>?) {
-        //TODO("Not yet implemented")
+    override fun fetchContent(type: String) {
+        view?.showProgress(true)
+
+        repository.fetchContent(type, object : RequestCallback<List<MContent>> {
+            override fun onSuccess(data: List<MContent>?) {
+                if (data?.isEmpty()!!){
+                    view?.displayRequestEmptyList()
+                } else {
+                    view?.displayRequestSuccessful(data)
+                }
+            }
+
+            override fun onFailure(message: String?) {
+                message?.let { view?.displayRequestFailure(it) }
+            }
+
+            override fun onComplete() {
+                view?.showProgress(false)
+            }
+        })
     }
 
     override fun onDestroy() {

@@ -32,7 +32,7 @@ class FragmentRegisterEmailAndPasswordPresenter(
             view?.showProgress(true)
             repository.create(email, password, object : RequestCallback<Boolean> {
                 override fun onSuccess(data: Boolean?) {
-                    view?.displaySuccessCreate()
+                    view?.displaySuccessCreate(email, password)
                 }
 
                 override fun onFailure(message: String?) {

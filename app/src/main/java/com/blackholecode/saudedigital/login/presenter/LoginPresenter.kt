@@ -3,6 +3,7 @@ package com.blackholecode.saudedigital.login.presenter
 import android.util.Patterns
 import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.base.RequestCallback
+import com.blackholecode.saudedigital.common.model.User
 import com.blackholecode.saudedigital.login.Login
 import com.blackholecode.saudedigital.login.data.LoginRepository
 
@@ -24,8 +25,8 @@ class LoginPresenter(
         if (isEmailValid && isPasswordValid) {
             view?.showProgress(true)
 
-            repository.login(email, password, object : RequestCallback<Boolean> {
-                override fun onSuccess(data: Boolean?) {
+            repository.login(email, password, object : RequestCallback<User> {
+                override fun onSuccess(data: User?) {
                     view?.onUserAuthenticate()
                 }
 

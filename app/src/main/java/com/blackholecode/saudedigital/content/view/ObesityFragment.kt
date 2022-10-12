@@ -6,13 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.base.DependencyInjector
 import com.blackholecode.saudedigital.common.extension.toastGeneric
-import com.blackholecode.saudedigital.common.model.Food
 import com.blackholecode.saudedigital.common.model.MContent
-import com.blackholecode.saudedigital.common.model.Video
 import com.blackholecode.saudedigital.content.Content
 import com.blackholecode.saudedigital.content.base.ContentBaseFragment
 import com.blackholecode.saudedigital.databinding.FragmentContenContentBinding
-import com.blackholecode.saudedigital.databinding.FragmentObesityBinding
 import java.util.*
 
 class ObesityFragment : ContentBaseFragment<FragmentContenContentBinding, Content.Presenter>(
@@ -28,6 +25,8 @@ class ObesityFragment : ContentBaseFragment<FragmentContenContentBinding, Conten
 
     @SuppressLint("NotifyDataSetChanged")
     override fun setupView() {
+        presenter.fetchContent("obesity")
+
         binding?.let { binding ->
             with(binding) {
                 val list = mutableListOf<MContent>()
@@ -39,7 +38,7 @@ class ObesityFragment : ContentBaseFragment<FragmentContenContentBinding, Conten
                             title = "Obesidade$i",
                             description = getString(R.string.lorem),
                             videoUrl = "",
-                            type = "obesidade"
+                            type = "obesity"
                         )
                     )
                 }
@@ -59,13 +58,15 @@ class ObesityFragment : ContentBaseFragment<FragmentContenContentBinding, Conten
 
     @SuppressLint("NotifyDataSetChanged")
     override fun displayRequestSuccessful(data: List<MContent>) {
-        if (data.isNotEmpty()) {
-            binding?.contentListEmpty?.visibility = View.GONE
-            adapterRv.items = data.toMutableList()
-            adapterRv.notifyDataSetChanged()
-        } else {
-            binding?.contentListEmpty?.visibility = View.VISIBLE
-        }
+        binding?.contentListEmpty?.visibility = View.GONE
+        binding?.contentRecyclerVideos?.visibility = View.VISIBLE
+        adapterRv.items = data.toMutableList()
+        adapterRv.notifyDataSetChanged()
+    }
+
+    override fun displayRequestEmptyList() {
+        binding?.contentRecyclerVideos?.visibility = View.GONE
+        binding?.contentListEmpty?.visibility = View.VISIBLE
     }
 
     override fun displayRequestFailure(message: String) {

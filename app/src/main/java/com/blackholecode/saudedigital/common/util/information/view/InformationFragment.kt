@@ -19,7 +19,6 @@ import com.blackholecode.saudedigital.common.extension.toastGeneric
 import com.blackholecode.saudedigital.common.util.information.Information
 import com.blackholecode.saudedigital.databinding.FragmentInformationBinding
 import com.blackholecode.saudedigital.imc.view.ImcActivity
-import com.blackholecode.saudedigital.profile.view.ProfileFragment
 import com.blackholecode.saudedigital.register.FragmentAttachListener
 import com.blackholecode.saudedigital.register.view.RegisterActivity
 import com.google.android.material.textfield.TextInputLayout
@@ -27,6 +26,9 @@ import com.google.android.material.textfield.TextInputLayout
 class InformationFragment : Fragment(R.layout.fragment_information), Information.View {
 
     companion object {
+        const val EMAIL = "email"
+        const val PASSWORD = "password"
+
         var imc: String? = null
     }
 
@@ -35,6 +37,9 @@ class InformationFragment : Fragment(R.layout.fragment_information), Information
 
     private var binding: FragmentInformationBinding? = null
     private var fragmentAttach: FragmentAttachListener? = null
+
+    private var email: String? = null
+    private var password: String? = null
 
     private lateinit var itemsDisease: Array<String>
     private lateinit var itemsTypeDisease: Array<String>
@@ -51,6 +56,9 @@ class InformationFragment : Fragment(R.layout.fragment_information), Information
     fun setupView() {
         itemsDisease = resources.getStringArray(R.array.disease)
         itemsTypeDisease = resources.getStringArray(R.array.type_disease)
+
+        email = arguments?.getString(EMAIL)
+        password = arguments?.getString(PASSWORD)
 
         if (!isRegister) {
             binding?.informationContainerLogin?.visibility = View.GONE
@@ -75,37 +83,39 @@ class InformationFragment : Fragment(R.layout.fragment_information), Information
                         return@setOnClickListener
                     }
 
-                    if (isRegister) {
-                        fragmentAttach?.goToMainScreen()
-                    } else {
-                        val bundle = Bundle()
-                        bundle.putString(ProfileFragment.NAME, informationEditName.text.toString())
-                        bundle.putInt(
-                            ProfileFragment.AGE,
-                            informationEditAge.text.toString().toInt()
-                        )
-                        bundle.putBoolean(ProfileFragment.SEX, informationRadioMasculine.isSelected)
+                    if (email != null && password != null) {
 
-                        if (informationBtnGoImc.visibility != View.VISIBLE) {
-                            bundle.putString(
-                                ProfileFragment.CONDITION,
-                                "${informationAutoCompleteDisease.text} - ${informationAutoCompleteTypeDisease.text}"
+                        val condition = if (informationBtnGoImc.visibility != View.VISIBLE) {
+                            Pair(
+                                informationAutoCompleteDisease.text.toString(),
+                                informationAutoCompleteTypeDisease.text.toString()
                             )
                         } else {
-                            bundle.putString(
-                                ProfileFragment.CONDITION,
-                                "${informationAutoCompleteDisease.text} - ${informationBtnGoImc.text}"
+                            Pair(
+                                informationAutoCompleteDisease.text.toString(),
+                                informationBtnGoImc.text.toString()
                             )
                         }
 
-                        imc = null
-
-                        findNavController().navigate(
-                            R.id.action_nav_edit_information_to_nav_profile,
-                            bundle,
-                            null,
-                            null
-                        )
+                        if (isRegister) {
+                            presenter.create(
+                                email!!,
+                                password!!,
+                                informationEditName.text.toString(),
+                                informationEditAge.text.toString().toInt(),
+                                masOrFem(informationRadioMasculine.isSelected),
+                                listOf(condition)
+                            )
+                        } else {
+                            presenter.updateProfile(
+                                email!!,
+                                password!!,
+                                informationEditName.text.toString(),
+                                informationEditAge.text.toString().toInt(),
+                                masOrFem(informationRadioMasculine.isSelected),
+                                listOf(condition)
+                            )
+                        }
                     }
                 }
 
@@ -133,14 +143,20 @@ class InformationFragment : Fragment(R.layout.fragment_information), Information
     }
 
     override fun displaySuccessCreate() {
-        if (isRegister) {
             toastGeneric(requireContext(), R.string.create_success)
-        } else {
-            toastGeneric(requireContext(), R.string.update_success)
-        }
+            fragmentAttach?.goToMainScreen()
     }
 
     override fun displayFailureCreate(message: String) {
+        toastGeneric(requireContext(), message)
+    }
+
+    override fun displaySuccessUpdate() {
+        toastGeneric(requireContext(), R.string.update_success)
+        findNavController().navigateUp()
+    }
+
+    override fun displayFailureUpdate(message: String) {
         toastGeneric(requireContext(), message)
     }
 
@@ -189,6 +205,10 @@ class InformationFragment : Fragment(R.layout.fragment_information), Information
         autoComplete.setAdapter(
             ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, items)
         )
+    }
+
+    private fun masOrFem(isMasculine: Boolean): Char {
+        return if (isMasculine) 'm' else 'f'
     }
 
     private fun isConfirm(): Boolean {

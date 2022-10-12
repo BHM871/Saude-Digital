@@ -1,6 +1,7 @@
 package com.blackholecode.saudedigital.register.view
 
 import android.content.Context
+import android.os.Bundle
 import android.view.View
 import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.base.BaseFragment
@@ -35,7 +36,11 @@ class RegisterFragmentEmailAndPassword :
 
                 registerEditEmail.addTextChangedListener(TxtWatch { displayEmailFailure(null) })
                 registerEditPassword.addTextChangedListener(TxtWatch { displayPasswordFailure(null) })
-                registerEditConfirmPassword.addTextChangedListener(TxtWatch { displayPasswordFailure(null) })
+                registerEditConfirmPassword.addTextChangedListener(TxtWatch {
+                    displayPasswordFailure(
+                        null
+                    )
+                })
 
                 registerBtnNext.setOnClickListener {
                     fragmentAttach?.hideKeyBoard()
@@ -43,7 +48,8 @@ class RegisterFragmentEmailAndPassword :
                     presenter.create(
                         registerEditEmail.text.toString(),
                         registerEditPassword.text.toString(),
-                        registerEditConfirmPassword.text.toString())
+                        registerEditConfirmPassword.text.toString()
+                    )
 
                 }
 
@@ -67,8 +73,14 @@ class RegisterFragmentEmailAndPassword :
         binding?.registerEditConfirmPasswordInput?.error = resId?.let { getString(it) }
     }
 
-    override fun displaySuccessCreate() {
-        fragmentAttach?.replaceFragment(InformationFragment())
+    override fun displaySuccessCreate(email: String, password: String) {
+        val fragment = InformationFragment().apply {
+            arguments = Bundle().apply {
+                putString(InformationFragment.EMAIL, email)
+                putString(InformationFragment.PASSWORD, password)
+            }
+        }
+        fragmentAttach?.replaceFragment(fragment)
     }
 
     override fun displayFailureCreate(message: String) {
@@ -78,8 +90,10 @@ class RegisterFragmentEmailAndPassword :
     private val txtWatch = TxtWatch {
         binding?.registerBtnNext?.isEnabled =
             binding?.registerEditEmail?.text?.toString()?.isNotEmpty() ?: return@TxtWatch &&
-                    (binding?.registerEditPassword?.text?.toString()?.length ?: return@TxtWatch) >= 6 &&
-                    (binding?.registerEditConfirmPassword?.text?.toString()?.length ?: return@TxtWatch) >= 6
+                    (binding?.registerEditPassword?.text?.toString()?.length
+                        ?: return@TxtWatch) >= 6 &&
+                    (binding?.registerEditConfirmPassword?.text?.toString()?.length
+                        ?: return@TxtWatch) >= 6
 
     }
 

@@ -27,28 +27,6 @@ class ProfilePresenter(
         })
     }
 
-    override fun updateProfile(
-        name: String,
-        age: Int,
-        mOrF: Char,
-        condition: List<Pair<String, String>>
-    ) {
-        view?.showProgress(true)
-        repository.updateProfile(name, age, mOrF, condition, object : RequestCallback<User> {
-            override fun onSuccess(data: User?) {
-                data?.let { view?.displayFetchSuccess(it) }
-            }
-
-            override fun onFailure(message: String?) {
-                message?.let { view?.displayFetchFailure(it) }
-            }
-
-            override fun onComplete() {
-                view?.showProgress(false)
-            }
-        })
-    }
-
     override fun onDestroy() {
         view = null
     }

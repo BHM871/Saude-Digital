@@ -29,31 +29,4 @@ class ProfileRepository(
         })
     }
 
-    fun updateProfile(name: String, age: Int, mOrF: Char, condition: List<Pair<String, String>>, callback: RequestCallback<User>) {
-        val localDataSource = dataSourceFactory.createLocalDataSource()
-        val uuid = localDataSource.fetchSession().uuid
-        val data = dataSourceFactory.createRemoteDataSource()
-
-        data.updateProfile(
-            uuid ?: throw RuntimeException(),
-            name,
-            age,
-            mOrF,
-            condition,
-            object : RequestCallback<User> {
-            override fun onSuccess(data: User?) {
-                localDataSource.removeCache()
-                callback.onSuccess(data)
-            }
-
-            override fun onFailure(message: String?) {
-                callback.onFailure(message)
-            }
-
-            override fun onComplete() {
-                callback.onComplete()
-            }
-        })
-    }
-
 }

@@ -21,12 +21,12 @@ fun Activity.animationEnd(callback: () -> Unit) : AnimatorListenerAdapter {
 fun AppCompatActivity.newOrReplaceFragment(@IdRes id: Int, fragment: Fragment) {
     if (supportFragmentManager.findFragmentById(id) == null) {
         supportFragmentManager.beginTransaction().apply {
-            add(id, fragment, fragment.javaClass.simpleName)
+            add(id, fragment, fragment.javaClass.simpleName,)
             commit()
         }
     } else {
         supportFragmentManager.beginTransaction().apply {
-            replace(id, fragment, fragment.javaClass.simpleName)
+            replace(id, fragment, fragment.javaClass.simpleName, )
             addToBackStack(null)
             commit()
         }

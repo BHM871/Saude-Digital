@@ -9,11 +9,12 @@ import com.blackholecode.saudedigital.common.model.Video
 interface Content {
 
     interface Presenter : BasePresenter {
-        fun fetchContent(type: Pair<String, String?>?)
+        fun fetchContent(type: String)
     }
 
     interface View : BaseView<Presenter> {
         fun displayRequestSuccessful(data: List<MContent>)
+        fun displayRequestEmptyList()
         fun displayRequestFailure(message: String)
     }
 

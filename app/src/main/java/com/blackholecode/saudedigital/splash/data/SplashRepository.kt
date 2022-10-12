@@ -1,15 +1,17 @@
-package com.blackholecode.saudedigital.login.data
+package com.blackholecode.saudedigital.splash.data
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
 
-class LoginRepository(private val dataSourceFactory: LoginDataSourceFactory) {
+class SplashRepository(
+    private val dataSourceFactory: SplashDataSourceFactory
+) {
 
-    fun login(email: String, password: String, callback: RequestCallback<User>) {
+    fun log(callback: RequestCallback<User>) {
         val localDataSource = dataSourceFactory.createLocalDataSource()
         val remoteDataSource = dataSourceFactory.createRemoteDataSource()
 
-        remoteDataSource.login(email, password, object : RequestCallback<User> {
+        remoteDataSource.log(object : RequestCallback<User> {
             override fun onSuccess(data: User?) {
                 data?.let { localDataSource.putCache(it) }
                 callback.onSuccess(data)

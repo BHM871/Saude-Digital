@@ -1,4 +1,4 @@
-package com.blackholecode.saudedigital.profile.data
+package com.blackholecode.saudedigital.common.util.information.data
 
 import com.blackholecode.saudedigital.common.base.Cache
 import com.blackholecode.saudedigital.common.base.RequestCallback
@@ -6,21 +6,9 @@ import com.blackholecode.saudedigital.common.model.User
 import com.blackholecode.saudedigital.common.util.UserSession
 import java.util.*
 
-class ProfileLocalDataSource(
+class InformationLocalDataSource(
     private val userCache: Cache<User>
-) : ProfileDataSource {
-
-    override fun fetchProfile(uuid: String, callback: RequestCallback<User>) {
-        val user = userCache.get()
-
-        if (user != null){
-            callback.onSuccess(user)
-        } else {
-            callback.onFailure("User not found")
-        }
-
-        callback.onComplete()
-    }
+) : InformationDataSource {
 
     override fun fetchSession() : User {
 //        FirebaseFirestore.getInstance()
@@ -28,10 +16,6 @@ class ProfileLocalDataSource(
 //            .document("uuid", FirebaseAuth.getInstance().uid)
 //            .get()
         return UserSession.get() ?: User("jbckjabc", password = "jbcasbjchas")
-    }
-
-    override fun putCache(data: User) {
-        userCache.put(data)
     }
 
     override fun removeCache() {

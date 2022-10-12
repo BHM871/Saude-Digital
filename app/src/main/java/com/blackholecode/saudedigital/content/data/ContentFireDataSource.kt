@@ -6,9 +6,11 @@ import com.blackholecode.saudedigital.common.model.MContent
 class ContentFireDataSource : ContentDataSource {
 
     override fun fetchContent(
-        type: Pair<String, String>,
+        typeUser: List<Pair<String, String>>,
+        typeScreen: String,
         callback: RequestCallback<List<MContent>>
     ) {
         //TODO("Not yet implemented")
+        callback.onSuccess(listOf())
     }
 }

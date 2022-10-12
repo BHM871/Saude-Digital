@@ -9,7 +9,6 @@ interface Profile {
 
     interface Presenter: BasePresenter {
         fun fetchProfile()
-        fun updateProfile(name: String, age: Int, mOrF: Char, condition: List<Pair<String, String>>)
     }
 
     interface View : BaseView<Presenter> {
