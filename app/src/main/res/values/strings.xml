@@ -15,13 +15,13 @@
     <string name="menu_feedback">FeedBack</string>
     <string name="menu_about">Sobre</string>
 
-    <string name="about_version"><b>Versão:</b> %1$s</string>
-    <string name="about_developer"><b>Desenvolvedor:</b> %1$s</string>
-    <string name="about_objective"><b>Objetivo:</b> %1$s</string>
-    <string name="about_nutri"><b>Nuricionista:</b> %1$s</string>
-    <string name="about_fisio"><b>Fisioterapelta:</b> %1$s</string>
-    <string name="linkedin"><b><font color="#83E8BA">LinkedIn:</font></b> https://linkedin.com/in/adrian-almeida-090771204/</string>
-    <string name="github"><b><font color="#83E8BA">GitHub:</font></b> https://github.com/BHM871</string>
+    <string name="about_version"><font color="#83E8BA">Versão:</font> %1$s</string>
+    <string name="about_developer"><font color="#83E8BA">Desenvolvedor:</font> %1$s</string>
+    <string name="about_objective"><font color="#83E8BA">Objetivo:</font> %1$s</string>
+    <string name="about_nutri"><font color="#83E8BA">Nuricionista:</font> %1$s</string>
+    <string name="about_fisio"><font color="#83E8BA">Fisioterapelta:</font> %1$s</string>
+    <string name="linkedin"><font color="#83E8BA">LinkedIn:</font> https://linkedin.com/in/adrian-almeida-090771204/</string>
+    <string name="github"><font color="#83E8BA">GitHub:</font> https://github.com/BHM871</string>
 
     <string name="profile_name"><b>Nome:</b> %1$s</string>
     <string name="profile_age"><b>Idade:</b> %1$d</string>
@@ -42,6 +42,8 @@
     <string name="email">Email</string>
     <string name="password">Senha</string>
     <string name="confir_password">Confirmar Senha</string>
+    <string name="email_invalid">Email Inválido</string>
+    <string name="password_invalid">Senha precisa ter 6 caracteres</string>
     <string name="enter">Entrar</string>
     <string name="next">Avançar</string>
     <string name="OU">OU</string>
@@ -58,9 +60,22 @@
     <string name="weight">Peso (Kg)</string>
     <string name="height">Altura (m)</string>
 
+    <string name="imc_severely_low_weight">Severamente abaixo do peso</string>
+    <string name="imc_very_low_weight">Muito abaixo do peso</string>
+    <string name="imc_low_weight">Abaixo do peso</string>
+    <string name="normal">Normal</string>
+    <string name="imc_high_weight">Acima do peso</string>
+    <string name="imc_so_high_weight">Moderadamente obeso</string>
+    <string name="imc_severely_high_weight">Severamente obeso</string>
+    <string name="imc_extreme_weight">Extremamente obeso</string>
+
     <string name="fields_messages">Corriga os campos, algo está incorreto</string>
     <string name="edit_profile">Editar perfil</string>
 
     <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</string>
+    <string name="create_success">Cadastrado com sucesso</string>
+    <string name="update_success">Atualizado com sucesso</string>
+    <string name="password_different">Senhas precisam ser iguais</string>
+    <string name="list_empty">Nenhum item encontrado</string>
 
 </resources>

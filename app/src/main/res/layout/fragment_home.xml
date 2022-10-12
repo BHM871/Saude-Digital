@@ -12,4 +12,20 @@
         tools:itemCount="5"
         tools:listitem="@layout/item_content"/>
 
+    <ProgressBar
+        android:id="@+id/home_progress"
+        style="@style/Theme.SaudeDigital.ProgressBarBase"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/home_list_empty"
+        style="@style/Theme.SaudeDigital.TextViewBase"
+        android:layout_margin="0dp"
+        android:text="@string/list_empty"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
 </FrameLayout>

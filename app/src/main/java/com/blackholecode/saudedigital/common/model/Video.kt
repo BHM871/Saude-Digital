@@ -6,10 +6,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Video(
-    val id: String?,
-    @DrawableRes var thumbnail: Int,
-    var title: String,
-    var description: String = title,
-    var duration: String = "0:0",
-    val type: String
+    var id: String? = null,
+    var thumbnail: Int? = null,
+    var title: String? = null,
+    var description: String? = null,
+    var videoUrl: String? = null,
+    var type: String? = null
 ) : Parcelable

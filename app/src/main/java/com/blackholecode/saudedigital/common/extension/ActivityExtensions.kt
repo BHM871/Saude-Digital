@@ -27,6 +27,7 @@ fun AppCompatActivity.newOrReplaceFragment(@IdRes id: Int, fragment: Fragment) {
     } else {
         supportFragmentManager.beginTransaction().apply {
             replace(id, fragment, fragment.javaClass.simpleName)
+            addToBackStack(null)
             commit()
         }
     }
@@ -39,4 +40,7 @@ fun Activity.closeKeyboard() {
 
 fun toastGeneric(context: Context, resId: Int) {
         Toast.makeText(context, resId, Toast.LENGTH_LONG).show()
+}
+fun toastGeneric(context: Context, message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }

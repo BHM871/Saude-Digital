@@ -24,7 +24,7 @@ class RegisterActivity : AppCompatActivity(), FragmentAttachListener {
         setContentView(binding.root)
 
 
-        newOrReplaceFragment(R.id.register_container, FragmentRegisterEmailAndPassword())
+        newOrReplaceFragment(R.id.register_container, RegisterFragmentEmailAndPassword())
     }
 
     override fun replaceFragment(fragment: Fragment) {

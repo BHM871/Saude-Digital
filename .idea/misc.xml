@@ -9,17 +9,21 @@
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/drawable/edit_text_background.xml" value="0.2595" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/activity_food.xml" value="0.17198335644937587" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/activity_imc.xml" value="0.28088926891834115" />
-        <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/activity_login.xml" value="0.21441523118767" />
+        <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/activity_login.xml" value="0.22393472348141433" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/activity_main.xml" value="0.28088926891834115" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/activity_register.xml" value="0.28088926891834115" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/activity_splash.xml" value="0.28088926891834115" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/activity_video.xml" value="0.2004882514494965" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_about.xml" value="0.28088926891834115" />
+        <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_conten_content.xml" value="0.25053441641727237" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_content.xml" value="0.28088926891834115" />
+        <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_diabetes.xml" value="0.25138948268490807" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_feedback.xml" value="0.28088926891834115" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_food.xml" value="0.21441523118767" />
-        <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_home.xml" value="0.8" />
+        <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_home.xml" value="0.2243880326382593" />
+        <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_hypertension.xml" value="0.25138948268490807" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_information.xml" value="0.21441523118767" />
+        <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_obesity.xml" value="0.25138948268490807" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_profile.xml" value="0.28088926891834115" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_register_email_and_password.xml" value="0.136" />
         <entry key="..\:/Users/ander/Documents/Adrian/AndroidStudioProjects/SaudeDigital/app/src/main/res/layout/fragment_register_information.xml" value="0.264" />

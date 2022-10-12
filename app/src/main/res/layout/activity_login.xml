@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:showIn="@layout/activity_login">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,6 +37,7 @@
                     style="@style/Theme.SaudeDigital.EditTextInputForm"
                     android:autofillHints="@null"
                     android:hint="@string/email"
+                    android:maxLength="50"
                     android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -49,7 +51,8 @@
                     style="@style/Theme.SaudeDigital.EditTextInputForm"
                     android:autofillHints="@null"
                     android:hint="@string/password"
-                    android:inputType="textEmailAddress" />
+                    android:maxLength="50"
+                    android:inputType="textWebPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

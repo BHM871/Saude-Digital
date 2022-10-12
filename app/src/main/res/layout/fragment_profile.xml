@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:paddingTop="@dimen/padding_items">
 
@@ -52,5 +53,11 @@
         android:layout_margin="@dimen/margin_items_vertical"
         android:contentDescription="@null"
         android:src="@drawable/ic_edit" />
+
+    <ProgressBar
+        android:id="@+id/profile_progress"
+        style="@style/Theme.SaudeDigital.ProgressBarBase"
+        android:layout_centerInParent="true"
+        tools:visibility="visible"/>
 
 </RelativeLayout>

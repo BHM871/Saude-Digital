@@ -10,7 +10,7 @@ import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.extension.closeKeyboard
 import com.blackholecode.saudedigital.common.extension.toastGeneric
 import com.blackholecode.saudedigital.databinding.ActivityImcBinding
-import com.blackholecode.saudedigital.common.util.FragmentInformation
+import com.blackholecode.saudedigital.common.util.information.view.InformationFragment
 
 class ImcActivity : AppCompatActivity() {
 
@@ -35,7 +35,7 @@ class ImcActivity : AppCompatActivity() {
 
             closeKeyboard()
 
-            FragmentInformation.imc = imc
+            InformationFragment.imc = getString(response(imc))
             setResult(RESULT_OK)
             finish()
         }
@@ -48,19 +48,19 @@ class ImcActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-//    private fun response(imc: Double): Int {
-//        return when {
-//            imc < 15 -> R.string.imc_severely_low_weight
-//            imc < 16 -> R.string.imc_very_low_weight
-//            imc < 18.5 -> R.string.imc_low_weight
-//            imc < 25 -> R.string.normal
-//            imc < 30 -> R.string.imc_high_weight
-//            imc < 35 -> R.string.imc_so_high_weight
-//            imc < 40 -> R.string.imc_severely_high_weight
-//            else -> R.string.imc_extreme_weight
-//        }
-//
-//    }
+    private fun response(imc: Double): Int {
+        return when {
+            imc < 15 -> R.string.imc_severely_low_weight
+            imc < 16 -> R.string.imc_very_low_weight
+            imc < 18.5 -> R.string.imc_low_weight
+            imc < 25 -> R.string.normal
+            imc < 30 -> R.string.imc_high_weight
+            imc < 35 -> R.string.imc_so_high_weight
+            imc < 40 -> R.string.imc_severely_high_weight
+            else -> R.string.imc_extreme_weight
+        }
+
+    }
 
     private fun calcuImc(): Double {
         val weight: Double = binding.imcEditWeight.text.toString().toDouble()

@@ -1,49 +1,71 @@
-package com.blackholecode.saudedigital.common.util
+package com.blackholecode.saudedigital.common.util.information.view
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.blackholecode.saudedigital.R
+import com.blackholecode.saudedigital.common.base.DependencyInjector
 import com.blackholecode.saudedigital.common.extension.toastGeneric
+import com.blackholecode.saudedigital.common.util.information.Information
 import com.blackholecode.saudedigital.databinding.FragmentInformationBinding
 import com.blackholecode.saudedigital.imc.view.ImcActivity
-import com.blackholecode.saudedigital.main.view.MainActivity
 import com.blackholecode.saudedigital.profile.view.ProfileFragment
-import com.blackholecode.saudedigital.register.base.RegisterBaseFragment
+import com.blackholecode.saudedigital.register.FragmentAttachListener
 import com.blackholecode.saudedigital.register.view.RegisterActivity
+import com.google.android.material.textfield.TextInputLayout
 
-class FragmentInformation : RegisterBaseFragment<FragmentInformationBinding>(
-    R.layout.fragment_information,
-    FragmentInformationBinding::bind
-) {
+class InformationFragment : Fragment(R.layout.fragment_information), Information.View {
 
     companion object {
-        var imc: Double? = null
+        var imc: String? = null
     }
+
+    override lateinit var presenter: Information.Presenter
+    private var isRegister: Boolean = false
+
+    private var binding: FragmentInformationBinding? = null
+    private var fragmentAttach: FragmentAttachListener? = null
 
     private lateinit var itemsDisease: Array<String>
     private lateinit var itemsTypeDisease: Array<String>
 
-    @SuppressLint("ResourceType")
-    override fun setupView() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentInformationBinding.bind(view)
+        presenter = DependencyInjector.informationPresenter(this)
+        isRegister = (activity?.javaClass?.simpleName == RegisterActivity().javaClass.simpleName)
+        setupView()
+    }
+
+    @SuppressLint("ResourceType", "NewApi")
+    fun setupView() {
         itemsDisease = resources.getStringArray(R.array.disease)
         itemsTypeDisease = resources.getStringArray(R.array.type_disease)
 
-        if (activity?.javaClass?.simpleName == MainActivity().javaClass.simpleName) {
+        if (!isRegister) {
             binding?.informationContainerLogin?.visibility = View.GONE
         }
 
         binding?.let { binding ->
             with(binding) {
                 setAdapterAutoComplete(informationAutoCompleteDisease, itemsDisease)
-                informationAutoCompleteDisease.onItemClickListener = autoComplete
+                informationAutoCompleteDisease.onItemClickListener =
+                    autoComplete(
+                        informationAutoCompleteDisease,
+                        informationAutoCompleteTypeDiseaseInput,
+                        informationAutoCompleteTypeDisease,
+                        informationBtnGoImc
+                    )
 
                 informationBtnFinish.setOnClickListener {
                     fragmentAttach?.hideKeyBoard()
@@ -53,7 +75,7 @@ class FragmentInformation : RegisterBaseFragment<FragmentInformationBinding>(
                         return@setOnClickListener
                     }
 
-                    if (activity?.javaClass?.simpleName == RegisterActivity().javaClass.simpleName) {
+                    if (isRegister) {
                         fragmentAttach?.goToMainScreen()
                     } else {
                         val bundle = Bundle()
@@ -64,7 +86,7 @@ class FragmentInformation : RegisterBaseFragment<FragmentInformationBinding>(
                         )
                         bundle.putBoolean(ProfileFragment.SEX, informationRadioMasculine.isSelected)
 
-                        if (imc == null) {
+                        if (informationBtnGoImc.visibility != View.VISIBLE) {
                             bundle.putString(
                                 ProfileFragment.CONDITION,
                                 "${informationAutoCompleteDisease.text} - ${informationAutoCompleteTypeDisease.text}"
@@ -72,7 +94,7 @@ class FragmentInformation : RegisterBaseFragment<FragmentInformationBinding>(
                         } else {
                             bundle.putString(
                                 ProfileFragment.CONDITION,
-                                "${informationAutoCompleteDisease.text} - ${informationBtnFinish.text}"
+                                "${informationAutoCompleteDisease.text} - ${informationBtnGoImc.text}"
                             )
                         }
 
@@ -87,6 +109,14 @@ class FragmentInformation : RegisterBaseFragment<FragmentInformationBinding>(
                     }
                 }
 
+//                a.setOnClickListener {
+//                    val autoComplete = AutoCompleteTextView(informationAutoCompleteTypeDisease.context, null, 0, R.style.Theme_SaudeDigital_AutoComplete)
+//                    val textInputLayout = TextInputLayout(informationAutoCompleteTypeDiseaseInput.context, null, informationAutoCompleteDiseaseInput.explicitStyle)
+//                    textInputLayout.addView(autoComplete)
+//
+//                    informationContainerForm.addView(textInputLayout, (informationContainerForm.childCount - 2))
+//                }
+
                 registerBtnLogin.setOnClickListener {
                     fragmentAttach?.goToLoginScreen()
                 }
@@ -98,33 +128,52 @@ class FragmentInformation : RegisterBaseFragment<FragmentInformationBinding>(
         }
     }
 
-    private val autoComplete = AdapterView.OnItemClickListener { parent, view, position, id ->
-        when (binding?.informationAutoCompleteDisease?.text?.toString()) {
-            itemsDisease[1] -> {
-                binding?.informationAutoCompleteTypeDiseaseInput?.visibility = View.GONE
-                binding?.informationBtnGoImc?.visibility = View.VISIBLE
-                imc?.let { binding?.informationBtnGoImc?.text = it.toString() }
-            }
+    override fun showProgress(enabled: Boolean) {
+        binding?.informationProgress?.visibility = if (enabled) View.VISIBLE else View.GONE
+    }
 
-            itemsDisease[2] -> {
-                setAdapterAutoComplete(
-                    binding?.informationAutoCompleteTypeDisease!!,
-                    itemsTypeDisease
-                )
-                binding?.informationAutoCompleteTypeDiseaseInput?.visibility = View.VISIBLE
-                binding?.informationBtnGoImc?.visibility = View.GONE
-            }
-
-            itemsDisease[3] -> {
-                setAdapterAutoComplete(
-                    binding?.informationAutoCompleteTypeDisease!!,
-                    itemsTypeDisease
-                )
-                binding?.informationAutoCompleteTypeDiseaseInput?.visibility = View.VISIBLE
-                binding?.informationBtnGoImc?.visibility = View.GONE
-            }
+    override fun displaySuccessCreate() {
+        if (isRegister) {
+            toastGeneric(requireContext(), R.string.create_success)
+        } else {
+            toastGeneric(requireContext(), R.string.update_success)
         }
+    }
 
+    override fun displayFailureCreate(message: String) {
+        toastGeneric(requireContext(), message)
+    }
+
+    private fun autoComplete(
+        autoDisease: AutoCompleteTextView,
+        typeInput: TextInputLayout,
+        autoType: AutoCompleteTextView,
+        btnImc: Button
+    ): AdapterView.OnItemClickListener {
+        return AdapterView.OnItemClickListener { parent, view, position, id ->
+            when (autoDisease.text.toString()) {
+                itemsDisease[0] -> {
+                    fragmentAttach?.hideKeyBoard()
+                    typeInput.visibility = View.GONE
+                    btnImc.visibility = View.GONE
+                }
+
+                itemsDisease[1] -> {
+                    fragmentAttach?.hideKeyBoard()
+                    typeInput.visibility = View.GONE
+                    btnImc.visibility = View.VISIBLE
+                    imc?.let { btnImc.text = it }
+                }
+
+                else -> {
+                    fragmentAttach?.hideKeyBoard()
+                    typeInput.visibility = View.VISIBLE
+                    btnImc.visibility = View.GONE
+                    setAdapterAutoComplete(autoType, itemsTypeDisease)
+                }
+            }
+
+        }
     }
 
     private fun setAdapterAutoComplete(
@@ -166,12 +215,20 @@ class FragmentInformation : RegisterBaseFragment<FragmentInformationBinding>(
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activity ->
             if (activity.resultCode == Activity.RESULT_OK) {
                 imc?.let {
-                    binding?.informationBtnGoImc?.text = getString(R.string.format_number, it)
+                    binding?.informationBtnGoImc?.text = it
                 }
             }
         }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is FragmentAttachListener)
+            fragmentAttach = context
+    }
+
     override fun onDestroy() {
+        fragmentAttach = null
         binding = null
         imc = null
         super.onDestroy()

@@ -16,6 +16,7 @@
             android:id="@+id/information_container_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -136,7 +137,7 @@
     </FrameLayout>
 
     <ProgressBar
-        android:id="@+id/information_progress_to_main"
+        android:id="@+id/information_progress"
         style="@style/Theme.SaudeDigital.ProgressBarBase"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -7,9 +7,10 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.blackholecode.saudedigital.main.view.MainActivity
 
-abstract class BaseFragment<B>(@LayoutRes layoutId: Int, open val bind: (View) -> B) : Fragment(layoutId) {
+abstract class BaseFragment<B, P : BasePresenter>(@LayoutRes layoutId: Int, open val bind: (View) -> B) : Fragment(layoutId) {
 
     protected var binding: B? = null
+    abstract var presenter: P
 
     protected var scroll: MainActivity? = null
 
@@ -18,8 +19,11 @@ abstract class BaseFragment<B>(@LayoutRes layoutId: Int, open val bind: (View) -
         binding = bind(view)
         scroll?.setScrollToolbarEnabled()
 
+        setupPresenter()
         setupView()
     }
+
+    abstract fun setupPresenter()
 
     abstract fun setupView()
 

@@ -6,9 +6,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Food(
-    val id: String,
-    @DrawableRes var thumbnail: Int,
-    var title: String,
-    var description: String = title,
-    val type: String = "Food"
+    val id: String? = null,
+    @DrawableRes var thumbnail: Int? = null,
+    var title: String? = null,
+    var description: String? = null,
+    val type: String? = null
 ) : Parcelable
