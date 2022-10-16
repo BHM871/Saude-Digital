@@ -4,16 +4,12 @@ import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
 
 class SplashRepository(
-    private val dataSourceFactory: SplashDataSourceFactory
+    private val remoteDataSource: SplashFireDataSource,
 ) {
 
     fun log(callback: RequestCallback<User>) {
-        val localDataSource = dataSourceFactory.createLocalDataSource()
-        val remoteDataSource = dataSourceFactory.createRemoteDataSource()
-
         remoteDataSource.log(object : RequestCallback<User> {
             override fun onSuccess(data: User?) {
-                data?.let { localDataSource.putCache(it) }
                 callback.onSuccess(data)
             }
 

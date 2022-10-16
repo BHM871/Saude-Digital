@@ -1,6 +1,5 @@
 package com.blackholecode.saudedigital.profile.data
 
-import android.service.notification.Condition
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
 

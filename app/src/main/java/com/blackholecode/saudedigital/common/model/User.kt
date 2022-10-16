@@ -6,6 +6,6 @@ data class User(
     var password: String,
     var name: String? = null,
     var age: Int? = null,
-    var sex: Char? = null,
+    var sex: String? = null,
     var condition: List<Pair<String, String>>? = null
 )

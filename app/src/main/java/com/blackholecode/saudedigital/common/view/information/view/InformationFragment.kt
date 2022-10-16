@@ -1,29 +1,35 @@
-package com.blackholecode.saudedigital.common.util.information.view
+package com.blackholecode.saudedigital.common.view.information.view
 
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.blackholecode.saudedigital.R
+import com.blackholecode.saudedigital.common.base.AttachListener
+import com.blackholecode.saudedigital.common.base.BaseFragment
 import com.blackholecode.saudedigital.common.base.DependencyInjector
 import com.blackholecode.saudedigital.common.extension.toastGeneric
-import com.blackholecode.saudedigital.common.util.information.Information
+import com.blackholecode.saudedigital.common.model.User
+import com.blackholecode.saudedigital.common.view.ImcActivity
+import com.blackholecode.saudedigital.common.view.information.Information
 import com.blackholecode.saudedigital.databinding.FragmentInformationBinding
-import com.blackholecode.saudedigital.imc.view.ImcActivity
-import com.blackholecode.saudedigital.register.FragmentAttachListener
+import com.blackholecode.saudedigital.register.RegisterFragmentAttachListener
 import com.blackholecode.saudedigital.register.view.RegisterActivity
 import com.google.android.material.textfield.TextInputLayout
 
-class InformationFragment : Fragment(R.layout.fragment_information), Information.View {
+class InformationFragment : BaseFragment<FragmentInformationBinding, Information.Presenter>(
+    R.layout.fragment_information,
+    FragmentInformationBinding::bind
+), Information.View {
 
     companion object {
         const val EMAIL = "email"
@@ -33,10 +39,11 @@ class InformationFragment : Fragment(R.layout.fragment_information), Information
     }
 
     override lateinit var presenter: Information.Presenter
+
     private var isRegister: Boolean = false
 
-    private var binding: FragmentInformationBinding? = null
-    private var fragmentAttach: FragmentAttachListener? = null
+    private var fragmentAttachRegister: RegisterFragmentAttachListener? = null
+    private var fragmentAttach: AttachListener? = null
 
     private var email: String? = null
     private var password: String? = null
@@ -44,16 +51,22 @@ class InformationFragment : Fragment(R.layout.fragment_information), Information
     private lateinit var itemsDisease: Array<String>
     private lateinit var itemsTypeDisease: Array<String>
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentInformationBinding.bind(view)
+    override fun setupPresenter() {
         presenter = DependencyInjector.informationPresenter(this)
-        isRegister = (activity?.javaClass?.simpleName == RegisterActivity().javaClass.simpleName)
-        setupView()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        if (activity?.javaClass?.simpleName == RegisterActivity().javaClass.simpleName) {
+            isRegister = true
+            fragmentAttachRegister = fragmentAttach as RegisterFragmentAttachListener
+        }
+        super.onViewCreated(view, savedInstanceState)
     }
 
     @SuppressLint("ResourceType", "NewApi")
-    fun setupView() {
+    override fun setupView() {
+        presenter.fetchUser()
+
         itemsDisease = resources.getStringArray(R.array.disease)
         itemsTypeDisease = resources.getStringArray(R.array.type_disease)
 
@@ -83,39 +96,38 @@ class InformationFragment : Fragment(R.layout.fragment_information), Information
                         return@setOnClickListener
                     }
 
-                    if (email != null && password != null) {
+                    val condition = if (informationBtnGoImc.visibility != View.VISIBLE) {
+                        Pair(
+                            informationAutoCompleteDisease.text.toString(),
+                            informationAutoCompleteTypeDisease.text.toString()
+                        )
+                    } else {
+                        Pair(
+                            informationAutoCompleteDisease.text.toString(),
+                            informationBtnGoImc.text.toString()
+                        )
+                    }
 
-                        val condition = if (informationBtnGoImc.visibility != View.VISIBLE) {
-                            Pair(
-                                informationAutoCompleteDisease.text.toString(),
-                                informationAutoCompleteTypeDisease.text.toString()
-                            )
-                        } else {
-                            Pair(
-                                informationAutoCompleteDisease.text.toString(),
-                                informationBtnGoImc.text.toString()
-                            )
-                        }
+                    if (isRegister) {
 
-                        if (isRegister) {
+                        if (email != null && password != null) {
                             presenter.create(
                                 email!!,
                                 password!!,
                                 informationEditName.text.toString(),
                                 informationEditAge.text.toString().toInt(),
-                                masOrFem(informationRadioMasculine.isSelected),
-                                listOf(condition)
-                            )
-                        } else {
-                            presenter.updateProfile(
-                                email!!,
-                                password!!,
-                                informationEditName.text.toString(),
-                                informationEditAge.text.toString().toInt(),
-                                masOrFem(informationRadioMasculine.isSelected),
+                                masOrFem(informationRadioMasculine.isChecked),
                                 listOf(condition)
                             )
                         }
+
+                    } else {
+                        presenter.updateProfile(
+                            informationEditName.text.toString(),
+                            informationEditAge.text.toString().toInt(),
+                            masOrFem(informationRadioMasculine.isChecked),
+                            listOf(condition)
+                        )
                     }
                 }
 
@@ -128,7 +140,7 @@ class InformationFragment : Fragment(R.layout.fragment_information), Information
 //                }
 
                 registerBtnLogin.setOnClickListener {
-                    fragmentAttach?.goToLoginScreen()
+                    fragmentAttachRegister?.goToLoginScreen()
                 }
 
                 informationBtnGoImc.setOnClickListener {
@@ -142,9 +154,29 @@ class InformationFragment : Fragment(R.layout.fragment_information), Information
         binding?.informationProgress?.visibility = if (enabled) View.VISIBLE else View.GONE
     }
 
+    override fun displaySuccessFetch(data: User) {
+        binding?.informationEditName?.setText(data.name?.toCharArray(), 0, data.name!!.length)
+
+        binding?.informationEditAge?.setText(
+            data.age?.toString()?.toCharArray(),
+            0,
+            data.age!!.toString().length
+        )
+
+        if (data.sex!! == "Masculine") {
+            binding?.informationRadioMasculine?.isChecked = true
+        } else {
+            binding?.informationRadioFemale?.isChecked = true
+        }
+    }
+
+    override fun displayFailureFetch(message: String) {
+        toastGeneric(requireContext(), message)
+    }
+
     override fun displaySuccessCreate() {
-            toastGeneric(requireContext(), R.string.create_success)
-            fragmentAttach?.goToMainScreen()
+        toastGeneric(requireContext(), R.string.create_success)
+        fragmentAttachRegister?.goToMainScreen()
     }
 
     override fun displayFailureCreate(message: String) {
@@ -207,8 +239,8 @@ class InformationFragment : Fragment(R.layout.fragment_information), Information
         )
     }
 
-    private fun masOrFem(isMasculine: Boolean): Char {
-        return if (isMasculine) 'm' else 'f'
+    private fun masOrFem(isMasculine: Boolean): String {
+        return if (isMasculine) getString(R.string.masculine) else getString(R.string.female)
     }
 
     private fun isConfirm(): Boolean {
@@ -243,8 +275,9 @@ class InformationFragment : Fragment(R.layout.fragment_information), Information
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is FragmentAttachListener)
+        if (context is AttachListener)
             fragmentAttach = context
+
     }
 
     override fun onDestroy() {

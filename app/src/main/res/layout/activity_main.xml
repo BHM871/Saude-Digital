@@ -12,6 +12,11 @@
         android:id="@+id/main_app_bar_container"
         layout="@layout/main_app_bar_container"/>
 
+    <ProgressBar
+        android:id="@+id/main_progress"
+        style="@style/Theme.SaudeDigital.ProgressBarBase"
+        android:progress="@integer/material_motion_duration_long_1" />
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/main_nav_view"
         android:layout_width="wrap_content"

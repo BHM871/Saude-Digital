@@ -4,14 +4,13 @@ import com.blackholecode.saudedigital.common.base.Cache
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
 import com.blackholecode.saudedigital.common.util.UserSession
-import java.util.*
 
 class ProfileLocalDataSource(
-    private val userCache: Cache<User>
+    private val userSession: Cache<User>
 ) : ProfileDataSource {
 
     override fun fetchProfile(uuid: String, callback: RequestCallback<User>) {
-        val user = userCache.get()
+        val user = userSession.get()
 
         if (user != null){
             callback.onSuccess(user)
@@ -31,11 +30,7 @@ class ProfileLocalDataSource(
     }
 
     override fun putCache(data: User) {
-        userCache.put(data)
-    }
-
-    override fun removeCache() {
-        userCache.remove()
+        userSession.put(data)
     }
 
 }

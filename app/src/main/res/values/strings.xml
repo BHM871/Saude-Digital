@@ -44,6 +44,7 @@
     <string name="confir_password">Confirmar Senha</string>
     <string name="email_invalid">Email Inválido</string>
     <string name="password_invalid">Senha precisa ter 6 caracteres</string>
+    <string name="password_different">Senhas precisam ser iguais</string>
     <string name="enter">Entrar</string>
     <string name="next">Avançar</string>
     <string name="OU">OU</string>
@@ -53,6 +54,7 @@
     <string name="register">Registre-se</string>
     <string name="disease_description">Sua descrição</string>
     <string name="register_finish">Finalizar Registro</string>
+    <string name="create_success">Cadastrado com sucesso</string>
 
     <string name="desc_bmi">IMC é a sigla para Índice de Massa Corporal que serve para avaliar o peso do indivíduo em relação à sua altura e assim indicar se está dentro do peso ideal, acima ou abaixo do peso desejado.\n\nPreencha os campos de peso e altura para descobrir o seu IMC</string>
     <string name="find_out_bmi">Descobrir IMC</string>
@@ -71,11 +73,12 @@
 
     <string name="fields_messages">Corriga os campos, algo está incorreto</string>
     <string name="edit_profile">Editar perfil</string>
+    <string name="update_success">Atualizado com sucesso</string>
+    <string name="logout">Sair da conta</string>
+
+    <string name="list_empty">Nenhum item encontrado</string>
+    <string name="search_videos">Buscar vídeos</string>
 
     <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</string>
-    <string name="create_success">Cadastrado com sucesso</string>
-    <string name="update_success">Atualizado com sucesso</string>
-    <string name="password_different">Senhas precisam ser iguais</string>
-    <string name="list_empty">Nenhum item encontrado</string>
 
 </resources>

@@ -9,7 +9,11 @@
         android:id="@+id/nav_primary"
         android:name="com.blackholecode.saudedigital.content.view.ContentFragment"
         android:label="@string/menu_primary_view"
-        tools:layout="@layout/fragment_content" />
+        tools:layout="@layout/fragment_content" >
+        <action
+            android:id="@+id/action_nav_primary_to_nav_search"
+            app:destination="@id/nav_search" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_profile"
@@ -23,7 +27,7 @@
 
     <fragment
         android:id="@+id/nav_edit_information"
-        android:name="com.blackholecode.saudedigital.common.util.information.view.InformationFragment"
+        android:name="com.blackholecode.saudedigital.common.view.information.view.InformationFragment"
         android:label="@string/edit_profile"
         tools:layout="@layout/fragment_information" />
 
@@ -32,10 +36,17 @@
         android:name="com.blackholecode.saudedigital.feedback.view.FeedbackFragment"
         android:label="@string/menu_feedback"
         tools:layout="@layout/fragment_feedback" />
+
     <fragment
         android:id="@+id/nav_about"
         android:name="com.blackholecode.saudedigital.about.AboutFragment"
         android:label="@string/menu_about"
         tools:layout="@layout/fragment_about" />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.blackholecode.saudedigital.search.view.SearchFragment"
+        android:label="@string/search_videos"
+        tools:layout="@layout/fragment_search" />
 
 </navigation>

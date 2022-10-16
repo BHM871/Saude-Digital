@@ -17,7 +17,7 @@ class LoginFireDataSource : LoginDataSource {
                     "123123123",
                     "Adrian",
                     17,
-                    'm',
+                    "Masculino",
                     listOf(
                         Pair("Diabetes", "Tipo 1")
                     )

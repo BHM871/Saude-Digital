@@ -1,8 +1,10 @@
 package com.blackholecode.saudedigital.main.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.drawerlayout.widget.DrawerLayout
@@ -13,13 +15,20 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.blackholecode.saudedigital.R
+import com.blackholecode.saudedigital.common.base.DependencyInjector
+import com.blackholecode.saudedigital.common.extension.closeKeyboard
 import com.blackholecode.saudedigital.databinding.ActivityMainBinding
+import com.blackholecode.saudedigital.login.view.LoginActivity
+import com.blackholecode.saudedigital.main.Main
+import com.blackholecode.saudedigital.main.MainFragmentAttachListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Main.View, MainFragmentAttachListener {
 
     private lateinit var binding: ActivityMainBinding
+
+    override lateinit var presenter: Main.Presenter
 
     private lateinit var appBarConf: AppBarConfiguration
     private lateinit var navController: NavController
@@ -30,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+
+        presenter = DependencyInjector.mainPresenter(this)
 
         setSupportActionBar(binding.mainAppBarContainer.mainToolbar)
 
@@ -69,6 +80,28 @@ class MainActivity : AppCompatActivity() {
 
             binding.mainAppBarContainer.mainAppbar.layoutParams = coordinatorLayout
         }, 300)
+    }
+
+    override fun showProgress(enabled: Boolean) {
+        binding.mainProgress.visibility = if (enabled) View.VISIBLE else View.GONE
+    }
+
+    override fun displayLogoutSuccess() {
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+    }
+
+    override fun hideKeyBoard() {
+        closeKeyboard()
+    }
+
+    override fun logout() {
+        presenter.logout()
+    }
+
+    override fun onDestroy() {
+        presenter.onDestroy()
+        super.onDestroy()
     }
 
 }

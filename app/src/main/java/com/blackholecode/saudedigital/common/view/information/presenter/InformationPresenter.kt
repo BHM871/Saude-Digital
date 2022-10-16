@@ -1,8 +1,10 @@
-package com.blackholecode.saudedigital.common.util.information.presenter
+package com.blackholecode.saudedigital.common.view.information.presenter
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
-import com.blackholecode.saudedigital.common.util.information.Information
-import com.blackholecode.saudedigital.common.util.information.data.InformationRepository
+import com.blackholecode.saudedigital.common.model.User
+import com.blackholecode.saudedigital.common.util.UserSession
+import com.blackholecode.saudedigital.common.view.information.Information
+import com.blackholecode.saudedigital.common.view.information.data.InformationRepository
 
 class InformationPresenter(
     private var view: Information.View?,
@@ -14,7 +16,7 @@ class InformationPresenter(
         password: String,
         name: String,
         age: Int,
-        mOrF: Char,
+        mOrF: String,
         condition: List<Pair<String, String>>
     ) {
         view?.showProgress(true)
@@ -35,11 +37,9 @@ class InformationPresenter(
     }
 
     override fun updateProfile(
-        email: String,
-        password: String,
         name: String,
         age: Int,
-        mOrF: Char,
+        mOrF: String,
         condition: List<Pair<String, String>>
     ) {
         view?.showProgress(true)
@@ -51,6 +51,26 @@ class InformationPresenter(
 
             override fun onFailure(message: String?) {
                 message?.let { view?.displayFailureUpdate(it) }
+            }
+
+            override fun onComplete() {
+                view?.showProgress(false)
+            }
+        })
+    }
+
+    override fun fetchUser() {
+        view?.showProgress(true)
+
+        repository.fetchUser(object : RequestCallback<User> {
+            override fun onSuccess(data: User?) {
+                if (data != null) view?.displaySuccessFetch(data)
+                else view?.displayFailureFetch("User not found")
+
+            }
+
+            override fun onFailure(message: String?) {
+                view?.displayFailureFetch(message ?: "User not found")
             }
 
             override fun onComplete() {

@@ -1,13 +1,11 @@
-package com.blackholecode.saudedigital.common.util.information.data
+package com.blackholecode.saudedigital.common.view.information.data
 
 import com.blackholecode.saudedigital.common.base.Cache
-import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
 import com.blackholecode.saudedigital.common.util.UserSession
-import java.util.*
 
 class InformationLocalDataSource(
-    private val userCache: Cache<User>
+    private val userSession: Cache<User>
 ) : InformationDataSource {
 
     override fun fetchSession() : User {
@@ -18,8 +16,12 @@ class InformationLocalDataSource(
         return UserSession.get() ?: User("jbckjabc", password = "jbcasbjchas")
     }
 
+    override fun putCache(data: User) {
+        userSession.put(data)
+    }
+
     override fun removeCache() {
-        userCache.remove()
+        userSession.remove()
     }
 
 }

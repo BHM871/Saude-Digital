@@ -7,10 +7,10 @@ import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.base.BaseFragment
 import com.blackholecode.saudedigital.common.base.DependencyInjector
 import com.blackholecode.saudedigital.common.extension.toastGeneric
-import com.blackholecode.saudedigital.common.util.information.view.InformationFragment
+import com.blackholecode.saudedigital.common.view.information.view.InformationFragment
 import com.blackholecode.saudedigital.common.util.TxtWatch
 import com.blackholecode.saudedigital.databinding.FragmentRegisterEmailAndPasswordBinding
-import com.blackholecode.saudedigital.register.FragmentAttachListener
+import com.blackholecode.saudedigital.register.RegisterFragmentAttachListener
 import com.blackholecode.saudedigital.register.RegisterEmailAndPassword
 
 class RegisterFragmentEmailAndPassword :
@@ -21,7 +21,7 @@ class RegisterFragmentEmailAndPassword :
 
     override lateinit var presenter: RegisterEmailAndPassword.Presenter
 
-    private var fragmentAttach: FragmentAttachListener? = null
+    private var fragmentAttach: RegisterFragmentAttachListener? = null
 
     override fun setupPresenter() {
         presenter = DependencyInjector.registerEmailAndPasswordPresenter(this)
@@ -100,7 +100,7 @@ class RegisterFragmentEmailAndPassword :
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is FragmentAttachListener)
+        if (context is RegisterFragmentAttachListener)
             fragmentAttach = context
     }
 

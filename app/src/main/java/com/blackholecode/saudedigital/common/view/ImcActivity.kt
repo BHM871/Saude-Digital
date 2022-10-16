@@ -1,4 +1,4 @@
-package com.blackholecode.saudedigital.imc.view
+package com.blackholecode.saudedigital.common.view
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -10,7 +10,7 @@ import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.extension.closeKeyboard
 import com.blackholecode.saudedigital.common.extension.toastGeneric
 import com.blackholecode.saudedigital.databinding.ActivityImcBinding
-import com.blackholecode.saudedigital.common.util.information.view.InformationFragment
+import com.blackholecode.saudedigital.common.view.information.view.InformationFragment
 
 class ImcActivity : AppCompatActivity() {
 

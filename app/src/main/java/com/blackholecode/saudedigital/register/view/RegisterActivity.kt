@@ -10,9 +10,9 @@ import com.blackholecode.saudedigital.common.extension.newOrReplaceFragment
 import com.blackholecode.saudedigital.databinding.ActivityRegisterBinding
 import com.blackholecode.saudedigital.login.view.LoginActivity
 import com.blackholecode.saudedigital.main.view.MainActivity
-import com.blackholecode.saudedigital.register.FragmentAttachListener
+import com.blackholecode.saudedigital.register.RegisterFragmentAttachListener
 
-class RegisterActivity : AppCompatActivity(), FragmentAttachListener {
+class RegisterActivity : AppCompatActivity(), RegisterFragmentAttachListener {
 
     private lateinit var binding: ActivityRegisterBinding
 

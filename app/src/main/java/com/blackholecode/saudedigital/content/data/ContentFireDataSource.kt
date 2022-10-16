@@ -12,5 +12,6 @@ class ContentFireDataSource : ContentDataSource {
     ) {
         //TODO("Not yet implemented")
         callback.onSuccess(listOf())
+        callback.onComplete()
     }
 }

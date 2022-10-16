@@ -1,5 +1,7 @@
 package com.blackholecode.saudedigital.profile.view
 
+import android.content.Context
+import android.view.MenuItem
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.blackholecode.saudedigital.R
@@ -8,6 +10,7 @@ import com.blackholecode.saudedigital.common.base.DependencyInjector
 import com.blackholecode.saudedigital.common.extension.toastGeneric
 import com.blackholecode.saudedigital.common.model.User
 import com.blackholecode.saudedigital.databinding.FragmentProfileBinding
+import com.blackholecode.saudedigital.main.MainFragmentAttachListener
 import com.blackholecode.saudedigital.profile.Profile
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
@@ -15,17 +18,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
     FragmentProfileBinding::bind
 ), Profile.View {
 
-    companion object {
-        const val NAME = "name"
-        const val AGE = "age"
-        const val SEX = "sex"
-        const val CONDITION = "condition"
-
-        var name: String? = null
-        var age: Int? = null
-        var sex: Boolean? = null
-        var condition: String? = null
-    }
+    private var mainAttach: MainFragmentAttachListener? = null
 
     override lateinit var presenter: Profile.Presenter
 
@@ -34,24 +27,28 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
     }
 
     override fun setupView() {
-        name = arguments?.getString(NAME)
-        age = arguments?.getInt(AGE)
-        sex = arguments?.getBoolean(SEX)
-        condition = arguments?.getString(CONDITION)
-
         presenter.fetchProfile()
 
         binding?.let { binding ->
             with(binding) {
-                name?.let { profileTxtName.text = getString(R.string.profile_name, name) }
-                age?.let { profileTxtAge.text = getString(R.string.profile_age, age) }
-                sex?.let { profileTxtSex.text = getString(R.string.profile_sex, masOrFem(it)) }
-                condition?.let { profileTxtCondition.text = getString(R.string.profile_condition, condition) }
-
                 profileFloatingEdit.setOnClickListener {
                     findNavController().navigate(R.id.action_nav_profile_to_nav_edit_information)
                 }
             }
+        }
+    }
+
+    override fun getMenu(): Int {
+        return R.menu.menu_profile
+    }
+
+    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
+        return when(menuItem.itemId) {
+            R.id.menu_logout -> {
+                mainAttach?.logout()
+                true
+            }
+            else -> false
         }
     }
 
@@ -64,8 +61,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
         binding?.profileTxtAge?.text = getString(R.string.profile_age, data.age)
         binding?.profileTxtSex?.text = getString(R.string.profile_sex, data.sex)
 
-        val condition1 = data.condition?.forEach { element ->
-            "${element.first} - ${element.second}\n"
+        var condition1 = ""
+        data.condition?.forEach { element ->
+            condition1 = "${element.first} - ${element.second}\n"
         }
 
         binding?.profileTxtCondition?.text = getString(R.string.profile_condition, condition1)
@@ -75,8 +73,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
         toastGeneric(requireContext(), message)
     }
 
-    private fun masOrFem(isMasculine: Boolean) : String {
-            return if (isMasculine) getString(R.string.masculine) else getString(R.string.female)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is MainFragmentAttachListener)
+            mainAttach = context
+    }
+
+    override fun onDestroy() {
+        mainAttach = null
+        super.onDestroy()
     }
 
 }

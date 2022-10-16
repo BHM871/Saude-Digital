@@ -66,8 +66,8 @@ class HomeFragment : ContentBaseFragment<FragmentContenContentBinding, Content.P
                 adapterRv.items = list.toMutableList()
                 adapterRv.notifyDataSetChanged()
 
-                contentRecyclerVideos.layoutManager = LinearLayoutManager(requireContext())
-                contentRecyclerVideos.adapter = adapterRv
+                contentRecycler.layoutManager = LinearLayoutManager(requireContext())
+                contentRecycler.adapter = adapterRv
             }
         }
     }
@@ -79,13 +79,13 @@ class HomeFragment : ContentBaseFragment<FragmentContenContentBinding, Content.P
     @SuppressLint("NotifyDataSetChanged")
     override fun displayRequestSuccessful(data: List<MContent>) {
         binding?.contentListEmpty?.visibility = View.GONE
-        binding?.contentRecyclerVideos?.visibility = View.VISIBLE
+        binding?.contentRecycler?.visibility = View.VISIBLE
         adapterRv.items = data.toMutableList()
         adapterRv.notifyDataSetChanged()
     }
 
     override fun displayRequestEmptyList() {
-        binding?.contentRecyclerVideos?.visibility = View.GONE
+        binding?.contentRecycler?.visibility = View.GONE
         binding?.contentListEmpty?.visibility = View.VISIBLE
     }
 
