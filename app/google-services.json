@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "573035255341",
+    "project_id": "saude-digital-7a848",
+    "storage_bucket": "saude-digital-7a848.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573035255341:android:141062ed7c5276fff90aa4",
+        "android_client_info": {
+          "package_name": "com.blackholecode.saudedigital"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573035255341-r1ggufr3l1qui1fh8ggj8osi4127knf7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh26hyG0Z20vTo0dR6PynvPBUEfNhSlN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573035255341-r1ggufr3l1qui1fh8ggj8osi4127knf7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
