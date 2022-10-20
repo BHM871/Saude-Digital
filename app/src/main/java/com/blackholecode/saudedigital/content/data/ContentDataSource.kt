@@ -10,4 +10,6 @@ interface ContentDataSource {
 
     fun fetchSession() : User { throw UnsupportedOperationException() }
 
+    fun clear() { throw UnsupportedOperationException() }
+
 }

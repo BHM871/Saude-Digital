@@ -23,24 +23,24 @@ class SplashActivity : AppCompatActivity(), Splash.View {
         super.onCreate(savedInstanceState)
 
         binding = ActivitySplashBinding.inflate(layoutInflater)
-        presenter = DependencyInjector.splashPresenter(this)
 
         setContentView(binding.root)
 
+        presenter = DependencyInjector.splashPresenter(this)
         fadeIn()
     }
 
     private fun fadeIn() {
         binding.splashImgIcon.animate().apply {
-            setListener(animationEnd { fadeOut() })
+            setListener(animationEnd { presenter.log() })
             duration = 1000
             alpha(1.0f)
         }
     }
 
-    private fun fadeOut() {
+    private fun fadeOut(action: () -> Unit) {
         binding.splashImgIcon.animate().apply {
-            setListener(animationEnd { goToLoginScreen() })
+            setListener(animationEnd { action.invoke() })
             duration = 1000
             alpha(0.0f)
         }
@@ -49,26 +49,22 @@ class SplashActivity : AppCompatActivity(), Splash.View {
     override fun showProgress(enabled: Boolean) {
     }
 
-    override fun onSuccess() {
-        goToMainScreen()
+    override fun goToMainScreen() {
+        fadeOut {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
     }
 
-    override fun onFailure() {
-        goToLoginScreen()
-    }
-
-    private fun goToMainScreen() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-    }
-
-    private fun goToLoginScreen() {
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    override fun goToLoginScreen() {
+        fadeOut {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
     }
 
 }

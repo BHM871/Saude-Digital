@@ -162,12 +162,6 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
             0,
             data.age!!.toString().length
         )
-
-        if (data.sex!! == "Masculine") {
-            binding?.informationRadioMasculine?.isChecked = true
-        } else {
-            binding?.informationRadioFemale?.isChecked = true
-        }
     }
 
     override fun displayFailureFetch(message: String) {
@@ -254,6 +248,10 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
 
             if (binding?.informationAutoCompleteTypeDisease?.visibility == View.VISIBLE &&
                 binding?.informationAutoCompleteTypeDisease?.text?.toString()!! == itemsTypeDisease[0]
+            ) return false
+
+            if (!binding?.informationRadioMasculine?.isChecked!! &&
+                !binding?.informationRadioFemale?.isChecked!!
             ) return false
 
             return true

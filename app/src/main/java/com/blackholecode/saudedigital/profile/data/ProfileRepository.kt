@@ -9,10 +9,10 @@ class ProfileRepository(
 
     fun fetchProfile(callback: RequestCallback<User>) {
         val localDataSource = dataSourceFactory.createLocalDataSource()
-        val uuid = localDataSource.fetchSession().uuid
+        val uuid = localDataSource.fetchSession()
         val data = dataSourceFactory.createFromUser()
 
-        data.fetchProfile(uuid ?: throw RuntimeException(), object : RequestCallback<User> {
+        data.fetchProfile(uuid, object : RequestCallback<User> {
             override fun onSuccess(data: User?) {
                 data?.let { localDataSource.putCache(it) }
                 callback.onSuccess(data)

@@ -11,8 +11,8 @@ class SplashPresenter(
 ) : Splash.Presenter {
 
     override fun log() {
-        repository.log(object : RequestCallback<User> {
-            override fun onSuccess(data: User?) {
+        repository.log(object : RequestCallback<Boolean> {
+            override fun onSuccess(data: Boolean?) {
                 view?.onSuccess()
             }
 

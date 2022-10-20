@@ -7,9 +7,9 @@ class LoginRepository(
     private val remoteDataSource: LoginFireDataSource
 ) {
 
-    fun login(email: String, password: String, callback: RequestCallback<User>) {
-        remoteDataSource.login(email, password, object : RequestCallback<User> {
-            override fun onSuccess(data: User?) {
+    fun login(email: String, password: String, callback: RequestCallback<Boolean>) {
+        remoteDataSource.login(email, password, object : RequestCallback<Boolean> {
+            override fun onSuccess(data: Boolean?) {
                 callback.onSuccess(data)
             }
 

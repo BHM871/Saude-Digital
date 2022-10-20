@@ -20,17 +20,17 @@ class InformationRepository(
         remoteDataSource.create(email, password, name, age, mOrF, condition, callback)
     }
 
-    fun updateProfile(name: String, age: Int, mOrF: String, condition: List<Pair<String, String>>, callback: RequestCallback<Boolean>) {
+    fun updateProfile(name: String, age: Int, sex: String, condition: List<Pair<String, String>>, callback: RequestCallback<Boolean>) {
+        val uuid = localDataSource.fetchSession()?.uuid ?: throw RuntimeException("User not found")
         remoteDataSource.updateProfile(
+            uuid,
             name,
             age,
-            mOrF,
+            sex,
             condition,
             object : RequestCallback<Boolean> {
                 override fun onSuccess(data: Boolean?) {
-                    //TODO: tirar esse comentario localDataSource.removeCache()
-                    val user = User("a", "a@a.com", "123123", name, age, mOrF, condition)
-                    localDataSource.putCache(user)
+                    localDataSource.removeCache()
                     callback.onSuccess(data)
                 }
 

@@ -11,8 +11,8 @@ interface Splash {
     }
 
     interface View : BaseView<Presenter> {
-        fun onSuccess()
-        fun onFailure()
+        fun goToMainScreen()
+        fun goToLoginScreen()
     }
 
 }

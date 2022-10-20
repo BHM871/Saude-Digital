@@ -10,7 +10,7 @@ interface InformationDataSource {
         password: String,
         name: String,
         age: Int,
-        mOrF: String,
+        sex: String,
         condition: List<Pair<String, String>>,
         callback: RequestCallback<Boolean>
     ) {
@@ -18,16 +18,17 @@ interface InformationDataSource {
     }
 
     fun updateProfile(
+        uuid: String,
         name: String,
         age: Int,
-        mOrF: String,
+        sex: String,
         condition: List<Pair<String, String>>,
         callback: RequestCallback<Boolean>
     ) {
         throw UnsupportedOperationException()
     }
 
-    fun fetchSession(): User {
+    fun fetchSession(): User? {
         throw UnsupportedOperationException()
     }
 

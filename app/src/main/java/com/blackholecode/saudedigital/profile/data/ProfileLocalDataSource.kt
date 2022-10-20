@@ -3,7 +3,7 @@ package com.blackholecode.saudedigital.profile.data
 import com.blackholecode.saudedigital.common.base.Cache
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
-import com.blackholecode.saudedigital.common.util.UserSession
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfileLocalDataSource(
     private val userSession: Cache<User>
@@ -21,16 +21,16 @@ class ProfileLocalDataSource(
         callback.onComplete()
     }
 
-    override fun fetchSession() : User {
-//        FirebaseFirestore.getInstance()
-//            .collection("/users")
-//            .document("uuid", FirebaseAuth.getInstance().uid)
-//            .get()
-        return UserSession.get() ?: User("jbckjabc", password = "jbcasbjchas")
+    override fun fetchSession() : String {
+        return FirebaseAuth.getInstance().uid ?: throw RuntimeException("User not found")
     }
 
     override fun putCache(data: User) {
         userSession.put(data)
+    }
+
+    override fun clear() {
+        userSession.remove()
     }
 
 }

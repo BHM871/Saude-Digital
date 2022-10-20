@@ -13,14 +13,14 @@ interface Information {
             password: String,
             name: String,
             age: Int,
-            mOrF: String,
+            sex: String,
             condition: List<Pair<String, String>>
         )
 
         fun updateProfile(
             name: String,
             age: Int,
-            mOrF: String,
+            sex: String,
             condition: List<Pair<String, String>>
         )
 

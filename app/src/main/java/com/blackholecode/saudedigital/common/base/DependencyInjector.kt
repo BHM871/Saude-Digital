@@ -70,7 +70,7 @@ object DependencyInjector {
     }
 
     private fun contentRepository() : ContentRepository {
-        return ContentRepository(ContentLocalDataSource(), ContentFireDataSource())
+        return ContentRepository(ContentLocalDataSource(UserSession), ContentFireDataSource())
     }
 
     fun contentPresenter(view: Content.View) : Content.Presenter {

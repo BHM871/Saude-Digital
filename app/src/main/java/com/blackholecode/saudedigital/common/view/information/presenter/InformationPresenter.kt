@@ -16,12 +16,12 @@ class InformationPresenter(
         password: String,
         name: String,
         age: Int,
-        mOrF: String,
+        sex: String,
         condition: List<Pair<String, String>>
     ) {
         view?.showProgress(true)
 
-        repository.create(email, password, name, age, mOrF, condition, object : RequestCallback<Boolean> {
+        repository.create(email, password, name, age, sex, condition, object : RequestCallback<Boolean> {
             override fun onSuccess(data: Boolean?) {
                 view?.displaySuccessCreate()
             }
@@ -39,12 +39,12 @@ class InformationPresenter(
     override fun updateProfile(
         name: String,
         age: Int,
-        mOrF: String,
+        sex: String,
         condition: List<Pair<String, String>>
     ) {
         view?.showProgress(true)
 
-        repository.updateProfile(name, age, mOrF, condition, object : RequestCallback<Boolean> {
+        repository.updateProfile(name, age, sex, condition, object : RequestCallback<Boolean> {
             override fun onSuccess(data: Boolean?) {
                 view?.displaySuccessUpdate()
             }

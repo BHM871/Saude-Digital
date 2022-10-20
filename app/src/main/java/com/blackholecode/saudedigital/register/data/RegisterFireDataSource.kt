@@ -1,17 +1,29 @@
 package com.blackholecode.saudedigital.register.data
 
-import android.os.Handler
-import android.os.Looper
 import com.blackholecode.saudedigital.common.base.RequestCallback
+import com.blackholecode.saudedigital.common.model.User
+import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterFireDataSource : RegisterDataSource {
 
     override fun create(email: String, password: String, callback: RequestCallback<Boolean>) {
-        //TODO: verificar se email e senha ja existem
-        Handler(Looper.getMainLooper()).postDelayed({
-            callback.onSuccess(null)
-            callback.onComplete()
-        }, 1000)
+        FirebaseFirestore.getInstance()
+            .collection("/users")
+            .whereEqualTo("email", email)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    callback.onSuccess(true)
+                } else {
+                    callback.onFailure("User already exists")
+                }
+            }
+            .addOnFailureListener{ exception ->
+                callback.onFailure(exception.message ?: "Error in verification")
+            }
+            .addOnCompleteListener {
+                callback.onComplete()
+            }
     }
 
 }

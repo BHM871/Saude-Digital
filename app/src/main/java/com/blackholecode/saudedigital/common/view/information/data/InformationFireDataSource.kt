@@ -1,6 +1,9 @@
 package com.blackholecode.saudedigital.common.view.information.data
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
+import com.blackholecode.saudedigital.common.model.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class InformationFireDataSource : InformationDataSource {
 
@@ -9,23 +12,86 @@ class InformationFireDataSource : InformationDataSource {
         password: String,
         name: String,
         age: Int,
-        mOrF: String,
+        sex: String,
         condition: List<Pair<String, String>>,
         callback: RequestCallback<Boolean>
     ) {
-        //TODO: finalizar o registro
-        callback.onSuccess(data = true)
-        callback.onComplete()
+
+        FirebaseAuth.getInstance()
+            .createUserWithEmailAndPassword(email, password)
+            .addOnSuccessListener { res ->
+
+                val uid = res.user?.uid
+
+                if (uid == null) {
+                    callback.onFailure("Error in serv")
+                } else {
+                    FirebaseFirestore.getInstance()
+                        .collection("/users")
+                        .document(uid)
+                        .set(
+                            hashMapOf(
+                                "uuid" to uid,
+                                "email" to email,
+                                "passowrd" to password,
+                                "name" to name,
+                                "age" to age,
+                                "sex" to sex,
+                                "condition" to condition
+                            )
+                        )
+                        .addOnSuccessListener { me ->
+                            callback.onSuccess(true)
+                        }
+                        .addOnFailureListener { exception ->
+                            callback.onFailure(exception.message ?: "Error in serv")
+                        }
+                        .addOnCompleteListener {
+                            callback.onComplete()
+                        }
+                }
+
+
+            }
+            .addOnFailureListener { exception ->
+                callback.onFailure(exception.message ?: "Error in serv")
+                callback.onComplete()
+            }
     }
 
     override fun updateProfile(
+        uuid: String,
         name: String,
         age: Int,
-        mOrF: String,
+        sex: String,
         condition: List<Pair<String, String>>,
         callback: RequestCallback<Boolean>
     ) {
-        //TODO("Not yet implemented")
-        callback.onSuccess(data = true)
-        callback.onComplete()    }
+        val meRef = FirebaseFirestore.getInstance()
+            .collection("/users")
+            .document(uuid)
+
+        meRef.get()
+            .addOnSuccessListener { resMe ->
+
+                val user = resMe.toObject(User::class.java)
+                    ?: throw RuntimeException("Error in converting user")
+                val newUser = user.copy(name = name, age = age, sex = sex, condition = condition)
+
+                meRef.set(newUser)
+                    .addOnSuccessListener { resNew ->
+                        callback.onSuccess(true)
+                    }
+                    .addOnFailureListener { exception ->
+                        callback.onFailure(exception.message ?: "Error in update")
+                    }
+                    .addOnCompleteListener {
+                        callback.onComplete()
+                    }
+            }
+            .addOnFailureListener { exception ->
+                callback.onFailure(exception.message ?: "Error in serv")
+                callback.onComplete()
+            }
+    }
 }

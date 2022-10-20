@@ -5,8 +5,6 @@ import com.blackholecode.saudedigital.common.model.User
 
 interface SplashDataSource {
 
-    fun log(callback: RequestCallback<User>) { throw UnsupportedOperationException() }
-
-    fun putCache(data: User) { throw UnsupportedOperationException() }
+    fun log(callback: RequestCallback<Boolean>) { throw UnsupportedOperationException() }
 
 }

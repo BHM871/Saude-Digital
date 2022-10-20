@@ -61,12 +61,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
         binding?.profileTxtAge?.text = getString(R.string.profile_age, data.age)
         binding?.profileTxtSex?.text = getString(R.string.profile_sex, data.sex)
 
-        var condition1 = ""
-        data.condition?.forEach { element ->
-            condition1 = "${element.first} - ${element.second}\n"
+        var listCondition = ""
+        for (item in data.condition!!){
+            listCondition = "${ item.first } - ${ item.second }\n"
         }
 
-        binding?.profileTxtCondition?.text = getString(R.string.profile_condition, condition1)
+        binding?.profileTxtCondition?.text = getString(R.string.profile_condition, listCondition)
     }
 
     override fun displayFetchFailure(message: String) {

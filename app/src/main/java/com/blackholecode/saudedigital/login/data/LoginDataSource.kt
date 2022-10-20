@@ -5,8 +5,6 @@ import com.blackholecode.saudedigital.common.model.User
 
 interface LoginDataSource {
 
-    fun login(email: String, password: String, callback: RequestCallback<User>) { throw UnsupportedOperationException() }
-
-    fun putCache(data: User) { throw UnsupportedOperationException() }
+    fun login(email: String, password: String, callback: RequestCallback<Boolean>) { throw UnsupportedOperationException() }
 
 }

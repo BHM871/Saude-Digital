@@ -7,9 +7,9 @@ class SplashRepository(
     private val remoteDataSource: SplashFireDataSource,
 ) {
 
-    fun log(callback: RequestCallback<User>) {
-        remoteDataSource.log(object : RequestCallback<User> {
-            override fun onSuccess(data: User?) {
+    fun log(callback: RequestCallback<Boolean>) {
+        remoteDataSource.log(object : RequestCallback<Boolean> {
+            override fun onSuccess(data: Boolean?) {
                 callback.onSuccess(data)
             }
 

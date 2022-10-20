@@ -1,30 +1,16 @@
 package com.blackholecode.saudedigital.splash.data
 
-import android.os.Handler
-import android.os.Looper
 import com.blackholecode.saudedigital.common.base.RequestCallback
-import com.blackholecode.saudedigital.common.model.User
-import java.util.*
+import com.google.firebase.auth.FirebaseAuth
 
 class SplashFireDataSource : SplashDataSource {
 
-    override fun log(callback: RequestCallback<User>) {
-        Handler(Looper.getMainLooper()).postDelayed({
-            callback.onSuccess(
-                User(
-                    UUID.randomUUID().toString(),
-                    "adrianalmeida417@gmail.com",
-                    "123123123",
-                    "Adrian",
-                    17,
-                    "Masculino",
-                    listOf(
-                        Pair("Diabetes", "Tipo 1")
-                    )
-                )
-            )
-            callback.onComplete()
-        }, 1000)
+    override fun log(callback: RequestCallback<Boolean>) {
+        if (FirebaseAuth.getInstance().uid != null){
+            callback.onSuccess(true)
+        } else  {
+            callback.onFailure("")
+        }
     }
 
 }

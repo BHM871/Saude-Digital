@@ -18,9 +18,9 @@ import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.base.DependencyInjector
 import com.blackholecode.saudedigital.common.extension.closeKeyboard
 import com.blackholecode.saudedigital.databinding.ActivityMainBinding
-import com.blackholecode.saudedigital.login.view.LoginActivity
 import com.blackholecode.saudedigital.main.Main
 import com.blackholecode.saudedigital.main.MainFragmentAttachListener
+import com.blackholecode.saudedigital.splash.view.SplashActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
 
@@ -86,17 +86,17 @@ class MainActivity : AppCompatActivity(), Main.View, MainFragmentAttachListener 
         binding.mainProgress.visibility = if (enabled) View.VISIBLE else View.GONE
     }
 
-    override fun displayLogoutSuccess() {
-        startActivity(Intent(this, LoginActivity::class.java))
-        finish()
-    }
-
     override fun hideKeyBoard() {
         closeKeyboard()
     }
 
     override fun logout() {
         presenter.logout()
+    }
+
+    override fun displayLogoutSuccess() {
+        startActivity(Intent(this, SplashActivity::class.java))
+        finish()
     }
 
     override fun onDestroy() {
