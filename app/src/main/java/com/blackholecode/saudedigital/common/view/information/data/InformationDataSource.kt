@@ -2,6 +2,7 @@ package com.blackholecode.saudedigital.common.view.information.data
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
+import com.blackholecode.saudedigital.common.util.Condition
 
 interface InformationDataSource {
 
@@ -11,7 +12,7 @@ interface InformationDataSource {
         name: String,
         age: Int,
         sex: Int,
-        condition: List<Pair<Int?, Int?>?>,
+        condition: List<Condition<Int?, Int?>?>,
         callback: RequestCallback<Boolean>
     ) {
         throw UnsupportedOperationException()
@@ -22,7 +23,7 @@ interface InformationDataSource {
         name: String,
         age: Int,
         sex: Int,
-        condition: List<Pair<Int?, Int?>?>,
+        condition: List<Condition<Int?, Int?>?>,
         callback: RequestCallback<Boolean>
     ) {
         throw UnsupportedOperationException()

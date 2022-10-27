@@ -25,7 +25,7 @@ class ProfileFireDataSource : ProfileDataSource {
                 if (user != null){
                     callback.onSuccess(user)
                 } else {
-                    callback.onFailure("Error in serv")
+                    callback.onFailure("User not found")
                 }
 
             }

@@ -2,6 +2,7 @@ package com.blackholecode.saudedigital.common.view.information.presenter
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
+import com.blackholecode.saudedigital.common.util.Condition
 import com.blackholecode.saudedigital.common.view.information.Information
 import com.blackholecode.saudedigital.common.view.information.data.InformationRepository
 
@@ -16,7 +17,7 @@ class InformationPresenter(
         name: String,
         age: Int,
         sex: Int,
-        condition: List<Pair<Int?, Int?>?>,
+        condition: List<Condition<Int?, Int?>?>,
     ) {
         view?.showProgress(true)
 
@@ -39,7 +40,7 @@ class InformationPresenter(
         name: String,
         age: Int,
         sex: Int,
-        condition: List<Pair<Int?, Int?>?>,
+        condition: List<Condition<Int?, Int?>?>,
     ) {
         view?.showProgress(true)
 

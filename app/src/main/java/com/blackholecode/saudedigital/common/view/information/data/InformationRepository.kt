@@ -2,6 +2,7 @@ package com.blackholecode.saudedigital.common.view.information.data
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
+import com.blackholecode.saudedigital.common.util.Condition
 
 class InformationRepository(
     private val dataSourceFactory: InformationDataSourceFactory
@@ -13,7 +14,7 @@ class InformationRepository(
         name: String,
         age: Int,
         sex: Int,
-        condition: List<Pair<Int?, Int?>?>,
+        condition: List<Condition<Int?, Int?>?>,
         callback: RequestCallback<Boolean>
     ) {
         dataSourceFactory.createRemote()
@@ -24,7 +25,7 @@ class InformationRepository(
         name: String,
         age: Int,
         sex: Int,
-        condition: List<Pair<Int?, Int?>?>,
+        condition: List<Condition<Int?, Int?>?>,
         callback: RequestCallback<Boolean>
     ) {
         val localDataSource = dataSourceFactory.createLocal()

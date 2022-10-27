@@ -2,6 +2,7 @@ package com.blackholecode.saudedigital.common.view.information.data
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
+import com.blackholecode.saudedigital.common.util.Condition
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -13,7 +14,7 @@ class InformationFireDataSource : InformationDataSource {
         name: String,
         age: Int,
         sex: Int,
-        condition: List<Pair<Int?, Int?>?>,
+        condition: List<Condition<Int?, Int?>?>,
         callback: RequestCallback<Boolean>
     ) {
 
@@ -66,7 +67,7 @@ class InformationFireDataSource : InformationDataSource {
         name: String,
         age: Int,
         sex: Int,
-        condition: List<Pair<Int?, Int?>?>,
+        condition: List<Condition<Int?, Int?>?>,
         callback: RequestCallback<Boolean>
     ) {
         val meRef = FirebaseFirestore.getInstance()

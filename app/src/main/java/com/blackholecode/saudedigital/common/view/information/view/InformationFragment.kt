@@ -18,6 +18,7 @@ import com.blackholecode.saudedigital.common.base.BaseFragment
 import com.blackholecode.saudedigital.common.base.DependencyInjector
 import com.blackholecode.saudedigital.common.extension.toastGeneric
 import com.blackholecode.saudedigital.common.model.User
+import com.blackholecode.saudedigital.common.util.Condition
 import com.blackholecode.saudedigital.common.view.ImcActivity
 import com.blackholecode.saudedigital.common.view.information.Information
 import com.blackholecode.saudedigital.databinding.FragmentInformationBinding
@@ -68,8 +69,6 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
 
     @SuppressLint("ResourceType", "NewApi")
     override fun setupView() {
-        presenter.fetchUser()
-
         itemsDisease = resources.getStringArray(R.array.disease)
         itemsTypeDisease = resources.getStringArray(R.array.type_disease)
 
@@ -78,6 +77,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
 
         if (!isRegister) {
             binding?.informationContainerLogin?.visibility = View.GONE
+            presenter.fetchUser()
         }
 
         binding?.let { binding ->
@@ -99,7 +99,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
                         return@setOnClickListener
                     }
 
-                    val condition: Pair<Int?, Int?> = if (informationBtnGoImc.visibility != View.VISIBLE) {
+                    val condition: Condition<Int?, Int?> = if (informationBtnGoImc.visibility != View.VISIBLE) {
                         var first = 0
                         var second = 0
                         itemsDisease.forEachIndexed { index, text ->
@@ -113,7 +113,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
                             }
                         }
 
-                        Pair(first, second)
+                        Condition(first, second)
                     } else {
                         var first = 0
                         itemsDisease.forEachIndexed { index, text ->
@@ -123,7 +123,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
                         }
                          val second = informationBtnGoImc.text.toString().toInt()
 
-                        Pair(first, second)
+                        Condition(first, second)
                     }
 
                     if (isRegister) {

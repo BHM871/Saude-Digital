@@ -25,22 +25,22 @@
         <TextView
             android:id="@+id/profile_txt_name"
             style="@style/Theme.SaudeDigital.TextViewBase"
-            android:text="@string/profile_name" />
+            tools:text="@string/profile_name" />
 
         <TextView
             android:id="@+id/profile_txt_age"
             style="@style/Theme.SaudeDigital.TextViewBase"
-            android:text="@string/profile_age" />
+            tools:text="@string/profile_age" />
 
         <TextView
             android:id="@+id/profile_txt_sex"
             style="@style/Theme.SaudeDigital.TextViewBase"
-            android:text="@string/profile_sex" />
+            tools:text="@string/profile_sex" />
 
         <TextView
             android:id="@+id/profile_txt_condition"
             style="@style/Theme.SaudeDigital.TextViewBase"
-            android:text="@string/profile_condition" />
+            tools:text="@string/profile_condition" />
 
         <Button
             android:id="@+id/profile_btn_edit"
