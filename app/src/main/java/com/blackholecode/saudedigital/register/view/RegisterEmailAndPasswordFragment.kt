@@ -13,7 +13,7 @@ import com.blackholecode.saudedigital.databinding.FragmentRegisterEmailAndPasswo
 import com.blackholecode.saudedigital.register.RegisterFragmentAttachListener
 import com.blackholecode.saudedigital.register.RegisterEmailAndPassword
 
-class RegisterFragmentEmailAndPassword :
+class RegisterEmailAndPasswordFragment :
     BaseFragment<FragmentRegisterEmailAndPasswordBinding, RegisterEmailAndPassword.Presenter>(
         R.layout.fragment_register_email_and_password,
         FragmentRegisterEmailAndPasswordBinding::bind

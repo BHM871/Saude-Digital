@@ -6,9 +6,9 @@ import com.blackholecode.saudedigital.common.model.User
 
 interface ContentDataSource {
 
-    fun fetchContent(typeUser: List<Pair<String, String>>, typeScreen: String, callback: RequestCallback<List<MContent>>) { throw UnsupportedOperationException() }
+    fun fetchContent(uidUser: String, typeScreen: String, callback: RequestCallback<List<MContent>>) { throw UnsupportedOperationException() }
 
-    fun fetchSession() : User { throw UnsupportedOperationException() }
+    fun fetchSession() : String { throw UnsupportedOperationException() }
 
     fun clear() { throw UnsupportedOperationException() }
 

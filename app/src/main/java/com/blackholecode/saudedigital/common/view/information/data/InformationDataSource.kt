@@ -10,8 +10,8 @@ interface InformationDataSource {
         password: String,
         name: String,
         age: Int,
-        sex: String,
-        condition: List<Pair<String, String>>,
+        sex: Int,
+        condition: List<Pair<Int?, Int?>?>,
         callback: RequestCallback<Boolean>
     ) {
         throw UnsupportedOperationException()
@@ -21,16 +21,18 @@ interface InformationDataSource {
         uuid: String,
         name: String,
         age: Int,
-        sex: String,
-        condition: List<Pair<String, String>>,
+        sex: Int,
+        condition: List<Pair<Int?, Int?>?>,
         callback: RequestCallback<Boolean>
     ) {
         throw UnsupportedOperationException()
     }
 
-    fun fetchSession(): User? {
+    fun fetchSession(): String {
         throw UnsupportedOperationException()
     }
+
+    fun fetchUser(uuid: String) : User?
 
     fun removeCache() {
         throw UnsupportedOperationException()

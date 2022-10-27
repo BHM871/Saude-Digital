@@ -12,8 +12,8 @@ class InformationFireDataSource : InformationDataSource {
         password: String,
         name: String,
         age: Int,
-        sex: String,
-        condition: List<Pair<String, String>>,
+        sex: Int,
+        condition: List<Pair<Int?, Int?>?>,
         callback: RequestCallback<Boolean>
     ) {
 
@@ -30,10 +30,12 @@ class InformationFireDataSource : InformationDataSource {
                         .collection("/users")
                         .document(uid)
                         .set(
+                            // The variables "sex and "condition" are saved only the
+                            // identification values not the actual values, in ProfileFragment
+                            // these values are converted to the display values
                             hashMapOf(
                                 "uuid" to uid,
                                 "email" to email,
-                                "passowrd" to password,
                                 "name" to name,
                                 "age" to age,
                                 "sex" to sex,
@@ -63,8 +65,8 @@ class InformationFireDataSource : InformationDataSource {
         uuid: String,
         name: String,
         age: Int,
-        sex: String,
-        condition: List<Pair<String, String>>,
+        sex: Int,
+        condition: List<Pair<Int?, Int?>?>,
         callback: RequestCallback<Boolean>
     ) {
         val meRef = FirebaseFirestore.getInstance()
@@ -76,7 +78,12 @@ class InformationFireDataSource : InformationDataSource {
 
                 val user = resMe.toObject(User::class.java)
                     ?: throw RuntimeException("Error in converting user")
-                val newUser = user.copy(name = name, age = age, sex = sex, condition = condition)
+                val newUser = user.copy(
+                    name = name,
+                    age = age,
+                    sex = sex,
+                    condition = condition
+                )
 
                 meRef.set(newUser)
                     .addOnSuccessListener { resNew ->
@@ -93,5 +100,19 @@ class InformationFireDataSource : InformationDataSource {
                 callback.onFailure(exception.message ?: "Error in serv")
                 callback.onComplete()
             }
+    }
+
+    override fun fetchUser(uuid: String): User? {
+        var user: User? = null
+
+        FirebaseFirestore.getInstance()
+            .collection("/users")
+            .document(uuid)
+            .get()
+            .addOnSuccessListener { res ->
+                user = res.toObject(User::class.java)
+            }
+
+        return user
     }
 }

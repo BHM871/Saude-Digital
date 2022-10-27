@@ -11,7 +11,11 @@ class InformationLocalDataSource(
     private val userSession: Cache<User>
 ) : InformationDataSource {
 
-    override fun fetchSession() : User? {
+    override fun fetchSession() : String {
+        return FirebaseAuth.getInstance().uid ?: throw RuntimeException("User not found")
+    }
+
+    override fun fetchUser(uuid: String) : User? {
         return userSession.get()
     }
 

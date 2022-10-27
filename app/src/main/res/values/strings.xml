@@ -15,13 +15,13 @@
     <string name="menu_feedback">FeedBack</string>
     <string name="menu_about">Sobre</string>
 
-    <string name="about_version"><font color="#83E8BA">Versão:</font> %1$s</string>
-    <string name="about_developer"><font color="#83E8BA">Desenvolvedor:</font> %1$s</string>
-    <string name="about_objective"><font color="#83E8BA">Objetivo:</font> %1$s</string>
-    <string name="about_nutri"><font color="#83E8BA">Nuricionista:</font> %1$s</string>
-    <string name="about_fisio"><font color="#83E8BA">Fisioterapelta:</font> %1$s</string>
-    <string name="linkedin"><font color="#83E8BA">LinkedIn:</font> https://linkedin.com/in/adrian-almeida-090771204/</string>
-    <string name="github"><font color="#83E8BA">GitHub:</font> https://github.com/BHM871</string>
+    <string name="about_version">Versão:%1$s</string>
+    <string name="about_developer">Desenvolvedor: %1$s</string>
+    <string name="about_objective">Objetivo: %1$s</string>
+    <string name="about_nutri">Nuricionista: %1$s</string>
+    <string name="about_fisio">Fisioterapelta: %1$s</string>
+    <string name="linkedin">LinkedIn: https://linkedin.com/in/adrian-almeida-090771204/</string>
+    <string name="github">GitHub: https://github.com/BHM871</string>
 
     <string name="profile_name"><b>Nome:</b> %1$s</string>
     <string name="profile_age"><b>Idade:</b> %1$d</string>
@@ -73,8 +73,16 @@
 
     <string name="fields_messages">Corriga os campos, algo está incorreto</string>
     <string name="edit_profile">Editar perfil</string>
+    <string name="finish_edit">Finalizar edição</string>
     <string name="update_success">Atualizado com sucesso</string>
     <string name="logout">Sair da conta</string>
+
+    <string name="welcome_saude_digital"><b>BEM VINDOAO SAÚDE DIGITAL %1$s.</b>\nAqui você encontrará contúdo especialmente reunido e preparado para o seu bem-estar.\nVocê pode escilher uma foto para facilitar identificação.</string>
+    <string name="add_photo">Adcionar foto</string>
+    <string name="jump">Pular</string>
+    <string name="camOrGall">Escolha uma das formas</string>
+    <string name="gallery">Galeria</string>
+    <string name="camera">Câmera</string>
 
     <string name="list_empty">Nenhum item encontrado</string>
     <string name="search_videos">Buscar vídeos</string>

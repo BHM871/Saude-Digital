@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?colorPrimaryContainer"
     tools:showIn="@layout/activity_login">
 
     <ScrollView
@@ -37,8 +38,8 @@
                     style="@style/Theme.SaudeDigital.EditTextInputForm"
                     android:autofillHints="@null"
                     android:hint="@string/email"
-                    android:maxLength="50"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:maxLength="50" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,8 +52,8 @@
                     style="@style/Theme.SaudeDigital.EditTextInputForm"
                     android:autofillHints="@null"
                     android:hint="@string/password"
-                    android:maxLength="50"
-                    android:inputType="textWebPassword" />
+                    android:inputType="textWebPassword"
+                    android:maxLength="50" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="?colorOnPrimary"
+                    android:background="?colorPrimaryContainer"
                     android:padding="2dp"
                     android:text="@string/OU"
                     android:textAllCaps="true"
@@ -103,7 +104,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorOnPrimary"
+        android:background="?colorPrimaryContainer"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <View

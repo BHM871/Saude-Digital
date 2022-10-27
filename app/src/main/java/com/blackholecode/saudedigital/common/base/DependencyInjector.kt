@@ -2,6 +2,7 @@ package com.blackholecode.saudedigital.common.base
 
 import com.blackholecode.saudedigital.common.util.UserSession
 import com.blackholecode.saudedigital.common.view.information.Information
+import com.blackholecode.saudedigital.common.view.information.data.InformationDataSourceFactory
 import com.blackholecode.saudedigital.common.view.information.data.InformationFireDataSource
 import com.blackholecode.saudedigital.common.view.information.data.InformationLocalDataSource
 import com.blackholecode.saudedigital.common.view.information.data.InformationRepository
@@ -25,9 +26,11 @@ import com.blackholecode.saudedigital.profile.data.ProfileDataSourceFactory
 import com.blackholecode.saudedigital.profile.data.ProfileRepository
 import com.blackholecode.saudedigital.profile.presenter.ProfilePresenter
 import com.blackholecode.saudedigital.register.RegisterEmailAndPassword
+import com.blackholecode.saudedigital.register.RegisterPhoto
 import com.blackholecode.saudedigital.register.data.RegisterFireDataSource
 import com.blackholecode.saudedigital.register.data.RegisterRepository
-import com.blackholecode.saudedigital.register.presenter.FragmentRegisterEmailAndPasswordPresenter
+import com.blackholecode.saudedigital.register.presenter.RegisterEmailAndPasswordPresenter
+import com.blackholecode.saudedigital.register.presenter.RegisterPhotoPresenter
 import com.blackholecode.saudedigital.search.Search
 import com.blackholecode.saudedigital.search.presenter.SearchPresenter
 import com.blackholecode.saudedigital.splash.Splash
@@ -58,11 +61,15 @@ object DependencyInjector {
     }
 
     fun registerEmailAndPasswordPresenter(view: RegisterEmailAndPassword.View) : RegisterEmailAndPassword.Presenter {
-        return FragmentRegisterEmailAndPasswordPresenter(view, registerRepository())
+        return RegisterEmailAndPasswordPresenter(view, registerRepository())
+    }
+
+    fun registerPhotoPresenter(view: RegisterPhoto.View): RegisterPhoto.Presenter {
+        return RegisterPhotoPresenter(view, registerRepository())
     }
 
     private fun informationRepository(): InformationRepository {
-        return InformationRepository(InformationLocalDataSource(UserSession), InformationFireDataSource())
+        return InformationRepository(InformationDataSourceFactory(UserSession))
     }
 
     fun informationPresenter(view: Information.View): Information.Presenter {

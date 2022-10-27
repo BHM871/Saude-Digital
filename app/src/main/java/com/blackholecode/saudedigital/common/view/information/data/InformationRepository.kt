@@ -4,8 +4,7 @@ import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
 
 class InformationRepository(
-    private val localDataSource: InformationLocalDataSource,
-    private val remoteDataSource: InformationFireDataSource
+    private val dataSourceFactory: InformationDataSourceFactory
 ) {
 
     fun create(
@@ -13,16 +12,24 @@ class InformationRepository(
         password: String,
         name: String,
         age: Int,
-        mOrF: String,
-        condition: List<Pair<String, String>>,
+        sex: Int,
+        condition: List<Pair<Int?, Int?>?>,
         callback: RequestCallback<Boolean>
     ) {
-        remoteDataSource.create(email, password, name, age, mOrF, condition, callback)
+        dataSourceFactory.createRemote()
+            .create(email, password, name, age, sex, condition, callback)
     }
 
-    fun updateProfile(name: String, age: Int, sex: String, condition: List<Pair<String, String>>, callback: RequestCallback<Boolean>) {
-        val uuid = localDataSource.fetchSession()?.uuid ?: throw RuntimeException("User not found")
-        remoteDataSource.updateProfile(
+    fun updateProfile(
+        name: String,
+        age: Int,
+        sex: Int,
+        condition: List<Pair<Int?, Int?>?>,
+        callback: RequestCallback<Boolean>
+    ) {
+        val localDataSource = dataSourceFactory.createLocal()
+        val uuid = localDataSource.fetchSession()
+        dataSourceFactory.createRemote().updateProfile(
             uuid,
             name,
             age,
@@ -45,13 +52,18 @@ class InformationRepository(
     }
 
     fun fetchUser(callback: RequestCallback<User>) {
-        val user = localDataSource.fetchSession()
+        val localDataSource = dataSourceFactory.createLocal()
+        val uidUser = localDataSource.fetchSession()
+        val data = dataSourceFactory.createFromUser()
+
+        val user = data.fetchUser(uidUser)
 
         if (user != null) {
             callback.onSuccess(user)
         } else {
             callback.onFailure("User not found")
         }
+
         callback.onComplete()
 
     }

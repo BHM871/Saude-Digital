@@ -2,6 +2,8 @@ package com.blackholecode.saudedigital.login.data
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 
 class LoginFireDataSource : LoginDataSource {
 

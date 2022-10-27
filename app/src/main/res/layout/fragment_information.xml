@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?colorPrimaryContainer">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,10 +21,10 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/Theme.SaudeDigital.TextViewTitleViews"
+                style="@style/Theme.SaudeDigital.TextViewTitleBase.Views"
                 android:layout_width="match_parent"
                 android:text="@string/disease_description"
-                android:textAllCaps="true"/>
+                android:textAllCaps="true" />
 
             <EditText
                 android:id="@+id/information_edit_name"
@@ -37,8 +38,8 @@
                 style="@style/Theme.SaudeDigital.EditTextBase"
                 android:autofillHints="@null"
                 android:hint="@string/age"
-                android:maxLength="3"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="3" />
 
             <TextView
                 style="@style/Theme.SaudeDigital.TextViewBase"
@@ -74,9 +75,9 @@
                 style="@style/Theme.SaudeDigital.AutoCompleteInput">
 
                 <AutoCompleteTextView
-                    style="@style/Theme.SaudeDigital.AutoComplete"
                     android:id="@+id/information_auto_complete_disease"
-                    android:inputType="none"/>
+                    style="@style/Theme.SaudeDigital.AutoComplete"
+                    android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,11 +88,11 @@
                 tools:visibility="visible">
 
                 <AutoCompleteTextView
-                    style="@style/Theme.SaudeDigital.AutoComplete"
                     android:id="@+id/information_auto_complete_type_disease"
+                    style="@style/Theme.SaudeDigital.AutoComplete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"/>
+                    android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,10 +105,10 @@
                 tools:visibility="visible" />
 
             <Button
-                android:id="@+id/information_btn_finish"
+                android:id="@+id/information_btn_action"
                 style="@style/Theme.SaudeDigital.Button"
-                android:text="@string/register_finish"
-                android:enabled="true"/>
+                android:enabled="true"
+                android:text="@string/register_finish" />
 
         </LinearLayout>
 
@@ -117,7 +118,7 @@
         android:id="@+id/information_container_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorOnPrimary"
+        android:background="?colorPrimaryContainer"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <View

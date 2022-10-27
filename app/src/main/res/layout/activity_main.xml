@@ -2,15 +2,16 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/main_drawer_layout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="start"
-    tools:context=".main.view.MainActivity">
+    android:background="?colorPrimaryContainer"
+    tools:context=".main.view.MainActivity"
+    tools:openDrawer="start">
 
     <include
         android:id="@+id/main_app_bar_container"
-        layout="@layout/main_app_bar_container"/>
+        layout="@layout/main_app_bar_container" />
 
     <ProgressBar
         android:id="@+id/main_progress"
@@ -22,7 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/menu_nav_view"
-        app:headerLayout="@layout/main_header_nav_view"/>
+        android:background="?colorPrimaryContainer"
+        app:headerLayout="@layout/main_header_nav_view"
+        app:menu="@menu/menu_nav_view" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

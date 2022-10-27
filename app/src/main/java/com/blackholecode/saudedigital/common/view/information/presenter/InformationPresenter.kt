@@ -2,7 +2,6 @@ package com.blackholecode.saudedigital.common.view.information.presenter
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
-import com.blackholecode.saudedigital.common.util.UserSession
 import com.blackholecode.saudedigital.common.view.information.Information
 import com.blackholecode.saudedigital.common.view.information.data.InformationRepository
 
@@ -16,8 +15,8 @@ class InformationPresenter(
         password: String,
         name: String,
         age: Int,
-        sex: String,
-        condition: List<Pair<String, String>>
+        sex: Int,
+        condition: List<Pair<Int?, Int?>?>,
     ) {
         view?.showProgress(true)
 
@@ -39,8 +38,8 @@ class InformationPresenter(
     override fun updateProfile(
         name: String,
         age: Int,
-        sex: String,
-        condition: List<Pair<String, String>>
+        sex: Int,
+        condition: List<Pair<Int?, Int?>?>,
     ) {
         view?.showProgress(true)
 

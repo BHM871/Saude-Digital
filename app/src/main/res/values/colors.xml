@@ -6,6 +6,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="black_container">#202020</color>
     <color name="white">#FFFFFFFF</color>
 
     <color name="light_green">#83E8BA</color>
@@ -17,7 +18,7 @@
     <color name="dark_blue_marine">#062637</color>
 
     <color name="text_white">#E6DBE4</color>
-    <color name="text_gray">#A5B6AE</color>
+    <color name="text_gray">#8E9C95</color>
     <color name="border_gray">#7E8A84</color>
 
 </resources>

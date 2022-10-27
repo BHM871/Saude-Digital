@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".common.view.information.util.ImcActivity">
+    android:background="?colorPrimaryContainer"
+    tools:context=".common.view.ImcActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/Theme.SaudeDigital.TextViewTitleViews"
+                style="@style/Theme.SaudeDigital.TextViewTitleBase.Views"
                 android:text="@string/bmi" />
 
             <TextView
@@ -46,8 +47,8 @@
             <Button
                 android:id="@+id/imc_btn_calcu"
                 style="@style/Theme.SaudeDigital.Button"
-                android:text="@string/find_out_bmi"
-                android:enabled="true" />
+                android:enabled="true"
+                android:text="@string/find_out_bmi" />
 
         </LinearLayout>
 

@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -24,6 +23,7 @@ import com.blackholecode.saudedigital.common.view.information.Information
 import com.blackholecode.saudedigital.databinding.FragmentInformationBinding
 import com.blackholecode.saudedigital.register.RegisterFragmentAttachListener
 import com.blackholecode.saudedigital.register.view.RegisterActivity
+import com.blackholecode.saudedigital.register.view.RegisterPhotoFragment
 import com.google.android.material.textfield.TextInputLayout
 
 class InformationFragment : BaseFragment<FragmentInformationBinding, Information.Presenter>(
@@ -47,6 +47,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
 
     private var email: String? = null
     private var password: String? = null
+    private var imc: String? = null
 
     private lateinit var itemsDisease: Array<String>
     private lateinit var itemsTypeDisease: Array<String>
@@ -59,6 +60,8 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
         if (activity?.javaClass?.simpleName == RegisterActivity().javaClass.simpleName) {
             isRegister = true
             fragmentAttachRegister = fragmentAttach as RegisterFragmentAttachListener
+        } else {
+            binding?.informationBtnAction?.text = getString(R.string.finish_edit)
         }
         super.onViewCreated(view, savedInstanceState)
     }
@@ -88,7 +91,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
                         informationBtnGoImc
                     )
 
-                informationBtnFinish.setOnClickListener {
+                informationBtnAction.setOnClickListener {
                     fragmentAttach?.hideKeyBoard()
 
                     if (!isConfirm()) {
@@ -96,37 +99,52 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
                         return@setOnClickListener
                     }
 
-                    val condition = if (informationBtnGoImc.visibility != View.VISIBLE) {
-                        Pair(
-                            informationAutoCompleteDisease.text.toString(),
-                            informationAutoCompleteTypeDisease.text.toString()
-                        )
+                    val condition: Pair<Int?, Int?> = if (informationBtnGoImc.visibility != View.VISIBLE) {
+                        var first = 0
+                        var second = 0
+                        itemsDisease.forEachIndexed { index, text ->
+                            if (text == informationAutoCompleteDisease.text.toString()) {
+                                first = index
+                            }
+                        }
+                        itemsTypeDisease.forEachIndexed { index, text ->
+                            if (text == informationAutoCompleteTypeDisease.text.toString()) {
+                                second = index
+                            }
+                        }
+
+                        Pair(first, second)
                     } else {
-                        Pair(
-                            informationAutoCompleteDisease.text.toString(),
-                            informationBtnGoImc.text.toString()
-                        )
+                        var first = 0
+                        itemsDisease.forEachIndexed { index, text ->
+                            if (text == informationAutoCompleteDisease.text.toString()) {
+                                first = index
+                            }
+                        }
+                         val second = informationBtnGoImc.text.toString().toInt()
+
+                        Pair(first, second)
                     }
 
                     if (isRegister) {
 
                         if (email != null && password != null) {
                             presenter.create(
-                                email!!,
-                                password!!,
-                                informationEditName.text.toString(),
-                                informationEditAge.text.toString().toInt(),
-                                masOrFem(informationRadioMasculine.isChecked),
-                                listOf(condition)
+                                email = email!!,
+                                password = password!!,
+                                name = informationEditName.text.toString(),
+                                age = informationEditAge.text.toString().toInt(),
+                                sex = masOrFem(informationRadioMasculine.isChecked),
+                                condition = listOf(condition)
                             )
                         }
 
                     } else {
                         presenter.updateProfile(
-                            informationEditName.text.toString(),
-                            informationEditAge.text.toString().toInt(),
-                            masOrFem(informationRadioMasculine.isChecked),
-                            listOf(condition)
+                            name = informationEditName.text.toString(),
+                            age = informationEditAge.text.toString().toInt(),
+                            sex = masOrFem(informationRadioMasculine.isChecked),
+                            condition = listOf(condition)
                         )
                     }
                 }
@@ -138,6 +156,20 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
 //
 //                    informationContainerForm.addView(textInputLayout, (informationContainerForm.childCount - 2))
 //                }
+
+                val a = TextInputLayout(
+                    requireContext(),
+                    null,
+                    R.style.Theme_SaudeDigital_AutoCompleteInput
+                )
+                val b = AutoCompleteTextView(
+                    requireContext(),
+                    null,
+                    R.style.Theme_SaudeDigital_AutoComplete,
+                    R.style.Theme_SaudeDigital_AutoComplete
+                )
+
+                a.addView(b)
 
                 registerBtnLogin.setOnClickListener {
                     fragmentAttachRegister?.goToLoginScreen()
@@ -170,7 +202,16 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
 
     override fun displaySuccessCreate() {
         toastGeneric(requireContext(), R.string.create_success)
-        fragmentAttachRegister?.goToMainScreen()
+
+        val fragment = RegisterPhotoFragment().apply {
+            arguments = Bundle().apply {
+                putString(
+                    RegisterPhotoFragment.PHOTO,
+                    binding?.informationEditName?.text.toString()
+                )
+            }
+        }
+        fragmentAttachRegister?.replaceFragment(fragment)
     }
 
     override fun displayFailureCreate(message: String) {
@@ -233,8 +274,8 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
         )
     }
 
-    private fun masOrFem(isMasculine: Boolean): String {
-        return if (isMasculine) getString(R.string.masculine) else getString(R.string.female)
+    private fun masOrFem(isMasculine: Boolean): Int {
+        return if (isMasculine) R.string.masculine else R.string.female
     }
 
     private fun isConfirm(): Boolean {

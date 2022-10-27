@@ -9,11 +9,9 @@ class ContentRepository(
 ) {
 
     fun fetchContent(typeScreen: String, callback: RequestCallback<List<MContent>>) {
-        val typeUser = localDataSource.fetchSession().condition
+        val uidUser = localDataSource.fetchSession()
 
-        if (typeUser != null) {
-            remoteDataSource.fetchContent(typeUser, typeScreen, callback)
-        }
+        remoteDataSource.fetchContent(uidUser, typeScreen, callback)
     }
 
 }

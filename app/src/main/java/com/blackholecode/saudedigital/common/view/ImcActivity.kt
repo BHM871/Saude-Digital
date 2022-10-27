@@ -37,7 +37,6 @@ class ImcActivity : AppCompatActivity() {
 
             InformationFragment.imc = getString(response(imc))
             setResult(RESULT_OK)
-            finish()
         }
     }
 
@@ -74,4 +73,5 @@ class ImcActivity : AppCompatActivity() {
                 && !binding.imcEditWeight.text.toString().startsWith("0")
                 && !binding.imcEditHeight.text.toString().startsWith("0"))
     }
+
 }

@@ -6,7 +6,7 @@ import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.register.RegisterEmailAndPassword
 import com.blackholecode.saudedigital.register.data.RegisterRepository
 
-class FragmentRegisterEmailAndPasswordPresenter(
+class RegisterEmailAndPasswordPresenter(
     private var view: RegisterEmailAndPassword.View?,
     private val repository: RegisterRepository
 ) : RegisterEmailAndPassword.Presenter {

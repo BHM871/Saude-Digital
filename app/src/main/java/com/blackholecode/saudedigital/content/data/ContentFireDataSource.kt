@@ -6,7 +6,7 @@ import com.blackholecode.saudedigital.common.model.MContent
 class ContentFireDataSource : ContentDataSource {
 
     override fun fetchContent(
-        typeUser: List<Pair<String, String>>,
+        uidUser: String,
         typeScreen: String,
         callback: RequestCallback<List<MContent>>
     ) {

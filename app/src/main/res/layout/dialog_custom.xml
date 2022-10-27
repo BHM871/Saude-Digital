@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?colorPrimaryContainer"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_txt_title"
+        style="@style/Theme.SaudeDigital.TextViewBase"
+        android:layout_marginTop="@dimen/padding_items"
+        android:textStyle="bold"
+        tools:text="lkdsfagsn façlg gadsjfgs" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_gray" />
+
+
+</LinearLayout>

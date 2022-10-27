@@ -9,12 +9,12 @@ import com.blackholecode.saudedigital.common.extension.toastGeneric
 import com.blackholecode.saudedigital.common.model.MContent
 import com.blackholecode.saudedigital.content.Content
 import com.blackholecode.saudedigital.content.base.ContentBaseFragment
-import com.blackholecode.saudedigital.databinding.FragmentContenContentBinding
+import com.blackholecode.saudedigital.databinding.FragmentContentContentBinding
 import java.util.*
 
-class HypertensionFragment : ContentBaseFragment<FragmentContenContentBinding, Content.Presenter>(
-    R.layout.fragment_conten_content,
-    FragmentContenContentBinding::bind
+class HypertensionFragment : ContentBaseFragment<FragmentContentContentBinding, Content.Presenter>(
+    R.layout.fragment_content_content,
+    FragmentContentContentBinding::bind
 ), Content.View {
 
     override lateinit var presenter: Content.Presenter

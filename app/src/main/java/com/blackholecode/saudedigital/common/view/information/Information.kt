@@ -13,15 +13,15 @@ interface Information {
             password: String,
             name: String,
             age: Int,
-            sex: String,
-            condition: List<Pair<String, String>>
+            sex: Int,
+            condition: List<Pair<Int?, Int?>?>,
         )
 
         fun updateProfile(
             name: String,
             age: Int,
-            sex: String,
-            condition: List<Pair<String, String>>
+            sex: Int,
+            condition: List<Pair<Int?, Int?>?>,
         )
 
         fun fetchUser()

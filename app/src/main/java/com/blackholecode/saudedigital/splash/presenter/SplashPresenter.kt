@@ -1,7 +1,6 @@
 package com.blackholecode.saudedigital.splash.presenter
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
-import com.blackholecode.saudedigital.common.model.User
 import com.blackholecode.saudedigital.splash.Splash
 import com.blackholecode.saudedigital.splash.data.SplashRepository
 
@@ -13,11 +12,11 @@ class SplashPresenter(
     override fun log() {
         repository.log(object : RequestCallback<Boolean> {
             override fun onSuccess(data: Boolean?) {
-                view?.onSuccess()
+                view?.goToMainScreen()
             }
 
             override fun onFailure(message: String?) {
-                view?.onFailure()
+                view?.goToLoginScreen()
             }
 
             override fun onComplete() {
