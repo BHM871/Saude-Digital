@@ -14,8 +14,4 @@ class ContentLocalDataSource(
         return FirebaseAuth.getInstance().uid ?: throw RuntimeException("User not found")
     }
 
-    override fun clear() {
-        userSession.remove()
-    }
-
 }

@@ -4,9 +4,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.blackholecode.saudedigital.R
+import com.blackholecode.saudedigital.content.base.ContentBaseFragment
 import com.blackholecode.saudedigital.content.view.*
 
 class ContentViewPageAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+
+    private var idPage = 0
 
     val tabs = arrayOf(
         R.drawable.ic_home,
@@ -19,6 +22,7 @@ class ContentViewPageAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
     override fun getItemCount(): Int = tabs.size
 
     override fun createFragment(position: Int): Fragment {
+        idPage = position
         return when(tabs[position]){
             R.drawable.ic_home -> HomeFragment()
             R.drawable.ic_fat -> ObesityFragment()

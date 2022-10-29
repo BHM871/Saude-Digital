@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.recyclerview.widget.GridLayoutManager
 import com.blackholecode.saudedigital.R
-import com.blackholecode.saudedigital.common.model.MContent
+import com.blackholecode.saudedigital.common.model.ModelContent
 import com.blackholecode.saudedigital.common.model.Video
 import com.blackholecode.saudedigital.common.util.SimilarItemAdapter
 import com.blackholecode.saudedigital.databinding.ActivityVideoBinding
@@ -41,10 +41,10 @@ class VideoActivity : AppCompatActivity() {
         binding.videoTxtTitle.text = video?.title
         binding.videoTxtDesc.text = video?.description
 
-        val list = mutableListOf<MContent>()
+        val list = mutableListOf<ModelContent>()
         for (i in 0 until 40) {
             list.add(
-                MContent(
+                ModelContent(
                     id = UUID.randomUUID().toString(),
                     thumbnail = R.drawable.ic_insulin,
                     title = "Diabetes$i",
@@ -61,7 +61,7 @@ class VideoActivity : AppCompatActivity() {
         binding.videoRecyclerSimilar.adapter = adapterRv
     }
 
-    private val itemClick: (MContent) -> Unit = { it ->
+    private val itemClick: (ModelContent) -> Unit = { it ->
 
     }
 

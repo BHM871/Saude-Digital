@@ -7,8 +7,7 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.GridLayoutManager
 import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.model.Food
-import com.blackholecode.saudedigital.common.model.MContent
-import com.blackholecode.saudedigital.common.model.Video
+import com.blackholecode.saudedigital.common.model.ModelContent
 import com.blackholecode.saudedigital.common.util.SimilarItemAdapter
 import com.blackholecode.saudedigital.databinding.ActivityFoodBinding
 import java.util.*
@@ -39,10 +38,10 @@ class FoodActivity : AppCompatActivity() {
 //        binding.foodImgThumbnail.setImageResource(food?.thumbnail)
 
 
-        val list = mutableListOf<MContent>()
+        val list = mutableListOf<ModelContent>()
         for (i in 0 until 40) {
             list.add(
-                MContent(
+                ModelContent(
                     id = UUID.randomUUID().toString(),
                     thumbnail = R.drawable.ic_insulin,
                     title = "Diabetes$i",

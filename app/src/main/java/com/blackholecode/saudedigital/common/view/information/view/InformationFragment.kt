@@ -157,20 +157,6 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
 //                    informationContainerForm.addView(textInputLayout, (informationContainerForm.childCount - 2))
 //                }
 
-                val a = TextInputLayout(
-                    requireContext(),
-                    null,
-                    R.style.Theme_SaudeDigital_AutoCompleteInput
-                )
-                val b = AutoCompleteTextView(
-                    requireContext(),
-                    null,
-                    R.style.Theme_SaudeDigital_AutoComplete,
-                    R.style.Theme_SaudeDigital_AutoComplete
-                )
-
-                a.addView(b)
-
                 registerBtnLogin.setOnClickListener {
                     fragmentAttachRegister?.goToLoginScreen()
                 }

@@ -74,10 +74,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
 
         var listCondition = ""
         for (item in data.condition){
-            listCondition = "${ itemsDisease[item?.first!!] } - ${ itemsTypeDisease[item.second!!] }\n"
+            listCondition = "${ itemsDisease[item?.disease_id!!] } - ${ itemsTypeDisease[item.type!!] }\n"
 
-            if (item.second!! > itemsTypeDisease.size) {
-                listCondition = "${ itemsDisease[item.first!!] } - ${ item.second!! }\n"
+            if (item.type!! > itemsTypeDisease.size) {
+                listCondition = "${ itemsDisease[item.disease_id!!] } - ${ item.type!! }\n"
             }
         }
 

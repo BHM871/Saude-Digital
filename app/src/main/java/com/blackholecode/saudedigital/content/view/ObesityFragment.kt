@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.base.DependencyInjector
 import com.blackholecode.saudedigital.common.extension.toastGeneric
-import com.blackholecode.saudedigital.common.model.MContent
+import com.blackholecode.saudedigital.common.model.ModelContent
 import com.blackholecode.saudedigital.content.Content
 import com.blackholecode.saudedigital.content.base.ContentBaseFragment
 import com.blackholecode.saudedigital.databinding.FragmentContentContentBinding
@@ -23,29 +23,15 @@ class ObesityFragment : ContentBaseFragment<FragmentContentContentBinding, Conte
         presenter = DependencyInjector.contentPresenter(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.fetchContent("obesity")
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     override fun setupView() {
-        presenter.fetchContent("obesity")
-
         binding?.let { binding ->
             with(binding) {
-                val list = mutableListOf<MContent>()
-                for (i in 0 until 10) {
-                    list.add(
-                        MContent(
-                            id = UUID.randomUUID().toString(),
-                            thumbnail = R.drawable.ic_fat,
-                            title = "Obesidade$i",
-                            description = getString(R.string.lorem),
-                            videoUrl = "",
-                            type = "obesity"
-                        )
-                    )
-                }
-
-                adapterRv.items = list.toMutableList()
-                adapterRv.notifyDataSetChanged()
-
                 contentRecycler.layoutManager = LinearLayoutManager(requireContext())
                 contentRecycler.adapter = adapterRv
             }
@@ -57,10 +43,11 @@ class ObesityFragment : ContentBaseFragment<FragmentContentContentBinding, Conte
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun displayRequestSuccessful(data: List<MContent>) {
+    override fun displayRequestSuccessful(data: List<ModelContent>) {
         binding?.contentListEmpty?.visibility = View.GONE
         binding?.contentRecycler?.visibility = View.VISIBLE
-        adapterRv.items = data.toMutableList()
+        adapterRv.items.clear()
+        adapterRv.items.addAll(data.toMutableList())
         adapterRv.notifyDataSetChanged()
     }
 

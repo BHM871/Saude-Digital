@@ -7,7 +7,7 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import com.blackholecode.saudedigital.common.base.BaseFragment
 import com.blackholecode.saudedigital.common.model.Food
-import com.blackholecode.saudedigital.common.model.MContent
+import com.blackholecode.saudedigital.common.model.ModelContent
 import com.blackholecode.saudedigital.common.model.Video
 import com.blackholecode.saudedigital.content.Content
 import com.blackholecode.saudedigital.content.util.ContentItemAdapter
@@ -17,6 +17,8 @@ abstract class ContentBaseFragment<B, P: Content.Presenter>(
     @LayoutRes layoutId: Int,
     override val bind: (View) -> B) : BaseFragment<B, P>(layoutId, bind){
 
+    protected var isInitialized = false
+
     protected val adapterRv by lazy { ContentItemAdapter(itemClick) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -24,7 +26,12 @@ abstract class ContentBaseFragment<B, P: Content.Presenter>(
         scroll?.setScrollToolbarEnabled(true)
     }
 
-    private val itemClick: (MContent) -> Unit = { it ->
+    override fun onResume() {
+        super.onResume()
+            isInitialized = true
+    }
+
+    private val itemClick: (ModelContent) -> Unit = { it ->
         if (it.type == "food") {
             goToFoodScreen(it.toFood())
         } else {
@@ -33,7 +40,7 @@ abstract class ContentBaseFragment<B, P: Content.Presenter>(
     }
 
     private fun goToVideoScreen(video: Video) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/wrGNMCb2-dM"))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.videoUrl))
         startActivity(intent)
     }
 
@@ -43,6 +50,11 @@ abstract class ContentBaseFragment<B, P: Content.Presenter>(
         intent.putExtra(FoodActivity.FOOD, food)
 
         startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        isInitialized = false
+        super.onDestroy()
     }
 
 }

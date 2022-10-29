@@ -10,15 +10,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blackholecode.saudedigital.R
-import com.blackholecode.saudedigital.common.model.Food
-import com.blackholecode.saudedigital.common.model.MContent
-import com.blackholecode.saudedigital.common.model.Video
+import com.blackholecode.saudedigital.common.model.ModelContent
 
 class ContentItemAdapter(
-    private var itemClick: (MContent) -> Unit
+    private var itemClick: (ModelContent) -> Unit
 ) : RecyclerView.Adapter<ContentItemAdapter.ContentHolder>() {
 
-    var items: MutableList<MContent> = mutableListOf()
+    var items: MutableList<ModelContent> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentHolder =
         ContentHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_content, parent, false))
@@ -31,7 +29,7 @@ class ContentItemAdapter(
 
     inner class ContentHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: MContent) = with(itemView) {
+        fun bind(item: ModelContent) = with(itemView) {
             findViewById<TextView>(R.id.item_video_title).text = item.title
 
             item.thumbnail?.let {

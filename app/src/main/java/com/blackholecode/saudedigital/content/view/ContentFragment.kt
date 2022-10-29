@@ -2,11 +2,12 @@ package com.blackholecode.saudedigital.content.view
 
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.base.DependencyInjector
-import com.blackholecode.saudedigital.common.model.MContent
+import com.blackholecode.saudedigital.common.model.ModelContent
 import com.blackholecode.saudedigital.content.Content
 import com.blackholecode.saudedigital.content.base.ContentBaseFragment
 import com.blackholecode.saudedigital.content.util.ContentViewPageAdapter
@@ -41,6 +42,9 @@ class ContentFragment : ContentBaseFragment<FragmentContentBinding, Content.Pres
         TabLayoutMediator(tabLayout, viewP) { tab, position ->
             tab.icon = ContextCompat.getDrawable(requireContext(), adapter.tabs[position])
         }.attach()
+
+
+
     }
 
     override fun getMenu(): Int {
@@ -59,7 +63,7 @@ class ContentFragment : ContentBaseFragment<FragmentContentBinding, Content.Pres
     override fun showProgress(enabled: Boolean) {
     }
 
-    override fun displayRequestSuccessful(data: List<MContent>) {
+    override fun displayRequestSuccessful(data: List<ModelContent>) {
     }
 
     override fun displayRequestEmptyList() {

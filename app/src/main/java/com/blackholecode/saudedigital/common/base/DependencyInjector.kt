@@ -3,8 +3,6 @@ package com.blackholecode.saudedigital.common.base
 import com.blackholecode.saudedigital.common.util.UserSession
 import com.blackholecode.saudedigital.common.view.information.Information
 import com.blackholecode.saudedigital.common.view.information.data.InformationDataSourceFactory
-import com.blackholecode.saudedigital.common.view.information.data.InformationFireDataSource
-import com.blackholecode.saudedigital.common.view.information.data.InformationLocalDataSource
 import com.blackholecode.saudedigital.common.view.information.data.InformationRepository
 import com.blackholecode.saudedigital.common.view.information.presenter.InformationPresenter
 import com.blackholecode.saudedigital.content.Content
@@ -17,7 +15,6 @@ import com.blackholecode.saudedigital.login.data.LoginFireDataSource
 import com.blackholecode.saudedigital.login.data.LoginRepository
 import com.blackholecode.saudedigital.login.presenter.LoginPresenter
 import com.blackholecode.saudedigital.main.Main
-import com.blackholecode.saudedigital.main.data.MainFireDataSource
 import com.blackholecode.saudedigital.main.data.MainLocalDataSource
 import com.blackholecode.saudedigital.main.data.MainRepository
 import com.blackholecode.saudedigital.main.presenter.MainPresenter
@@ -93,7 +90,7 @@ object DependencyInjector {
     }
 
     private fun mainRepository() : MainRepository {
-        return MainRepository(MainLocalDataSource(), MainFireDataSource())
+        return MainRepository(MainLocalDataSource())
     }
 
     fun mainPresenter(view: Main.View): Main.Presenter {

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.common.io.Resources
 
 fun Activity.animationEnd(callback: () -> Unit) : AnimatorListenerAdapter {
     return object : AnimatorListenerAdapter() {
@@ -36,6 +37,14 @@ fun AppCompatActivity.newOrReplaceFragment(@IdRes id: Int, fragment: Fragment) {
 fun Activity.closeKeyboard() {
     val service = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     service.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+}
+
+fun getString(resId: Int) : String {
+    return Fragment().getString(resId)
+}
+
+fun resource() : android.content.res.Resources {
+    return Fragment().resources
 }
 
 fun toastGeneric(context: Context, resId: Int) {

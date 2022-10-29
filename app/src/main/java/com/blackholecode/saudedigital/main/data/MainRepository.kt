@@ -5,11 +5,10 @@ import com.blackholecode.saudedigital.common.util.UserSession
 
 class MainRepository(
     private val localDataSource : MainDataSource,
-    private val remoteDataSource : MainDataSource
 ) {
 
     fun logout(callback: RequestCallback<Boolean>) {
-        remoteDataSource.logout(object : RequestCallback<Boolean> {
+        localDataSource.logout(object : RequestCallback<Boolean> {
             override fun onSuccess(data: Boolean?) {
                 localDataSource.removeCache(UserSession)
                 callback.onSuccess(data)
