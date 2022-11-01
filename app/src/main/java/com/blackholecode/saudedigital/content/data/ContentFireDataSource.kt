@@ -1,5 +1,7 @@
 package com.blackholecode.saudedigital.content.data
 
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.ModelContent
@@ -14,13 +16,19 @@ class ContentFireDataSource : ContentDataSource {
     private val diseases: HashMap<Int, String> =
         hashMapOf(1 to "obesity", 2 to "hypertension", 3 to "diabetes")
     private val typeDisease: HashMap<Int, String> = hashMapOf(1 to "1", 2 to "2")
+
     private var listContent: MutableList<ModelContent> = mutableListOf()
+
+    private var isComplete = false
 
     override fun fetchContent(
         uidUser: String,
         typeScreen: String?,
         callback: RequestCallback<List<ModelContent>>
     ) {
+
+        timeOut(uidUser, typeScreen, callback)
+
         if (typeScreen == null) {
             fetchHome(uidUser, callback)
         } else {
@@ -30,6 +38,7 @@ class ContentFireDataSource : ContentDataSource {
 
     override fun clear() {
         listContent.clear()
+        isComplete = false
     }
 
     private fun fetchHome(uidUser: String, callback: RequestCallback<List<ModelContent>>) {
@@ -62,6 +71,7 @@ class ContentFireDataSource : ContentDataSource {
             }
             .addOnFailureListener { exception ->
                 Log.e("Firebase", exception.message ?: "Error home")
+                isComplete = true
                 callback.onFailure(exception.message ?: "Error in fetch user")
                 callback.onComplete()
             }
@@ -103,6 +113,7 @@ class ContentFireDataSource : ContentDataSource {
             }
             .addOnFailureListener { exception ->
                 Log.e("Firebase", exception.message ?: "Error $typeScreen")
+                isComplete = true
                 callback.onFailure(exception.message ?: "Error in fetch user")
                 callback.onComplete()
             }
@@ -131,6 +142,7 @@ class ContentFireDataSource : ContentDataSource {
             }
             .addOnFailureListener { exception ->
                 Log.e("Firebase", exception.message ?: "Error ${docRef.id}")
+                isComplete = true
                 callback.onFailure(exception.message ?: "Error in search ${docRef.id}")
                 callback.onComplete()
             }
@@ -183,11 +195,13 @@ class ContentFireDataSource : ContentDataSource {
                         callback.onFailure(exception.message ?: "Error in search ${docRef.id}")
                     }
                     .addOnCompleteListener {
+                        isComplete = true
                         callback.onComplete()
                     }
             }
             .addOnFailureListener { exception ->
                 Log.e("Firebase", exception.message ?: "Error ${docRef.id}")
+                isComplete = true
                 callback.onFailure(exception.message ?: "Error in search ${docRef.id}")
                 callback.onComplete()
             }
@@ -195,8 +209,33 @@ class ContentFireDataSource : ContentDataSource {
 
     private fun output(callback: RequestCallback<List<ModelContent>>) {
         listContent.sortBy { it.timestamp?.seconds }
+        isComplete = true
         callback.onSuccess(listContent)
         callback.onComplete()
+    }
+
+    private fun timeOut(uidUser: String, typeScreen: String?, callback: RequestCallback<List<ModelContent>>) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (!isComplete) {
+
+                Handler(Looper.getMainLooper()).postDelayed({
+
+                    if (!isComplete) {
+                        isComplete = true
+                        callback.onFailure("Time-out reached")
+                        callback.onComplete()
+                    }
+
+                }, 10_000)
+
+                if (typeScreen == null) {
+                    fetchHome(uidUser, callback)
+                } else {
+                    fetchNotHome(uidUser, typeScreen, callback)
+                }
+
+            }
+        }, 10_000)
     }
 
 }

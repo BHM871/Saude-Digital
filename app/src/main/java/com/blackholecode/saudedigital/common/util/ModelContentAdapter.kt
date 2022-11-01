@@ -1,4 +1,4 @@
-package com.blackholecode.saudedigital.content.util
+package com.blackholecode.saudedigital.common.util
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.model.ModelContent
 
-class ContentItemAdapter(
+class ModelContentAdapter(
     private var itemClick: (ModelContent) -> Unit
-) : RecyclerView.Adapter<ContentItemAdapter.ContentHolder>() {
+) : RecyclerView.Adapter<ModelContentAdapter.ContentHolder>() {
 
     var items: MutableList<ModelContent> = mutableListOf()
 
@@ -44,13 +44,13 @@ class ContentItemAdapter(
             val mediumGreen = ContextCompat.getColorStateList(context, R.color.medium_green)
             val darkGreen =  ContextCompat.getColorStateList(context, R.color.dark_green)
 
-            if (item.title!!.startsWith("Obesidade")) {
+            if (item.condition == "obesity") {
                 findViewById<FrameLayout>(R.id.item_video_thumbnail_background).backgroundTintList = lightGreen
             }
-            if (item.title!!.startsWith("Hipertensão")) {
+            if (item.condition == "hypertension") {
                 findViewById<FrameLayout>(R.id.item_video_thumbnail_background).backgroundTintList = mediumGreen
             }
-            if (item.title!!.startsWith("Diabetes")) {
+            if (item.condition == "diabetes") {
                 findViewById<FrameLayout>(R.id.item_video_thumbnail_background).backgroundTintList = darkGreen
             }
 

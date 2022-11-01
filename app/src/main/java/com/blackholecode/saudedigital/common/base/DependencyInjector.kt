@@ -29,7 +29,11 @@ import com.blackholecode.saudedigital.register.data.RegisterRepository
 import com.blackholecode.saudedigital.register.presenter.RegisterEmailAndPasswordPresenter
 import com.blackholecode.saudedigital.register.presenter.RegisterPhotoPresenter
 import com.blackholecode.saudedigital.search.Search
+import com.blackholecode.saudedigital.search.data.SearchFireDataSource
+import com.blackholecode.saudedigital.search.data.SearchLocalDataSource
+import com.blackholecode.saudedigital.search.data.SearchRepository
 import com.blackholecode.saudedigital.search.presenter.SearchPresenter
+import com.blackholecode.saudedigital.search.util.ListSearchCache
 import com.blackholecode.saudedigital.splash.Splash
 import com.blackholecode.saudedigital.splash.data.SplashFireDataSource
 import com.blackholecode.saudedigital.splash.data.SplashRepository
@@ -97,8 +101,12 @@ object DependencyInjector {
         return MainPresenter(view, mainRepository())
     }
 
+    private fun searchRepository() : SearchRepository {
+        return SearchRepository(SearchLocalDataSource(ListSearchCache), SearchFireDataSource())
+    }
+
     fun searchPresenter(view: Search.View): Search.Presenter {
-        return SearchPresenter(view)
+        return SearchPresenter(view, searchRepository())
     }
 
 }

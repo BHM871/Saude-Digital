@@ -30,25 +30,18 @@ class FoodFragment : ContentBaseFragment<FragmentContentContentBinding, Content.
 
     @SuppressLint("NotifyDataSetChanged")
     override fun setupView() {
-        binding?.let { binding ->
-            with(binding) {
-                contentRecycler.layoutManager = LinearLayoutManager(requireContext())
-                contentRecycler.adapter = adapterRv
-            }
-        }
+        binding?.contentRecycler?.layoutManager = LinearLayoutManager(requireContext())
+        binding?.contentRecycler?.adapter = adapterRv
     }
 
     override fun showProgress(enabled: Boolean) {
         binding?.contentProgress?.visibility = if (enabled) View.VISIBLE else View.GONE
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun displayRequestSuccessful(data: List<ModelContent>) {
-        binding?.contentListEmpty?.visibility = View.GONE
+        setupRecycler(data)
         binding?.contentRecycler?.visibility = View.VISIBLE
-        adapterRv.items.clear()
-        adapterRv.items.addAll(data.toMutableList())
-        adapterRv.notifyDataSetChanged()
+        binding?.contentListEmpty?.visibility = View.GONE
     }
 
     override fun displayRequestEmptyList() {

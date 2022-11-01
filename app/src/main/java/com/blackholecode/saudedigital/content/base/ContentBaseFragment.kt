@@ -1,5 +1,6 @@
 package com.blackholecode.saudedigital.content.base
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,25 +11,18 @@ import com.blackholecode.saudedigital.common.model.Food
 import com.blackholecode.saudedigital.common.model.ModelContent
 import com.blackholecode.saudedigital.common.model.Video
 import com.blackholecode.saudedigital.content.Content
-import com.blackholecode.saudedigital.content.util.ContentItemAdapter
+import com.blackholecode.saudedigital.common.util.ModelContentAdapter
 import com.blackholecode.saudedigital.food.view.FoodActivity
 
 abstract class ContentBaseFragment<B, P: Content.Presenter>(
     @LayoutRes layoutId: Int,
     override val bind: (View) -> B) : BaseFragment<B, P>(layoutId, bind){
 
-    protected var isInitialized = false
-
-    protected val adapterRv by lazy { ContentItemAdapter(itemClick) }
+    protected val adapterRv by lazy { ModelContentAdapter(itemClick) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         scroll?.setScrollToolbarEnabled(true)
-    }
-
-    override fun onResume() {
-        super.onResume()
-            isInitialized = true
     }
 
     private val itemClick: (ModelContent) -> Unit = { it ->
@@ -52,9 +46,11 @@ abstract class ContentBaseFragment<B, P: Content.Presenter>(
         startActivity(intent)
     }
 
-    override fun onDestroy() {
-        isInitialized = false
-        super.onDestroy()
+    @SuppressLint("NotifyDataSetChanged")
+    protected fun setupRecycler(data: List<ModelContent>) {
+        adapterRv.items.clear()
+        adapterRv.items.addAll(data)
+        adapterRv.notifyDataSetChanged()
     }
 
 }
