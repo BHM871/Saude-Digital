@@ -14,9 +14,9 @@ import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.base.BaseFragment
 import com.blackholecode.saudedigital.common.base.DependencyInjector
 import com.blackholecode.saudedigital.common.extension.toastGeneric
-import com.blackholecode.saudedigital.common.model.Food
+import com.blackholecode.saudedigital.common.model.ModelFood
 import com.blackholecode.saudedigital.common.model.ModelContent
-import com.blackholecode.saudedigital.common.model.Video
+import com.blackholecode.saudedigital.common.model.ModelVideo
 import com.blackholecode.saudedigital.common.util.ModelContentAdapter
 import com.blackholecode.saudedigital.databinding.FragmentSearchBinding
 import com.blackholecode.saudedigital.food.view.FoodActivity
@@ -98,12 +98,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, Search.Presenter>(
         }
     }
 
-    private fun goToVideoScreen(video: Video) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.videoUrl))
+    private fun goToVideoScreen(modelVideo: ModelVideo) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(modelVideo.videoUrl))
         startActivity(intent)
     }
 
-    private fun goToFoodScreen(food: Food) {
+    private fun goToFoodScreen(food: ModelFood) {
         val intent = Intent(requireContext(), FoodActivity::class.java)
 
         intent.putExtra(FoodActivity.FOOD, food)

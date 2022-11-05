@@ -7,6 +7,7 @@
     android:layout_margin="5dp">
 
     <FrameLayout
+        android:id="@+id/item_similar_background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/background_item_video"
@@ -15,11 +16,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:id="@+id/item_similar_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:contentDescription="@null"
-            android:src="@drawable/ic_insulin" />
+            android:src="@drawable/ic_food" />
 
     </FrameLayout>
 

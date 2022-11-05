@@ -6,7 +6,7 @@ import com.google.firebase.Timestamp
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Video(
+data class ModelVideo(
     var id: String? = null,
     var timestamp: Timestamp? = null,
     var thumbnail: Int? = null,

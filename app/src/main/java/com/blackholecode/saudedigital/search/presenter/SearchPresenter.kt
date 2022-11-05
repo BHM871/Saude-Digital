@@ -1,10 +1,8 @@
 package com.blackholecode.saudedigital.search.presenter
 
-import android.os.Looper
-import com.blackholecode.saudedigital.search.Search
-import android.os.Handler
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.ModelContent
+import com.blackholecode.saudedigital.search.Search
 import com.blackholecode.saudedigital.search.data.SearchRepository
 
 class SearchPresenter(

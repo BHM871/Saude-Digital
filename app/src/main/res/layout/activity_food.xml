@@ -58,13 +58,45 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Diabetes" />
 
+            <TextView
+                android:id="@+id/food_txt_similar"
+                style="@style/Theme.SaudeDigital.TextViewTitleBase"
+                android:padding="@dimen/padding_items"
+                android:text="@string/similar"
+                android:textAllCaps="true"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/food_txt_desc" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/food_recycler_similar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_rv"
-                app:layout_constraintTop_toBottomOf="@id/food_txt_desc"
+                app:layout_constraintTop_toBottomOf="@id/food_txt_similar"
                 tools:listitem="@layout/item_similar_content" />
+
+            <TextView
+                android:id="@+id/food_empty"
+                style="@style/Theme.SaudeDigital.TextViewBase"
+                android:layout_marginTop="@dimen/padding_items"
+                android:text="@string/list_empty"
+                android:textAlignment="center"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/food_recycler_similar"
+                tools:visibility="visible" />
+
+            <ProgressBar
+                android:id="@+id/food_progress"
+                style="@style/Theme.SaudeDigital.ProgressBarBase"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/food_recycler_similar"
+                tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

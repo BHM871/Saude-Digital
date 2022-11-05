@@ -7,7 +7,7 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.GridLayoutManager
 import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.model.ModelContent
-import com.blackholecode.saudedigital.common.model.Video
+import com.blackholecode.saudedigital.common.model.ModelVideo
 import com.blackholecode.saudedigital.common.util.SimilarItemAdapter
 import com.blackholecode.saudedigital.databinding.ActivityVideoBinding
 import java.util.*
@@ -20,7 +20,7 @@ class VideoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVideoBinding
 
-    private var video: Video? = null
+    private var modelVideo: ModelVideo? = null
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +30,7 @@ class VideoActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        video = intent.extras?.getParcelable(VIDEO)
+        modelVideo = intent.extras?.getParcelable(VIDEO)
 
         setActionBar()
 
@@ -38,8 +38,8 @@ class VideoActivity : AppCompatActivity() {
 //        binding.videoTxtTitle.text = video?.title
 //        binding.videoTxtDesc.text = video?.description
 
-        binding.videoTxtTitle.text = video?.title
-        binding.videoTxtDesc.text = video?.description
+        binding.videoTxtTitle.text = modelVideo?.title
+        binding.videoTxtDesc.text = modelVideo?.description
 
         val list = mutableListOf<ModelContent>()
         for (i in 0 until 40) {
@@ -75,7 +75,7 @@ class VideoActivity : AppCompatActivity() {
     private fun setActionBar() {
         setSupportActionBar(binding.videoToolbar)
         supportActionBar?.apply {
-            title = video?.type
+            title = modelVideo?.type
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_arrow_back)
         }

@@ -36,7 +36,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
         const val EMAIL = "email"
         const val PASSWORD = "password"
 
-        var imc: String? = null
+        var imc: Int? = null
     }
 
     override lateinit var presenter: Information.Presenter
@@ -48,7 +48,6 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
 
     private var email: String? = null
     private var password: String? = null
-    private var imc: String? = null
 
     private lateinit var itemsDisease: Array<String>
     private lateinit var itemsTypeDisease: Array<String>
@@ -61,8 +60,6 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
         if (activity?.javaClass?.simpleName == RegisterActivity().javaClass.simpleName) {
             isRegister = true
             fragmentAttachRegister = fragmentAttach as RegisterFragmentAttachListener
-        } else {
-            binding?.informationBtnAction?.text = getString(R.string.finish_edit)
         }
         super.onViewCreated(view, savedInstanceState)
     }
@@ -76,7 +73,9 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
         password = arguments?.getString(PASSWORD)
 
         if (!isRegister) {
+            binding?.informationBtnAction?.text = getString(R.string.finish_edit)
             binding?.informationContainerLogin?.visibility = View.GONE
+
             presenter.fetchUser()
         }
 
@@ -99,7 +98,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
                         return@setOnClickListener
                     }
 
-                    val condition: Condition<Int?, Int?> = if (informationBtnGoImc.visibility != View.VISIBLE) {
+                    val condition: Condition<Int?, Int?> = if (informationBtnGoImc.visibility == View.GONE) {
                         var first = 0
                         var second = 0
                         itemsDisease.forEachIndexed { index, text ->
@@ -121,7 +120,13 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
                                 first = index
                             }
                         }
-                         val second = informationBtnGoImc.text.toString().toInt()
+
+                         val second = imc
+
+                        if (imc == null){
+                            toastGeneric(requireContext(), R.string.fields_messages)
+                            return@setOnClickListener
+                        }
 
                         Condition(first, second)
                     }
@@ -148,14 +153,6 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
                         )
                     }
                 }
-
-//                a.setOnClickListener {
-//                    val autoComplete = AutoCompleteTextView(informationAutoCompleteTypeDisease.context, null, 0, R.style.Theme_SaudeDigital_AutoComplete)
-//                    val textInputLayout = TextInputLayout(informationAutoCompleteTypeDiseaseInput.context, null, informationAutoCompleteDiseaseInput.explicitStyle)
-//                    textInputLayout.addView(autoComplete)
-//
-//                    informationContainerForm.addView(textInputLayout, (informationContainerForm.childCount - 2))
-//                }
 
                 registerBtnLogin.setOnClickListener {
                     fragmentAttachRegister?.goToLoginScreen()
@@ -231,7 +228,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
                     fragmentAttach?.hideKeyBoard()
                     typeInput.visibility = View.GONE
                     btnImc.visibility = View.VISIBLE
-                    imc?.let { btnImc.text = it }
+                    imc?.let { btnImc.text = getString(it) }
                 }
 
                 else -> {
@@ -273,7 +270,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
 
             if (binding?.informationBtnGoImc?.visibility!! == View.VISIBLE && imc == null) return false
 
-            if (binding?.informationAutoCompleteTypeDisease?.visibility == View.VISIBLE &&
+            if (binding?.informationAutoCompleteTypeDiseaseInput?.visibility == View.VISIBLE &&
                 binding?.informationAutoCompleteTypeDisease?.text?.toString()!! == itemsTypeDisease[0]
             ) return false
 
@@ -292,7 +289,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activity ->
             if (activity.resultCode == Activity.RESULT_OK) {
                 imc?.let {
-                    binding?.informationBtnGoImc?.text = it
+                    binding?.informationBtnGoImc?.text = getString(it)
                 }
             }
         }

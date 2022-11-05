@@ -30,13 +30,7 @@ class ModelContentAdapter(
     inner class ContentHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(item: ModelContent) = with(itemView) {
-            findViewById<TextView>(R.id.item_video_title).text = item.title
-
-            item.thumbnail?.let {
-                findViewById<ImageView>(R.id.item_video_thumbnail_img).setImageResource(
-                    it
-                )
-            }
+            findViewById<TextView>(R.id.item_title).text = item.title
 
             findViewById<TextView>(R.id.item_video_desc).text = item.description
 
@@ -44,14 +38,25 @@ class ModelContentAdapter(
             val mediumGreen = ContextCompat.getColorStateList(context, R.color.medium_green)
             val darkGreen =  ContextCompat.getColorStateList(context, R.color.dark_green)
 
-            if (item.condition == "obesity") {
-                findViewById<FrameLayout>(R.id.item_video_thumbnail_background).backgroundTintList = lightGreen
-            }
-            if (item.condition == "hypertension") {
-                findViewById<FrameLayout>(R.id.item_video_thumbnail_background).backgroundTintList = mediumGreen
-            }
-            if (item.condition == "diabetes") {
-                findViewById<FrameLayout>(R.id.item_video_thumbnail_background).backgroundTintList = darkGreen
+            val background = findViewById<FrameLayout>(R.id.item_thumbnail_background)
+            val imageView = findViewById<ImageView>(R.id.item_thumbnail_img)
+
+            when (item.condition) {
+                "obesity" -> {
+                    imageView.setImageResource(R.drawable.ic_fat)
+                    background.backgroundTintList =
+                        lightGreen
+                }
+                "hypertension" -> {
+                    imageView.setImageResource(R.drawable.ic_heart)
+                    background.backgroundTintList =
+                        mediumGreen
+                }
+                "diabetes" -> {
+                    imageView.setImageResource(R.drawable.ic_insulin)
+                    background.backgroundTintList =
+                        darkGreen
+                }
             }
 
             findViewById<ConstraintLayout>(R.id.item_container).setOnClickListener {

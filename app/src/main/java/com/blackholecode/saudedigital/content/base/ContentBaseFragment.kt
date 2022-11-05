@@ -3,15 +3,14 @@ package com.blackholecode.saudedigital.content.base
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import com.blackholecode.saudedigital.common.base.BaseFragment
-import com.blackholecode.saudedigital.common.model.Food
+import com.blackholecode.saudedigital.common.model.ModelFood
 import com.blackholecode.saudedigital.common.model.ModelContent
-import com.blackholecode.saudedigital.common.model.Video
-import com.blackholecode.saudedigital.content.Content
+import com.blackholecode.saudedigital.common.model.ModelVideo
 import com.blackholecode.saudedigital.common.util.ModelContentAdapter
+import com.blackholecode.saudedigital.content.Content
 import com.blackholecode.saudedigital.food.view.FoodActivity
 
 abstract class ContentBaseFragment<B, P: Content.Presenter>(
@@ -20,25 +19,27 @@ abstract class ContentBaseFragment<B, P: Content.Presenter>(
 
     protected val adapterRv by lazy { ModelContentAdapter(itemClick) }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        scroll?.setScrollToolbarEnabled(true)
-    }
-
     private val itemClick: (ModelContent) -> Unit = { it ->
-        if (it.type == "food") {
+        if (it.condition == "food") {
             goToFoodScreen(it.toFood())
         } else {
             goToVideoScreen(it.toVideo())
         }
     }
 
-    private fun goToVideoScreen(video: Video) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.videoUrl))
+    private fun goToVideoScreen(modelVideo: ModelVideo) {
+        var outputLink = ""
+        if (!modelVideo.videoUrl?.startsWith("https://")!! &&
+                !modelVideo.videoUrl?.startsWith("http://")!!) {
+            outputLink = "https://"
+        }
+        outputLink = "$outputLink${modelVideo.videoUrl}"
+
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(outputLink))
         startActivity(intent)
     }
 
-    private fun goToFoodScreen(food: Food) {
+    private fun goToFoodScreen(food: ModelFood) {
         val intent = Intent(requireContext(), FoodActivity::class.java)
 
         intent.putExtra(FoodActivity.FOOD, food)

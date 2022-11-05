@@ -32,6 +32,7 @@ class RegisterPhotoFragment :
     }
 
     override fun setupView() {
+        displayUpdateSuccess()
 
         name = arguments?.getString(PHOTO)
 

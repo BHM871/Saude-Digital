@@ -10,7 +10,7 @@
     android:backgroundTint="?colorPrimaryContainer">
 
     <FrameLayout
-        android:id="@+id/item_video_thumbnail_background"
+        android:id="@+id/item_thumbnail_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="1dp"
@@ -22,20 +22,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/item_video_thumbnail_img"
+            android:id="@+id/item_thumbnail_img"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:contentDescription="@null"
-            tools:src="@drawable/ic_heart" />
+            android:src="@drawable/ic_food" />
 
     </FrameLayout>
 
     <TextView
-        android:id="@+id/item_video_title"
+        android:id="@+id/item_title"
         style="@style/Theme.SaudeDigital.TextViewTitleBase"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/item_video_thumbnail_background"
+        app:layout_constraintStart_toEndOf="@id/item_thumbnail_background"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Hipertensão" />
 
@@ -44,7 +44,7 @@
         style="@style/Theme.SaudeDigital.TextViewDesc.Item"
         android:text="@string/lorem"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/item_video_thumbnail_background"
-        app:layout_constraintTop_toBottomOf="@+id/item_video_title" />
+        app:layout_constraintStart_toEndOf="@+id/item_thumbnail_background"
+        app:layout_constraintTop_toBottomOf="@+id/item_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -132,6 +132,7 @@ class ContentFireDataSource : ContentDataSource {
                 if (!isHome) listContent.clear()
 
                 listContent.addAll(resContent.toObjects(ModelContent::class.java))
+                var a = listContent
 
                 if (!isHome) {
                     output(callback)
@@ -214,7 +215,11 @@ class ContentFireDataSource : ContentDataSource {
         callback.onComplete()
     }
 
-    private fun timeOut(uidUser: String, typeScreen: String?, callback: RequestCallback<List<ModelContent>>) {
+    private fun timeOut(
+        uidUser: String,
+        typeScreen: String?,
+        callback: RequestCallback<List<ModelContent>>
+    ) {
         Handler(Looper.getMainLooper()).postDelayed({
             if (!isComplete) {
 

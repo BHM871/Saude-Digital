@@ -35,7 +35,7 @@ class ImcActivity : AppCompatActivity() {
 
             closeKeyboard()
 
-            InformationFragment.imc = getString(response(imc))
+            InformationFragment.imc = response(imc)
             setResult(RESULT_OK)
             finish()
         }

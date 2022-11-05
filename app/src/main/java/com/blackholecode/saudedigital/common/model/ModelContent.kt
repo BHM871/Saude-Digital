@@ -16,8 +16,8 @@ data class ModelContent(
     var type: String? = null
 ) : Parcelable {
 
-    fun toVideo() : Video {
-        return Video(
+    fun toVideo() : ModelVideo {
+        return ModelVideo(
             id = id,
             timestamp = timestamp,
             thumbnail = thumbnail,
@@ -29,14 +29,15 @@ data class ModelContent(
         )
     }
 
-    fun toFood() : Food {
-        return Food(
+    fun toFood() : ModelFood {
+        return ModelFood(
             id = id,
             timestamp = timestamp,
             thumbnail = thumbnail,
             title = title,
             description = description,
-            condition = condition
+            condition = condition,
+            type = type
         )
     }
 

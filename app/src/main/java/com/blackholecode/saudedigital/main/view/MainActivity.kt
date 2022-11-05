@@ -1,12 +1,12 @@
 package com.blackholecode.saudedigital.main.view
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -17,11 +17,11 @@ import androidx.navigation.ui.setupWithNavController
 import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.base.DependencyInjector
 import com.blackholecode.saudedigital.common.extension.closeKeyboard
+import com.blackholecode.saudedigital.common.util.NotificationPublisher
 import com.blackholecode.saudedigital.databinding.ActivityMainBinding
 import com.blackholecode.saudedigital.main.Main
 import com.blackholecode.saudedigital.main.MainFragmentAttachListener
 import com.blackholecode.saudedigital.splash.view.SplashActivity
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), Main.View, MainFragmentAttachListener {
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), Main.View, MainFragmentAttachListener 
 
         presenter = DependencyInjector.mainPresenter(this)
 
-        setSupportActionBar(binding.mainAppBarContainer.mainToolbar)
+        setSupportActionBar(binding.mainAppbarContainer.mainToolbar)
 
         val drawerLayout: DrawerLayout = binding.mainDrawerLayout
         val navView: NavigationView = binding.mainNavView
@@ -62,26 +62,6 @@ class MainActivity : AppCompatActivity(), Main.View, MainFragmentAttachListener 
         return navController.navigateUp(appBarConf) || super.onSupportNavigateUp()
     }
 
-    fun setScrollToolbarEnabled(enabled: Boolean = false) {
-        Handler(Looper.getMainLooper()).postDelayed({
-            val params =
-                binding.mainAppBarContainer.mainToolbar.layoutParams as AppBarLayout.LayoutParams
-            val coordinatorLayout =
-                binding.mainAppBarContainer.mainAppbar.layoutParams as CoordinatorLayout.LayoutParams
-
-            params.scrollFlags = 0
-            coordinatorLayout.behavior = null
-
-            if (enabled) {
-                params.scrollFlags =
-                    AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-                coordinatorLayout.behavior = AppBarLayout.Behavior()
-            }
-
-            binding.mainAppBarContainer.mainAppbar.layoutParams = coordinatorLayout
-        }, 300)
-    }
-
     override fun showProgress(enabled: Boolean) {
         binding.mainProgress.visibility = if (enabled) View.VISIBLE else View.GONE
     }
@@ -99,8 +79,21 @@ class MainActivity : AppCompatActivity(), Main.View, MainFragmentAttachListener 
         finish()
     }
 
+    private fun notification() {
+        val intent = Intent(this, NotificationPublisher::class.java)
+        intent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1001)
+
+        val broadcast = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_MUTABLE)
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, System.currentTimeMillis(), 10000 , broadcast)
+    }
+
     override fun onDestroy() {
         presenter.onDestroy()
+
+        notification()
+
         super.onDestroy()
     }
 

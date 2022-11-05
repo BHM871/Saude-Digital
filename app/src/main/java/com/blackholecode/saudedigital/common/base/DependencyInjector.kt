@@ -10,6 +10,10 @@ import com.blackholecode.saudedigital.content.data.ContentFireDataSource
 import com.blackholecode.saudedigital.content.data.ContentLocalDataSource
 import com.blackholecode.saudedigital.content.data.ContentRepository
 import com.blackholecode.saudedigital.content.presenter.ContentPresenter
+import com.blackholecode.saudedigital.food.Food
+import com.blackholecode.saudedigital.food.data.FoodFireDataSource
+import com.blackholecode.saudedigital.food.data.FoodRepository
+import com.blackholecode.saudedigital.food.presenter.FoodPresenter
 import com.blackholecode.saudedigital.login.Login
 import com.blackholecode.saudedigital.login.data.LoginFireDataSource
 import com.blackholecode.saudedigital.login.data.LoginRepository
@@ -107,6 +111,14 @@ object DependencyInjector {
 
     fun searchPresenter(view: Search.View): Search.Presenter {
         return SearchPresenter(view, searchRepository())
+    }
+
+    private fun foodRepository() : FoodRepository {
+        return FoodRepository(FoodFireDataSource())
+    }
+
+    fun foodPresenter(view: Food.View): Food.Presenter {
+        return FoodPresenter(view, foodRepository())
     }
 
 }

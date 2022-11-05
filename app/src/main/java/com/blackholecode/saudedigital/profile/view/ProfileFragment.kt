@@ -74,11 +74,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
 
         var listCondition = ""
         for (item in data.condition){
-            listCondition = "${ itemsDisease[item?.disease_id!!] } - ${ itemsTypeDisease[item.type!!] }\n"
 
-            if (item.type!! > itemsTypeDisease.size) {
-                listCondition = "${ itemsDisease[item.disease_id!!] } - ${ item.type!! }\n"
+            listCondition = if (item?.type!! > itemsTypeDisease.size) {
+                "${ itemsDisease[item.disease_id!!] } - ${ getString(item.type!!) }\n"
+            } else {
+                "${ itemsDisease[item.disease_id!!] } - ${ itemsTypeDisease[item.type!!] }\n"
             }
+
         }
 
         binding?.profileTxtCondition?.text = getString(R.string.profile_condition, listCondition)
