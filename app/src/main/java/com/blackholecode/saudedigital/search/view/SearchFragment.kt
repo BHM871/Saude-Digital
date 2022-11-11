@@ -32,7 +32,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, Search.Presenter>(
     private val adapterRv by lazy { ModelContentAdapter(itemClick) }
 
     override fun setupPresenter() {
-        presenter = DependencyInjector.searchPresenter(this)
+        presenter = DependencyInjector.searchPresenter(requireActivity(), this)
     }
 
     override fun setupView() {

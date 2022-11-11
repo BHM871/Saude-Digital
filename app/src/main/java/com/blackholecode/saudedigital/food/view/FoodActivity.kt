@@ -40,7 +40,7 @@ class FoodActivity : AppCompatActivity(), Food.View {
 
         setContentView(binding.root)
 
-        presenter = DependencyInjector.foodPresenter(this)
+        presenter = DependencyInjector.foodPresenter(this, this)
 
         setupViews()
 

@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 class SplashFireDataSource : SplashDataSource {
 
     override fun log(callback: RequestCallback<Boolean>) {
+
         if (FirebaseAuth.getInstance().uid != null){
             callback.onSuccess(true)
         } else  {

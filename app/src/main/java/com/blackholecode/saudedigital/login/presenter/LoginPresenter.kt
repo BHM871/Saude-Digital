@@ -3,7 +3,6 @@ package com.blackholecode.saudedigital.login.presenter
 import android.util.Patterns
 import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.base.RequestCallback
-import com.blackholecode.saudedigital.common.model.User
 import com.blackholecode.saudedigital.login.Login
 import com.blackholecode.saudedigital.login.data.LoginRepository
 
@@ -30,8 +29,8 @@ class LoginPresenter(
                     view?.onUserAuthenticate()
                 }
 
-                override fun onFailure(message: String?) {
-                    message?.let { view?.onUserUnauthorized(it) }
+                override fun onFailure(message: String) {
+                    view?.onUserUnauthorized(message)
                 }
 
                 override fun onComplete() {

@@ -1,10 +1,10 @@
-package com.blackholecode.saudedigital.common.view.information.presenter
+package com.blackholecode.saudedigital.common.util.information.presenter
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
 import com.blackholecode.saudedigital.common.util.Condition
-import com.blackholecode.saudedigital.common.view.information.Information
-import com.blackholecode.saudedigital.common.view.information.data.InformationRepository
+import com.blackholecode.saudedigital.common.util.information.Information
+import com.blackholecode.saudedigital.common.util.information.data.InformationRepository
 
 class InformationPresenter(
     private var view: Information.View?,
@@ -26,8 +26,8 @@ class InformationPresenter(
                 view?.displaySuccessCreate()
             }
 
-            override fun onFailure(message: String?) {
-                message?.let { view?.displayFailureCreate(it) }
+            override fun onFailure(message: String) {
+                view?.displayFailureCreate(message)
             }
 
             override fun onComplete() {
@@ -49,8 +49,8 @@ class InformationPresenter(
                 view?.displaySuccessUpdate()
             }
 
-            override fun onFailure(message: String?) {
-                message?.let { view?.displayFailureUpdate(it) }
+            override fun onFailure(message: String) {
+                view?.displayFailureCreate(message)
             }
 
             override fun onComplete() {
@@ -69,8 +69,8 @@ class InformationPresenter(
 
             }
 
-            override fun onFailure(message: String?) {
-                view?.displayFailureFetch(message ?: "User not found")
+            override fun onFailure(message: String) {
+                view?.displayFailureFetch(message)
             }
 
             override fun onComplete() {

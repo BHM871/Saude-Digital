@@ -7,7 +7,7 @@ import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.base.BaseFragment
 import com.blackholecode.saudedigital.common.base.DependencyInjector
 import com.blackholecode.saudedigital.common.extension.toastGeneric
-import com.blackholecode.saudedigital.common.view.information.view.InformationFragment
+import com.blackholecode.saudedigital.common.util.information.view.InformationFragment
 import com.blackholecode.saudedigital.common.util.TxtWatch
 import com.blackholecode.saudedigital.databinding.FragmentRegisterEmailAndPasswordBinding
 import com.blackholecode.saudedigital.register.RegisterFragmentAttachListener
@@ -24,7 +24,7 @@ class RegisterEmailAndPasswordFragment :
     private var fragmentAttach: RegisterFragmentAttachListener? = null
 
     override fun setupPresenter() {
-        presenter = DependencyInjector.registerEmailAndPasswordPresenter(this)
+        presenter = DependencyInjector.registerEmailAndPasswordPresenter(requireActivity(), this)
     }
 
     override fun setupView() {

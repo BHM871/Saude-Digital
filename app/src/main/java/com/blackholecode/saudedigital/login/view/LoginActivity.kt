@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity(), Login.View {
 
         setContentView(binding.root)
 
-        presenter = DependencyInjector.loginPresenter(this)
+        presenter = DependencyInjector.loginPresenter(this, this)
 
         with(binding) {
             loginEditEmail.addTextChangedListener(txtWatch)

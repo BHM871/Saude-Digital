@@ -10,7 +10,6 @@ import com.blackholecode.saudedigital.common.model.ModelContent
 import com.blackholecode.saudedigital.content.Content
 import com.blackholecode.saudedigital.content.base.ContentBaseFragment
 import com.blackholecode.saudedigital.databinding.FragmentContentContentBinding
-import java.util.*
 
 class FoodFragment : ContentBaseFragment<FragmentContentContentBinding, Content.Presenter>(
     R.layout.fragment_content_content,
@@ -20,7 +19,7 @@ class FoodFragment : ContentBaseFragment<FragmentContentContentBinding, Content.
     override lateinit var presenter: Content.Presenter
 
     override fun setupPresenter() {
-        presenter = DependencyInjector.contentPresenter(this)
+        presenter = DependencyInjector.contentPresenter(requireActivity(), this)
     }
 
     override fun onResume() {
@@ -51,5 +50,7 @@ class FoodFragment : ContentBaseFragment<FragmentContentContentBinding, Content.
 
     override fun displayRequestFailure(message: String) {
         toastGeneric(requireContext(), message)
+        binding?.contentRecycler?.visibility = View.GONE
+        binding?.contentListEmpty?.visibility = View.VISIBLE
     }
 }

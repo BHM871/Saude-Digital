@@ -22,8 +22,8 @@ class ContentPresenter(
                 }
             }
 
-            override fun onFailure(message: String?) {
-                message?.let { view?.displayRequestFailure(it) }
+            override fun onFailure(message: String) {
+                view?.displayRequestFailure(message)
             }
 
             override fun onComplete() {

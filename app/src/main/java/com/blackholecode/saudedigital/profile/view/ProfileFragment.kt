@@ -26,7 +26,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
     private lateinit var itemsTypeDisease: Array<String>
 
     override fun setupPresenter() {
-        presenter = DependencyInjector.profilePresenter(this)
+        presenter = DependencyInjector.profilePresenter(requireActivity(), this)
     }
 
     override fun setupView() {

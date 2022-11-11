@@ -23,7 +23,7 @@ class SearchRepository(
                     callback.onSuccess(data)
                 }
 
-                override fun onFailure(message: String?) {
+                override fun onFailure(message: String) {
                     callback.onFailure(message)
                 }
 

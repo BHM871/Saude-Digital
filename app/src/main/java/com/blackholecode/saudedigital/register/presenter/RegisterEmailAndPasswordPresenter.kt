@@ -35,8 +35,8 @@ class RegisterEmailAndPasswordPresenter(
                     view?.displaySuccessCreate(email, password)
                 }
 
-                override fun onFailure(message: String?) {
-                    message?.let { view?.displayFailureCreate(it) }
+                override fun onFailure(message: String) {
+                    view?.displayFailureCreate(message)
                 }
 
                 override fun onComplete() {

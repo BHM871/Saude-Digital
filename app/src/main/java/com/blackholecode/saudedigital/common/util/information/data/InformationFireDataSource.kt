@@ -1,12 +1,15 @@
-package com.blackholecode.saudedigital.common.view.information.data
+package com.blackholecode.saudedigital.common.util.information.data
 
+import android.app.Activity
+import com.blackholecode.saudedigital.R
+import com.blackholecode.saudedigital.common.base.BaseRemoteDataSource
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
 import com.blackholecode.saudedigital.common.util.Condition
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class InformationFireDataSource : InformationDataSource {
+class InformationFireDataSource(act: Activity) : BaseRemoteDataSource(act), InformationDataSource {
 
     override fun create(
         email: String,
@@ -18,6 +21,8 @@ class InformationFireDataSource : InformationDataSource {
         callback: RequestCallback<Boolean>
     ) {
 
+        timeOut(callback)
+
         FirebaseAuth.getInstance()
             .createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener { res ->
@@ -25,7 +30,7 @@ class InformationFireDataSource : InformationDataSource {
                 val uid = res.user?.uid
 
                 if (uid == null) {
-                    callback.onFailure("Error in serv")
+                    callback.onFailure(app.getString(R.string.error_in_serv))
                 } else {
                     FirebaseFirestore.getInstance()
                         .collection("/users")
@@ -47,9 +52,10 @@ class InformationFireDataSource : InformationDataSource {
                             callback.onSuccess(true)
                         }
                         .addOnFailureListener { exception ->
-                            callback.onFailure(exception.message ?: "Error in serv")
+                            callback.onFailure(exception.message ?: app.getString(R.string.error_in_serv))
                         }
                         .addOnCompleteListener {
+                            isComplete = true
                             callback.onComplete()
                         }
                 }
@@ -57,7 +63,8 @@ class InformationFireDataSource : InformationDataSource {
 
             }
             .addOnFailureListener { exception ->
-                callback.onFailure(exception.message ?: "Error in serv")
+                callback.onFailure(exception.message ?: app.getString(R.string.error_in_serv))
+                isComplete = true
                 callback.onComplete()
             }
     }
@@ -70,6 +77,9 @@ class InformationFireDataSource : InformationDataSource {
         condition: List<Condition<Int?, Int?>?>,
         callback: RequestCallback<Boolean>
     ) {
+
+        timeOut(callback)
+
         val meRef = FirebaseFirestore.getInstance()
             .collection("/users")
             .document(uuid)
@@ -77,8 +87,20 @@ class InformationFireDataSource : InformationDataSource {
         meRef.get()
             .addOnSuccessListener { resMe ->
 
-                val user = resMe.toObject(User::class.java)
-                    ?: throw RuntimeException("Error in converting user")
+                val user: User
+
+                try {
+
+                    user = resMe.toObject(User::class.java)
+                        ?: throw RuntimeException(app.getString(R.string.error_in_corventing))
+
+                } catch (e: Exception) {
+                    callback.onFailure(e.message ?: app.getString(R.string.error_in_serv))
+                    isComplete = true
+                    callback.onComplete()
+                    return@addOnSuccessListener
+                }
+
                 val newUser = user.copy(
                     name = name,
                     age = age,
@@ -91,14 +113,16 @@ class InformationFireDataSource : InformationDataSource {
                         callback.onSuccess(true)
                     }
                     .addOnFailureListener { exception ->
-                        callback.onFailure(exception.message ?: "Error in update")
+                        callback.onFailure(exception.message ?: app.getString(R.string.error_in_update))
                     }
                     .addOnCompleteListener {
+                        isComplete = true
                         callback.onComplete()
                     }
             }
             .addOnFailureListener { exception ->
-                callback.onFailure(exception.message ?: "Error in serv")
+                callback.onFailure(exception.message ?: app.getString(R.string.error_in_serv))
+                isComplete = true
                 callback.onComplete()
             }
     }
@@ -115,5 +139,9 @@ class InformationFireDataSource : InformationDataSource {
             }
 
         return user
+    }
+
+    override fun clear() {
+        isComplete = false
     }
 }

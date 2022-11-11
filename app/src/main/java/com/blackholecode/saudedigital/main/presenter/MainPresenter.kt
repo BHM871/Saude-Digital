@@ -16,7 +16,7 @@ class MainPresenter(
                 view?.displayLogoutSuccess()
             }
 
-            override fun onFailure(message: String?) {
+            override fun onFailure(message: String) {
             }
 
             override fun onComplete() {

@@ -15,7 +15,7 @@ class SplashPresenter(
                 view?.goToMainScreen()
             }
 
-            override fun onFailure(message: String?) {
+            override fun onFailure(message: String) {
                 view?.goToLoginScreen()
             }
 

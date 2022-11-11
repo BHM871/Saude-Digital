@@ -17,8 +17,8 @@ class ProfilePresenter(
                 data?.let { view?.displayFetchSuccess(it) }
             }
 
-            override fun onFailure(message: String?) {
-                message?.let { view?.displayFetchFailure(it) }
+            override fun onFailure(message: String) {
+                view?.displayFetchFailure(message)
             }
 
             override fun onComplete() {

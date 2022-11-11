@@ -1,4 +1,4 @@
-package com.blackholecode.saudedigital.common.view.information.view
+package com.blackholecode.saudedigital.common.util.information.view
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -20,7 +20,7 @@ import com.blackholecode.saudedigital.common.extension.toastGeneric
 import com.blackholecode.saudedigital.common.model.User
 import com.blackholecode.saudedigital.common.util.Condition
 import com.blackholecode.saudedigital.common.view.ImcActivity
-import com.blackholecode.saudedigital.common.view.information.Information
+import com.blackholecode.saudedigital.common.util.information.Information
 import com.blackholecode.saudedigital.databinding.FragmentInformationBinding
 import com.blackholecode.saudedigital.register.RegisterFragmentAttachListener
 import com.blackholecode.saudedigital.register.view.RegisterActivity
@@ -53,7 +53,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding, Information
     private lateinit var itemsTypeDisease: Array<String>
 
     override fun setupPresenter() {
-        presenter = DependencyInjector.informationPresenter(this)
+        presenter = DependencyInjector.informationPresenter(requireActivity(), this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

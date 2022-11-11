@@ -1,10 +1,11 @@
 package com.blackholecode.saudedigital.common.base
 
+import android.app.Activity
 import com.blackholecode.saudedigital.common.util.UserSession
-import com.blackholecode.saudedigital.common.view.information.Information
-import com.blackholecode.saudedigital.common.view.information.data.InformationDataSourceFactory
-import com.blackholecode.saudedigital.common.view.information.data.InformationRepository
-import com.blackholecode.saudedigital.common.view.information.presenter.InformationPresenter
+import com.blackholecode.saudedigital.common.util.information.Information
+import com.blackholecode.saudedigital.common.util.information.data.InformationDataSourceFactory
+import com.blackholecode.saudedigital.common.util.information.data.InformationRepository
+import com.blackholecode.saudedigital.common.util.information.presenter.InformationPresenter
 import com.blackholecode.saudedigital.content.Content
 import com.blackholecode.saudedigital.content.data.ContentFireDataSource
 import com.blackholecode.saudedigital.content.data.ContentLocalDataSource
@@ -45,48 +46,48 @@ import com.blackholecode.saudedigital.splash.presenter.SplashPresenter
 
 object DependencyInjector {
 
-    private fun loginRepository() : LoginRepository {
-        return LoginRepository(LoginFireDataSource())
+    private fun loginRepository(activity: Activity) : LoginRepository {
+        return LoginRepository(LoginFireDataSource(activity))
     }
 
-    fun loginPresenter(view: Login.View) : Login.Presenter {
-        return LoginPresenter(view, loginRepository())
+    fun loginPresenter(activity: Activity, view: Login.View) : Login.Presenter {
+        return LoginPresenter(view, loginRepository(activity))
     }
 
-    private fun profileRepository() : ProfileRepository {
-        return ProfileRepository(ProfileDataSourceFactory(UserSession))
+    private fun profileRepository(activity: Activity) : ProfileRepository {
+        return ProfileRepository(ProfileDataSourceFactory(activity, UserSession))
     }
 
-    fun profilePresenter(view: Profile.View) : Profile.Presenter {
-        return ProfilePresenter(view, profileRepository())
+    fun profilePresenter(activity: Activity, view: Profile.View) : Profile.Presenter {
+        return ProfilePresenter(view, profileRepository(activity))
     }
 
-    private fun registerRepository() : RegisterRepository {
-        return RegisterRepository(RegisterFireDataSource())
+    private fun registerRepository(activity: Activity) : RegisterRepository {
+        return RegisterRepository(RegisterFireDataSource(activity))
     }
 
-    fun registerEmailAndPasswordPresenter(view: RegisterEmailAndPassword.View) : RegisterEmailAndPassword.Presenter {
-        return RegisterEmailAndPasswordPresenter(view, registerRepository())
+    fun registerEmailAndPasswordPresenter(activity: Activity, view: RegisterEmailAndPassword.View) : RegisterEmailAndPassword.Presenter {
+        return RegisterEmailAndPasswordPresenter(view, registerRepository(activity))
     }
 
-    fun registerPhotoPresenter(view: RegisterPhoto.View): RegisterPhoto.Presenter {
-        return RegisterPhotoPresenter(view, registerRepository())
+    fun registerPhotoPresenter(activity: Activity, view: RegisterPhoto.View): RegisterPhoto.Presenter {
+        return RegisterPhotoPresenter(view, registerRepository(activity))
     }
 
-    private fun informationRepository(): InformationRepository {
-        return InformationRepository(InformationDataSourceFactory(UserSession))
+    private fun informationRepository(activity: Activity): InformationRepository {
+        return InformationRepository(InformationDataSourceFactory(activity, UserSession))
     }
 
-    fun informationPresenter(view: Information.View): Information.Presenter {
-        return InformationPresenter(view, informationRepository())
+    fun informationPresenter(activity: Activity, view: Information.View): Information.Presenter {
+        return InformationPresenter(view, informationRepository(activity))
     }
 
-    private fun contentRepository() : ContentRepository {
-        return ContentRepository(ContentLocalDataSource(UserSession), ContentFireDataSource())
+    private fun contentRepository(activity: Activity) : ContentRepository {
+        return ContentRepository(ContentLocalDataSource(), ContentFireDataSource(activity))
     }
 
-    fun contentPresenter(view: Content.View) : Content.Presenter {
-        return ContentPresenter(view, contentRepository())
+    fun contentPresenter(activity: Activity, view: Content.View) : Content.Presenter {
+        return ContentPresenter(view, contentRepository(activity))
     }
 
     private fun splashRepository() : SplashRepository {
@@ -105,20 +106,20 @@ object DependencyInjector {
         return MainPresenter(view, mainRepository())
     }
 
-    private fun searchRepository() : SearchRepository {
-        return SearchRepository(SearchLocalDataSource(ListSearchCache), SearchFireDataSource())
+    private fun searchRepository(activity: Activity) : SearchRepository {
+        return SearchRepository(SearchLocalDataSource(ListSearchCache), SearchFireDataSource(activity))
     }
 
-    fun searchPresenter(view: Search.View): Search.Presenter {
-        return SearchPresenter(view, searchRepository())
+    fun searchPresenter(activity: Activity, view: Search.View): Search.Presenter {
+        return SearchPresenter(view, searchRepository(activity))
     }
 
-    private fun foodRepository() : FoodRepository {
-        return FoodRepository(FoodFireDataSource())
+    private fun foodRepository(activity: Activity) : FoodRepository {
+        return FoodRepository(FoodFireDataSource(activity))
     }
 
-    fun foodPresenter(view: Food.View): Food.Presenter {
-        return FoodPresenter(view, foodRepository())
+    fun foodPresenter(activity: Activity, view: Food.View): Food.Presenter {
+        return FoodPresenter(view, foodRepository(activity))
     }
 
 }

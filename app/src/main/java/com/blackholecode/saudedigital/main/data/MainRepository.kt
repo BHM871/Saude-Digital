@@ -2,6 +2,7 @@ package com.blackholecode.saudedigital.main.data
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.util.UserSession
+import com.blackholecode.saudedigital.search.util.ListSearchCache
 
 class MainRepository(
     private val localDataSource : MainDataSource,
@@ -11,10 +12,11 @@ class MainRepository(
         localDataSource.logout(object : RequestCallback<Boolean> {
             override fun onSuccess(data: Boolean?) {
                 localDataSource.removeCache(UserSession)
+                localDataSource.removeCache(ListSearchCache)
                 callback.onSuccess(data)
             }
 
-            override fun onFailure(message: String?) {
+            override fun onFailure(message: String) {
                 callback.onFailure(message)
             }
 

@@ -1,38 +1,49 @@
 package com.blackholecode.saudedigital.profile.data
 
-import android.util.Log
+import android.app.Activity
+import com.blackholecode.saudedigital.R
+import com.blackholecode.saudedigital.common.base.BaseRemoteDataSource
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
 import com.google.firebase.firestore.FirebaseFirestore
 
-class ProfileFireDataSource : ProfileDataSource {
+class ProfileFireDataSource(act: Activity) : BaseRemoteDataSource(act), ProfileDataSource {
 
     override fun fetchProfile(uuid: String, callback: RequestCallback<User>) {
+
+        isComplete = false
+        timeOut(callback)
+
         FirebaseFirestore.getInstance()
             .collection("/users")
             .document(uuid)
             .get()
             .addOnSuccessListener { res ->
 
-                var user: User? = null
+                val user: User
 
                 try {
+
                     user = res.toObject(User::class.java)
+                        ?: throw RuntimeException(app.getString(R.string.error_user_not_found))
+
                 } catch (e: Exception) {
-                    e.message?.let { Log.e("Converting user error:", it) }
+
+                    callback.onFailure(app.getString(R.string.error_in_corventing))
+                    isComplete = true
+                    callback.onComplete()
+                    return@addOnSuccessListener
+
                 }
 
-                if (user != null){
-                    callback.onSuccess(user)
-                } else {
-                    callback.onFailure("User not found")
-                }
+                callback.onSuccess(user)
 
             }
             .addOnFailureListener { exception ->
-                callback.onFailure(exception.message ?: "Error in serv")
+                callback.onFailure(exception.message ?: app.getString(R.string.error_in_serv))
             }
             .addOnCompleteListener {
+                isComplete = true
                 callback.onComplete()
             }
     }

@@ -1,7 +1,6 @@
 package com.blackholecode.saudedigital.login.data
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
-import com.blackholecode.saudedigital.common.model.User
 
 class LoginRepository(
     private val remoteDataSource: LoginFireDataSource
@@ -13,7 +12,7 @@ class LoginRepository(
                 callback.onSuccess(data)
             }
 
-            override fun onFailure(message: String?) {
+            override fun onFailure(message: String) {
                 callback.onFailure(message)
             }
 

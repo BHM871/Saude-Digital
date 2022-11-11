@@ -4,14 +4,19 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.app.Activity
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.common.io.Resources
+import com.blackholecode.saudedigital.R
+import com.blackholecode.saudedigital.common.base.RequestCallback
+import com.blackholecode.saudedigital.common.util.Application
+import com.blackholecode.saudedigital.main.view.MainActivity
 
-fun Activity.animationEnd(callback: () -> Unit) : AnimatorListenerAdapter {
+fun animationEnd(callback: () -> Unit) : AnimatorListenerAdapter {
     return object : AnimatorListenerAdapter() {
         override fun onAnimationEnd(animation: Animator?) {
             callback.invoke()
@@ -39,16 +44,8 @@ fun Activity.closeKeyboard() {
     service.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
 }
 
-fun getString(resId: Int) : String {
-    return Fragment().getString(resId)
-}
-
-fun resource() : android.content.res.Resources {
-    return Fragment().resources
-}
-
 fun toastGeneric(context: Context, resId: Int) {
-        Toast.makeText(context, resId, Toast.LENGTH_LONG).show()
+    Toast.makeText(context, resId, Toast.LENGTH_LONG).show()
 }
 fun toastGeneric(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()

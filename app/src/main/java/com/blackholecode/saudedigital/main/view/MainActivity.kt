@@ -1,10 +1,13 @@
 package com.blackholecode.saudedigital.main.view
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -35,6 +38,7 @@ class MainActivity : AppCompatActivity(), Main.View, MainFragmentAttachListener 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("test", "onCreate: ")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
@@ -79,20 +83,60 @@ class MainActivity : AppCompatActivity(), Main.View, MainFragmentAttachListener 
         finish()
     }
 
+    @SuppressLint("ShortAlarm", "UnspecifiedImmutableFlag")
     private fun notification() {
         val intent = Intent(this, NotificationPublisher::class.java)
         intent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1001)
 
-        val broadcast = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_MUTABLE)
+        val broadcast = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getActivity(
+                this,
+                0,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
+        } else {
+            PendingIntent.getActivity(
+                this,
+                0,
+                intent,
+                PendingIntent.FLAG_CANCEL_CURRENT
+            )
+        }
 
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, System.currentTimeMillis(), 10000 , broadcast)
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            (System.currentTimeMillis() + 1000),
+            216_000_000,
+            broadcast
+        )
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("test", "onStart: ")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("test", "onResume: ")
+    }
+
+    override fun onStop() {
+        Log.d("test", "onStop: ")
+        super.onStop()
+    }
+
+    override fun onPause() {
+        Log.d("test", "onPause: ")
+        notification()
+        super.onPause()
     }
 
     override fun onDestroy() {
+        Log.d("test", "onDestroy: ")
         presenter.onDestroy()
-
-        notification()
 
         super.onDestroy()
     }

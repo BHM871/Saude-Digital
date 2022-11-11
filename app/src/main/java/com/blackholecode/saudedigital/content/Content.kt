@@ -1,5 +1,6 @@
 package com.blackholecode.saudedigital.content
 
+import android.app.Activity
 import com.blackholecode.saudedigital.common.base.BasePresenter
 import com.blackholecode.saudedigital.common.base.BaseView
 import com.blackholecode.saudedigital.common.model.ModelContent

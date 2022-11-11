@@ -1,7 +1,6 @@
 package com.blackholecode.saudedigital.splash.data
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
-import com.blackholecode.saudedigital.common.model.User
 
 class SplashRepository(
     private val remoteDataSource: SplashFireDataSource,
@@ -13,7 +12,7 @@ class SplashRepository(
                 callback.onSuccess(data)
             }
 
-            override fun onFailure(message: String?) {
+            override fun onFailure(message: String) {
                 callback.onFailure(message)
             }
 

@@ -1,9 +1,11 @@
-package com.blackholecode.saudedigital.common.view.information.data
+package com.blackholecode.saudedigital.common.util.information.data
 
+import android.app.Activity
 import com.blackholecode.saudedigital.common.base.Cache
 import com.blackholecode.saudedigital.common.model.User
 
 class InformationDataSourceFactory(
+    private val activity: Activity,
     private val userSession: Cache<User>
 ) {
 
@@ -12,7 +14,7 @@ class InformationDataSourceFactory(
     }
 
     fun createRemote() : InformationFireDataSource {
-        return InformationFireDataSource()
+        return InformationFireDataSource(activity)
     }
 
     fun createFromUser() : InformationDataSource {

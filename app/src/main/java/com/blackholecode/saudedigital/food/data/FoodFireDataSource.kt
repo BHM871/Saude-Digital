@@ -1,12 +1,19 @@
 package com.blackholecode.saudedigital.food.data
 
+import android.app.Activity
+import com.blackholecode.saudedigital.R
+import com.blackholecode.saudedigital.common.base.BaseRemoteDataSource
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.ModelContent
 import com.google.firebase.firestore.FirebaseFirestore
 
-class FoodFireDataSource : FoodDataSource {
+class FoodFireDataSource(act: Activity) : BaseRemoteDataSource(act), FoodDataSource {
 
     override fun searchSimilar(type: String, callback: RequestCallback<List<ModelContent>>) {
+
+        isComplete = false
+        timeOut(callback)
+
         FirebaseFirestore.getInstance()
             .collection("/content")
             .document(type)
@@ -18,21 +25,24 @@ class FoodFireDataSource : FoodDataSource {
 
                 try {
                     for (document in resSimilar.documents) {
-                        val similar = document.toObject(ModelContent::class.java) ?: throw RuntimeException("Error in converting")
+                        val similar = document.toObject(ModelContent::class.java) ?: throw RuntimeException(app.getString(R.string.error_in_corventing))
                         list.add(similar)
                     }
                 } catch (e: Exception) {
-                    callback.onFailure(e.message ?: "Error in serv")
+                    callback.onFailure(e.message ?: app.getString(R.string.error_in_serv))
+                    isComplete = true
                     callback.onComplete()
+                    return@addOnSuccessListener
                 }
 
                 callback.onSuccess(list)
 
             }
             .addOnFailureListener { exception ->
-                callback.onFailure(exception.message ?: "Error in search similar")
+                callback.onFailure(exception.message ?: app.getString(R.string.error_in_search, "Food"))
             }
             .addOnCompleteListener {
+                isComplete = true
                 callback.onComplete()
             }
 

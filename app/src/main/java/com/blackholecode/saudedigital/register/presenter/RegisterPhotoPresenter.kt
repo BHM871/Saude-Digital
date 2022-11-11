@@ -18,8 +18,8 @@ class RegisterPhotoPresenter(
                 view?.displayUpdateSuccess()
             }
 
-            override fun onFailure(message: String?) {
-                view?.displayUpdateFailure(message ?: "Error in update")
+            override fun onFailure(message: String) {
+                view?.displayUpdateFailure(message)
             }
 
             override fun onComplete() {

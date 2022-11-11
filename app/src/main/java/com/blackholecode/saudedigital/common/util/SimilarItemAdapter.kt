@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.model.ModelContent
@@ -54,6 +53,10 @@ class SimilarItemAdapter(
                 imageView.setImageResource(R.drawable.ic_insulin)
                 background.backgroundTintList =
                     darkGreen
+            }
+
+            itemView.setOnClickListener {
+                itemClick.invoke(item)
             }
 
         }

@@ -28,7 +28,7 @@ class RegisterPhotoFragment :
     private var name: String? = null
 
     override fun setupPresenter() {
-        presenter = DependencyInjector.registerPhotoPresenter(this)
+        presenter = DependencyInjector.registerPhotoPresenter(requireActivity(), this)
     }
 
     override fun setupView() {

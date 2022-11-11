@@ -1,11 +1,8 @@
-package com.blackholecode.saudedigital.common.view.information.data
+package com.blackholecode.saudedigital.common.util.information.data
 
 import com.blackholecode.saudedigital.common.base.Cache
 import com.blackholecode.saudedigital.common.model.User
-import com.blackholecode.saudedigital.common.util.UserSession
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 
 class InformationLocalDataSource(
     private val userSession: Cache<User>
@@ -24,6 +21,10 @@ class InformationLocalDataSource(
     }
 
     override fun removeCache() {
+        userSession.remove()
+    }
+
+    override fun clear() {
         userSession.remove()
     }
 

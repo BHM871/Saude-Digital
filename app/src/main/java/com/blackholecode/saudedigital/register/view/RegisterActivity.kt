@@ -1,16 +1,12 @@
 package com.blackholecode.saudedigital.register.view
 
-import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.extension.closeKeyboard
 import com.blackholecode.saudedigital.common.extension.newOrReplaceFragment
-import com.blackholecode.saudedigital.common.util.PhotoAttachListener
 import com.blackholecode.saudedigital.databinding.ActivityRegisterBinding
 import com.blackholecode.saudedigital.login.view.LoginActivity
 import com.blackholecode.saudedigital.main.view.MainActivity

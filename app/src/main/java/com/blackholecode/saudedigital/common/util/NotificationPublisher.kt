@@ -1,5 +1,6 @@
 package com.blackholecode.saudedigital.common.util
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -26,14 +27,14 @@ class NotificationPublisher : BroadcastReceiver() {
         "Você vai se sentir melhor se fizer exercícios com frequência"
     )
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     override fun onReceive(context: Context?, intent: Intent?) {
         val i = Intent(context?.applicationContext, MainActivity::class.java)
         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-        val pI = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_IMMUTABLE)
+        val pI = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_MUTABLE)
         } else {
-            PendingIntent.getActivity(context, 0, i,0)
+            PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
         val id = intent?.getIntExtra(NOTIFICATION_ID, 1000)

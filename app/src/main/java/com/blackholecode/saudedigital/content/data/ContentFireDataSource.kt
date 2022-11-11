@@ -1,8 +1,9 @@
 package com.blackholecode.saudedigital.content.data
 
-import android.os.Handler
-import android.os.Looper
+import android.app.Activity
 import android.util.Log
+import com.blackholecode.saudedigital.R
+import com.blackholecode.saudedigital.common.base.BaseRemoteDataSource
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.ModelContent
 import com.blackholecode.saudedigital.common.model.User
@@ -11,7 +12,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
-class ContentFireDataSource : ContentDataSource {
+class ContentFireDataSource(act: Activity) : BaseRemoteDataSource(act), ContentDataSource {
 
     private val diseases: HashMap<Int, String> =
         hashMapOf(1 to "obesity", 2 to "hypertension", 3 to "diabetes")
@@ -19,15 +20,11 @@ class ContentFireDataSource : ContentDataSource {
 
     private var listContent: MutableList<ModelContent> = mutableListOf()
 
-    private var isComplete = false
-
     override fun fetchContent(
         uidUser: String,
         typeScreen: String?,
         callback: RequestCallback<List<ModelContent>>
     ) {
-
-        timeOut(uidUser, typeScreen, callback)
 
         if (typeScreen == null) {
             fetchHome(uidUser, callback)
@@ -36,13 +33,13 @@ class ContentFireDataSource : ContentDataSource {
         }
     }
 
-    override fun clear() {
+    override fun clear(callback: RequestCallback<List<ModelContent>>) {
         listContent.clear()
         isComplete = false
+        timeOut(callback)
     }
 
     private fun fetchHome(uidUser: String, callback: RequestCallback<List<ModelContent>>) {
-        var conditionUser: List<Condition<Int?, Int?>?>
 
         FirebaseFirestore.getInstance()
             .collection("/users")
@@ -50,7 +47,7 @@ class ContentFireDataSource : ContentDataSource {
             .get()
             .addOnSuccessListener { resUser ->
 
-                conditionUser = resUser.toObject(User::class.java)?.condition!!
+                val conditionUser: List<Condition<Int?, Int?>?> = resUser.toObject(User::class.java)?.condition!!
 
                 val contentRef =
                     FirebaseFirestore.getInstance().collection("/content")
@@ -70,9 +67,8 @@ class ContentFireDataSource : ContentDataSource {
 
             }
             .addOnFailureListener { exception ->
-                Log.e("Firebase", exception.message ?: "Error home")
                 isComplete = true
-                callback.onFailure(exception.message ?: "Error in fetch user")
+                callback.onFailure(exception.message ?: app.getString(R.string.error_fecth_user))
                 callback.onComplete()
             }
     }
@@ -98,12 +94,21 @@ class ContentFireDataSource : ContentDataSource {
                 for (condition in conditionUser) {
 
                     if (typeScreen == diseases[condition?.disease_id]) {
-                        searchWithIndication(
-                            false,
-                            typeDisease[condition?.type]!!,
-                            docRef,
-                            callback
-                        )
+                        if (condition?.type!! < typeDisease.size){
+                            searchWithIndication(
+                                false,
+                                typeDisease[condition.type]!!,
+                                docRef,
+                                callback
+                            )
+                        } else {
+                            searchWithIndication(
+                                false,
+                                condition.type!!,
+                                docRef,
+                                callback
+                            )
+                        }
                     } else {
                         searchWithoutIndication(false, docRef, callback)
                     }
@@ -112,9 +117,8 @@ class ContentFireDataSource : ContentDataSource {
 
             }
             .addOnFailureListener { exception ->
-                Log.e("Firebase", exception.message ?: "Error $typeScreen")
                 isComplete = true
-                callback.onFailure(exception.message ?: "Error in fetch user")
+                callback.onFailure(exception.message ?: app.getString(R.string.error_fecth_user))
                 callback.onComplete()
             }
     }
@@ -132,7 +136,6 @@ class ContentFireDataSource : ContentDataSource {
                 if (!isHome) listContent.clear()
 
                 listContent.addAll(resContent.toObjects(ModelContent::class.java))
-                var a = listContent
 
                 if (!isHome) {
                     output(callback)
@@ -142,16 +145,15 @@ class ContentFireDataSource : ContentDataSource {
 
             }
             .addOnFailureListener { exception ->
-                Log.e("Firebase", exception.message ?: "Error ${docRef.id}")
                 isComplete = true
-                callback.onFailure(exception.message ?: "Error in search ${docRef.id}")
+                callback.onFailure(exception.message ?: app.getString(R.string.error_in_search, docRef.id))
                 callback.onComplete()
             }
     }
 
     private fun searchWithIndication(
         isHome: Boolean,
-        type: String,
+        type: Any,
         docRef: DocumentReference,
         callback: RequestCallback<List<ModelContent>>
     ) {
@@ -193,7 +195,7 @@ class ContentFireDataSource : ContentDataSource {
                     }
                     .addOnFailureListener { exception ->
                         Log.e("Firebase", exception.message ?: "Error ${docRef.id}")
-                        callback.onFailure(exception.message ?: "Error in search ${docRef.id}")
+                        callback.onFailure(exception.message ?: app.getString(R.string.error_in_search, docRef.id))
                     }
                     .addOnCompleteListener {
                         isComplete = true
@@ -203,44 +205,16 @@ class ContentFireDataSource : ContentDataSource {
             .addOnFailureListener { exception ->
                 Log.e("Firebase", exception.message ?: "Error ${docRef.id}")
                 isComplete = true
-                callback.onFailure(exception.message ?: "Error in search ${docRef.id}")
+                callback.onFailure(exception.message ?: app.getString(R.string.error_in_search, docRef.id))
                 callback.onComplete()
             }
     }
 
     private fun output(callback: RequestCallback<List<ModelContent>>) {
-        listContent.sortBy { it.timestamp?.seconds }
+        listContent.sortByDescending { it.timestamp }
         isComplete = true
         callback.onSuccess(listContent)
         callback.onComplete()
-    }
-
-    private fun timeOut(
-        uidUser: String,
-        typeScreen: String?,
-        callback: RequestCallback<List<ModelContent>>
-    ) {
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (!isComplete) {
-
-                Handler(Looper.getMainLooper()).postDelayed({
-
-                    if (!isComplete) {
-                        isComplete = true
-                        callback.onFailure("Time-out reached")
-                        callback.onComplete()
-                    }
-
-                }, 10_000)
-
-                if (typeScreen == null) {
-                    fetchHome(uidUser, callback)
-                } else {
-                    fetchNotHome(uidUser, typeScreen, callback)
-                }
-
-            }
-        }, 10_000)
     }
 
 }

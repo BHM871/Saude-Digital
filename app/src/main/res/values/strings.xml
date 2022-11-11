@@ -92,4 +92,15 @@
     <string name="cancel">Cancelar</string>
     <string name="similar">Similares</string>
 
+    <string name="error_time_out">Tempo limite alcaçado</string>
+    <string name="error_in_search">Erro na busca em %1$s</string>
+    <string name="error_fecth_user">Erro ao buscar usuário</string>
+    <string name="error_in_serv">Erro no servidor</string>
+    <string name="error_in_update">Erro ao atualizar</string>
+    <string name="error_in_corventing">"Erro ao converter"</string>
+    <string name="error_in_login">Usuário não existe</string>
+    <string name="error_in_verification">Erro na verificação</string>
+    <string name="error_user_not_found">Usuário não encontrado</string>
+    <string name="error_user_exists">Usuário já existe</string>
+
 </resources>

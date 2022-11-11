@@ -2,7 +2,6 @@ package com.blackholecode.saudedigital.content.view
 
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.blackholecode.saudedigital.R
@@ -27,7 +26,7 @@ class ContentFragment : ContentBaseFragment<FragmentContentBinding, Content.Pres
     override lateinit var presenter: Content.Presenter
 
     override fun setupPresenter() {
-        presenter = DependencyInjector.contentPresenter(this)
+        presenter = DependencyInjector.contentPresenter(requireActivity(), this)
     }
 
     override fun setupView() {

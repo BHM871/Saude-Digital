@@ -1,7 +1,6 @@
 package com.blackholecode.saudedigital.common.base
 
 interface Cache<T> {
-
     var data: T?
 
     fun isCached() : Boolean
@@ -11,5 +10,4 @@ interface Cache<T> {
     fun get(): T?
 
     fun remove()
-    
 }

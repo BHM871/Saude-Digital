@@ -1,4 +1,4 @@
-package com.blackholecode.saudedigital.common.view.information
+package com.blackholecode.saudedigital.common.util.information
 
 import com.blackholecode.saudedigital.common.base.BasePresenter
 import com.blackholecode.saudedigital.common.base.BaseView
@@ -8,7 +8,6 @@ import com.blackholecode.saudedigital.common.util.Condition
 interface Information {
 
     interface Presenter : BasePresenter {
-
         fun create(
             email: String,
             password: String,
@@ -17,7 +16,6 @@ interface Information {
             sex: Int,
             condition: List<Condition<Int?, Int?>?>,
         )
-
         fun updateProfile(
             name: String,
             age: Int,
@@ -26,7 +24,6 @@ interface Information {
         )
 
         fun fetchUser()
-
     }
 
     interface View : BaseView<Presenter> {

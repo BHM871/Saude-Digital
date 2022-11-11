@@ -1,4 +1,4 @@
-package com.blackholecode.saudedigital.common.view.information.data
+package com.blackholecode.saudedigital.common.util.information.data
 
 import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.User
@@ -17,8 +17,9 @@ class InformationRepository(
         condition: List<Condition<Int?, Int?>?>,
         callback: RequestCallback<Boolean>
     ) {
-        dataSourceFactory.createRemote()
-            .create(email, password, name, age, sex, condition, callback)
+        val data = dataSourceFactory.createRemote()
+        data.clear()
+        data.create(email, password, name, age, sex, condition, callback)
     }
 
     fun updateProfile(
@@ -30,7 +31,10 @@ class InformationRepository(
     ) {
         val localDataSource = dataSourceFactory.createLocal()
         val uuid = localDataSource.fetchSession()
-        dataSourceFactory.createRemote().updateProfile(
+
+        val data = dataSourceFactory.createRemote()
+        data.clear()
+        data.updateProfile(
             uuid,
             name,
             age,
@@ -42,7 +46,7 @@ class InformationRepository(
                     callback.onSuccess(data)
                 }
 
-                override fun onFailure(message: String?) {
+                override fun onFailure(message: String) {
                     callback.onFailure(message)
                 }
 

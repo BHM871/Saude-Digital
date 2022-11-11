@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.blackholecode.saudedigital.R
-import com.blackholecode.saudedigital.content.base.ContentBaseFragment
 import com.blackholecode.saudedigital.content.view.*
 
 class ContentViewPageAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {

@@ -11,13 +11,13 @@ class ContentRepository(
     fun fetchContent(typeScreen: String?, callback: RequestCallback<List<ModelContent>>) {
         val uidUser = localDataSource.fetchSession()
 
-        remoteDataSource.clear()
+        remoteDataSource.clear(callback)
         remoteDataSource.fetchContent(uidUser, typeScreen, object : RequestCallback<List<ModelContent>> {
             override fun onSuccess(data: List<ModelContent>?) {
                 callback.onSuccess(data)
             }
 
-            override fun onFailure(message: String?) {
+            override fun onFailure(message: String) {
                 callback.onFailure(message)
             }
 

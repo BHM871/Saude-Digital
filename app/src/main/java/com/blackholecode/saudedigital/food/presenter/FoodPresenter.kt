@@ -22,8 +22,8 @@ class FoodPresenter(
                }
             }
 
-            override fun onFailure(message: String?) {
-                view?.displayRequestFailure(message ?: "Error in serv")
+            override fun onFailure(message: String) {
+                view?.displayRequestFailure(message)
             }
 
             override fun onComplete() {

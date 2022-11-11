@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/nav_edit_information"
-        android:name="com.blackholecode.saudedigital.common.view.information.view.InformationFragment"
+        android:name="com.blackholecode.saudedigital.common.util.information.view.InformationFragment"
         android:label="@string/edit_profile"
         tools:layout="@layout/fragment_information" />
 
