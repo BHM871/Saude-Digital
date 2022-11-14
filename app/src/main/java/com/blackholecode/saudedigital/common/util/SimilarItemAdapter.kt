@@ -36,8 +36,8 @@ class SimilarItemAdapter(
             val mediumGreen = ContextCompat.getColorStateList(context, R.color.medium_green)
             val darkGreen = ContextCompat.getColorStateList(context, R.color.dark_green)
 
-            val background = findViewById<FrameLayout>(R.id.item_similar_background)
-            val imageView = findViewById<ImageView>(R.id.item_similar_img)
+            val background = findViewById<FrameLayout>(R.id.item_similar_thumbnail_background)
+            val imageView = findViewById<ImageView>(R.id.item_similar_thumbnail_img)
 
             if (item.condition == "obesity") {
                 imageView.setImageResource(R.drawable.ic_fat)

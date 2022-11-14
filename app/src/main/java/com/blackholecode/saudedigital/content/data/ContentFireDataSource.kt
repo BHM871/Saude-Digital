@@ -1,6 +1,8 @@
 package com.blackholecode.saudedigital.content.data
 
 import android.app.Activity
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import com.blackholecode.saudedigital.R
 import com.blackholecode.saudedigital.common.base.BaseRemoteDataSource
@@ -8,6 +10,7 @@ import com.blackholecode.saudedigital.common.base.RequestCallback
 import com.blackholecode.saudedigital.common.model.ModelContent
 import com.blackholecode.saudedigital.common.model.User
 import com.blackholecode.saudedigital.common.util.Condition
+import com.google.android.gms.common.util.concurrent.HandlerExecutor
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -140,7 +143,9 @@ class ContentFireDataSource(act: Activity) : BaseRemoteDataSource(act), ContentD
                 if (!isHome) {
                     output(callback)
                 } else if (docRef.id == "food") {
-                    output(callback)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        output(callback)
+                    }, 1000)
                 }
 
             }

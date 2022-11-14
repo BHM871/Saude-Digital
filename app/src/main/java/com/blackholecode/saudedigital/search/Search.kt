@@ -7,7 +7,7 @@ import com.blackholecode.saudedigital.common.model.ModelContent
 interface Search {
 
     interface Presenter : BasePresenter {
-        fun searchVideos(text: String?)
+        fun searchVideos(text: String? = null)
     }
 
     interface View : BaseView<Presenter> {

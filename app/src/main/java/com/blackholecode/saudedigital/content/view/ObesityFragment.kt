@@ -40,18 +40,18 @@ class ObesityFragment : ContentBaseFragment<FragmentContentContentBinding, Conte
     override fun displayRequestSuccessful(data: List<ModelContent>) {
         setupRecycler(data)
         binding?.contentRecycler?.visibility = View.VISIBLE
-        binding?.contentListEmpty?.visibility = View.GONE
+        binding?.contentTxtEmpty?.visibility = View.GONE
     }
 
     override fun displayRequestEmptyList() {
         binding?.contentRecycler?.visibility = View.GONE
-        binding?.contentListEmpty?.visibility = View.VISIBLE
+        binding?.contentTxtEmpty?.visibility = View.VISIBLE
     }
 
     override fun displayRequestFailure(message: String) {
         toastGeneric(requireContext(), message)
         binding?.contentRecycler?.visibility = View.GONE
-        binding?.contentListEmpty?.visibility = View.VISIBLE
+        binding?.contentTxtEmpty?.visibility = View.VISIBLE
     }
 
 }

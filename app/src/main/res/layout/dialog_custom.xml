@@ -12,7 +12,7 @@
         style="@style/Theme.SaudeDigital.TextViewBase"
         android:layout_marginTop="@dimen/padding_items"
         android:textStyle="bold"
-        tools:text="lkdsfagsn façlg gadsjfgs" />
+        tools:text="Coloque o título aqui" />
 
     <View
         android:layout_width="match_parent"

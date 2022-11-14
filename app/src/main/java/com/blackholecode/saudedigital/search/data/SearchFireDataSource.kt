@@ -15,9 +15,6 @@ class SearchFireDataSource(act: Activity) : BaseRemoteDataSource(act), SearchDat
 
     override fun search(text: String, callback: RequestCallback<List<ModelContent>>) {
 
-        isComplete = false
-        timeOut(callback)
-
         val listOutput = mutableListOf<ModelContent>()
 
         for (doc in docs) {
@@ -52,6 +49,24 @@ class SearchFireDataSource(act: Activity) : BaseRemoteDataSource(act), SearchDat
         }
 
         for (model in listSearchAll) {
+            if (model.condition!!.contains(text) && !listOutput.contains(
+                    model
+                )
+            ) {
+                listOutput.add(model)
+            }
+        }
+
+        for (model in listSearchAll) {
+            if (model.condition!!.lowercase().contains(text.lowercase()) && !listOutput.contains(
+                    model
+                )
+            ) {
+                listOutput.add(model)
+            }
+        }
+
+        for (model in listSearchAll) {
             if (model.title!! == text && !listOutput.contains(model)) {
                 listOutput.add(model)
             }
@@ -72,6 +87,20 @@ class SearchFireDataSource(act: Activity) : BaseRemoteDataSource(act), SearchDat
         for (model in listSearchAll) {
             if (model.title!!.lowercase()
                     .startsWith(text.lowercase()) && !listOutput.contains(model)
+            ) {
+                listOutput.add(model)
+            }
+        }
+
+        for (model in listSearchAll) {
+            if (model.title!!.contains(text) && !listOutput.contains(model)
+            ) {
+                listOutput.add(model)
+            }
+        }
+
+        for (model in listSearchAll) {
+            if (model.title!!.lowercase().contains(text.lowercase()) && !listOutput.contains(model)
             ) {
                 listOutput.add(model)
             }

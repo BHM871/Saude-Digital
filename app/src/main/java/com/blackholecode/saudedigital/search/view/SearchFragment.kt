@@ -31,11 +31,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, Search.Presenter>(
 
     private val adapterRv by lazy { ModelContentAdapter(itemClick) }
 
+    private var isFirst = false
+
     override fun setupPresenter() {
         presenter = DependencyInjector.searchPresenter(requireActivity(), this)
     }
 
     override fun setupView() {
+        isFirst = true
+        presenter.searchVideos()
         binding?.searchRecycler?.layoutManager = LinearLayoutManager(requireContext())
         binding?.searchRecycler?.adapter = adapterRv
     }
@@ -74,16 +78,23 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, Search.Presenter>(
 
     @SuppressLint("NotifyDataSetChanged")
     override fun displayRequestFullList(data: List<ModelContent>) {
+        binding?.searchTxtRecent?.visibility = if (isFirst) {
+            isFirst = false
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+
         adapterRv.items.clear()
         adapterRv.items.addAll(data)
         adapterRv.notifyDataSetChanged()
         binding?.searchRecycler?.visibility = View.VISIBLE
-        binding?.searchEmpty?.visibility = View.GONE
+        binding?.searchTxtEmpty?.visibility = View.GONE
     }
 
     override fun displayRequestEmptyList() {
         binding?.searchRecycler?.visibility = View.GONE
-        binding?.searchEmpty?.visibility = View.VISIBLE
+        binding?.searchTxtEmpty?.visibility = View.VISIBLE
     }
 
     override fun displayRequestFailure(message: String) {

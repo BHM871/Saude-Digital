@@ -23,7 +23,7 @@ abstract class BaseRemoteDataSource(private val activity: Activity) {
                 app.let { callback.onFailure(it.getString(R.string.error_time_out)) }
                 callback.onComplete()
             }
-        }, 20_000)
+        }, 16_000)
 
     }
 

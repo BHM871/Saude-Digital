@@ -102,5 +102,6 @@
     <string name="error_in_verification">Erro na verificação</string>
     <string name="error_user_not_found">Usuário não encontrado</string>
     <string name="error_user_exists">Usuário já existe</string>
+    <string name="recent">Recentes</string>
 
 </resources>

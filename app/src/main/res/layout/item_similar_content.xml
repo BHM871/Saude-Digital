@@ -7,7 +7,7 @@
     android:layout_margin="5dp">
 
     <FrameLayout
-        android:id="@+id/item_similar_background"
+        android:id="@+id/item_similar_thumbnail_background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/background_item_video"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/item_similar_img"
+            android:id="@+id/item_similar_thumbnail_img"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"

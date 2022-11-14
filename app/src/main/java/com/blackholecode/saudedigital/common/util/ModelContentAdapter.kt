@@ -19,7 +19,9 @@ class ModelContentAdapter(
     var items: MutableList<ModelContent> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentHolder =
-        ContentHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_content, parent, false))
+        ContentHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_content, parent, false)
+        )
 
     override fun onBindViewHolder(holder: ContentHolder, position: Int) {
         holder.bind(items[position])
@@ -36,7 +38,8 @@ class ModelContentAdapter(
 
             val lightGreen = ContextCompat.getColorStateList(context, R.color.light_green)
             val mediumGreen = ContextCompat.getColorStateList(context, R.color.medium_green)
-            val darkGreen =  ContextCompat.getColorStateList(context, R.color.dark_green)
+            val darkGreen = ContextCompat.getColorStateList(context, R.color.dark_green)
+            val darkGrey = ContextCompat.getColorStateList(context, R.color.border_gray)
 
             val background = findViewById<FrameLayout>(R.id.item_thumbnail_background)
             val imageView = findViewById<ImageView>(R.id.item_thumbnail_img)
@@ -56,6 +59,11 @@ class ModelContentAdapter(
                     imageView.setImageResource(R.drawable.ic_insulin)
                     background.backgroundTintList =
                         darkGreen
+                }
+                "food" -> {
+                    imageView.setImageResource(R.drawable.ic_food)
+                    background.backgroundTintList = darkGrey
+
                 }
             }
 
