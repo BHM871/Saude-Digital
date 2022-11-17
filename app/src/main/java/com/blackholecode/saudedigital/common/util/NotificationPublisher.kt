@@ -11,7 +11,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.blackholecode.saudedigital.R
-import com.blackholecode.saudedigital.main.view.MainActivity
+import com.blackholecode.saudedigital.splash.view.SplashActivity
 
 class NotificationPublisher : BroadcastReceiver() {
 
@@ -29,12 +29,23 @@ class NotificationPublisher : BroadcastReceiver() {
 
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun onReceive(context: Context?, intent: Intent?) {
-        val i = Intent(context?.applicationContext, MainActivity::class.java)
+        val i = Intent(context?.applicationContext, SplashActivity::class.java)
         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        val pI = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_MUTABLE)
+
+        val pI = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getActivity(
+                context,
+                0,
+                i,
+                PendingIntent.FLAG_IMMUTABLE
+            )
         } else {
-            PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getActivity(
+                context,
+                0,
+                i,
+                PendingIntent.FLAG_CANCEL_CURRENT
+            )
         }
 
         val id = intent?.getIntExtra(NOTIFICATION_ID, 1000)
@@ -66,7 +77,7 @@ class NotificationPublisher : BroadcastReceiver() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel =
-                NotificationChannel(channelId, "Channel", NotificationManager.IMPORTANCE_DEFAULT)
+                NotificationChannel(channelId, "Channel", NotificationManager.IMPORTANCE_HIGH)
 
             manager.createNotificationChannel(channel)
         }

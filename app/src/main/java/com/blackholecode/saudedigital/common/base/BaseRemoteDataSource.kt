@@ -8,19 +8,17 @@ import com.blackholecode.saudedigital.R
 
 abstract class BaseRemoteDataSource(private val activity: Activity) {
 
-    protected lateinit var app: Application
+    protected val app: Application = activity.application
     protected var isComplete = false
 
     fun <T> timeOut(
         callback: RequestCallback<T>
     ) {
 
-        app = activity.application
-
         Handler(Looper.getMainLooper()).postDelayed({
 
             if (!isComplete) {
-                app.let { callback.onFailure(it.getString(R.string.error_time_out)) }
+                callback.onFailure(activity.getString(R.string.error_time_out))
                 callback.onComplete()
             }
         }, 16_000)
