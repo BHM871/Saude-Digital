@@ -2,11 +2,12 @@ package com.blackholecode.saudedigital.splash.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.blackholecode.saudedigital.common.base.DependencyInjector
 import com.blackholecode.saudedigital.common.extension.animationEnd
-import com.blackholecode.saudedigital.common.model.User
 import com.blackholecode.saudedigital.databinding.ActivitySplashBinding
 import com.blackholecode.saudedigital.login.view.LoginActivity
 import com.blackholecode.saudedigital.main.view.MainActivity
@@ -27,6 +28,11 @@ class SplashActivity : AppCompatActivity(), Splash.View {
         setContentView(binding.root)
 
         presenter = DependencyInjector.splashPresenter(this)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+        }
+
         fadeIn()
     }
 

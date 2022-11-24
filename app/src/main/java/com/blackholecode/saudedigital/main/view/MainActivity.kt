@@ -41,8 +41,6 @@ class MainActivity : AppCompatActivity(), Main.View, MainFragmentAttachListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        cancelNotificationCallback()
-
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
@@ -63,6 +61,12 @@ class MainActivity : AppCompatActivity(), Main.View, MainFragmentAttachListener 
 
         setupActionBarWithNavController(navController, appBarConf)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        cancelNotificationCallback()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -91,7 +95,7 @@ class MainActivity : AppCompatActivity(), Main.View, MainFragmentAttachListener 
         val intent = Intent(this, NotificationPublisher::class.java)
         intent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1001)
 
-        val broadcast = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        broadcast = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PendingIntent.getBroadcast(
                 this,
                 0,
@@ -111,7 +115,7 @@ class MainActivity : AppCompatActivity(), Main.View, MainFragmentAttachListener 
         alarmManager!!.setRepeating(
             AlarmManager.RTC_WAKEUP,
             System.currentTimeMillis(),
-            3_600_000,
+            129_000_000,
             broadcast
         )
     }
